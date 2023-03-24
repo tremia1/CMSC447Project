@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default {
+config =  {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
@@ -15,3 +15,5 @@ export default {
  
     ]
 };
+
+var game = new Phaser.Game(config)
