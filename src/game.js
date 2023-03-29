@@ -1,6 +1,6 @@
-import Phaser from 'phaser';
+//import Phaser from 'phaser';
 
-config =  {
+var config =  {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
@@ -11,9 +11,7 @@ config =  {
     },
   },
   
-      scene: [
- 
-    ]
+      scene: [test]
 };
 
 var game = new Phaser.Game(config)
