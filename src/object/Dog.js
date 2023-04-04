@@ -1,103 +1,90 @@
-class Dog extends Phaser.GameObjects.Sprite {
+export default class Dog extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y) {
-        super(scene, x, y, 'Cat');
-        this.scene.add.existing(this);
-        this.getBody().setCollideWorldBounds(true);
-        cursors = this.input.keyboard.createCursorKeys();
-        this.setPosition(x, y);
+    //need function for bark
+    //need function for pushing (colliding) with block
+    //need check for falling from high place
+    //need function for dig
+    //need function for sniff
+    //need animation for digging
+    //need animation for sniffing
+    //need to check if sniffing is true (meaning there is an object there, then dig)
+    constructor(config) {
+        super(config.scene, config.x, config.y, 'Dog');
+        config.scene.physics.world.enable(this);
+        config.scene.physics.add.existing(this);
+      
+        this.body.maxVelocity.x = 200;
+        this.body.maxVelocity.y = 500;
+        this.animSuffix = '';
+ 
+    }
+
+    preload() {
+        //this.load.spritesheet('DogWalk', "sprites/Dog/Dog-Walk", 32, 28, 5);
+        //this.load.spritesheet('DogJump', "sprites/Dog/Dog-Jump", 32, 28, 11);
+        //this.load.spritesheet('DogIdle', "sprites/Dog/Dog-Idle", 32, 28, 5);
+        //this.load.spritesheet('DogBark', "sprites/Dog/Dog-Bark", 32, 28, 5);
+        //this.load.spritesheet('DogSniff', "sprites/Dog/Dog-Sniff", 32, 28, 8);
+        //this.load.spritesheet('DogSniffAndWalk', "sprites/Dog/Dog-Sniff-Walk", 32, 28, 8);
+
     }
 
     create() {
-
+       
         this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('Cat', {
-                start: 0,
-                end: 3
-            }),
-            frameRate: 10,
+            key: 'DIdle',
+            frames: this.anims.generateFrameNumbers("DogIdle"),
+            frameRate: 12,
+            repeat: -1
+
+        });
+        this.anims.create({
+            key: 'DWalk',
+            frames: this.anims.generateFrameNumbers("DogWalk"),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'DJump',
+            frames: this.anims.generateFrameNumbers("DogJump"),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'DBark',
+            frames: this.anims.generateFrameNumbers("DogBark"),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'DSniff',
+            frames: this.anims.generateFrameNumbers("DogSniff"),
+            frameRate: 12,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'DSniffWakl',
+            frames: this.anims.generateFrameNumbers("DogSniffAndWalk"),
+            frameRate: 12,
             repeat: -1
         });
 
-
-        this.anims.create({
-            key: 'jump',
-            frames: this.anims.generateFrameNumbers('Cat', {
-                start: 5,
-                end: 5
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'climb',
-            frames: this.anims.generateFrameNumbers('Cat', {
-                start: 5,
-                end: 5
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'turn',
-            frames: [{
-                key: 'Cat',
-                frame: 4
-            }],
-            frameRate: 20
-        });
-
-
-
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', {
-                start: 5,
-                end: 8
-            }),
-            frameRate: 10,
-            repeat: -1
-        });
     }
-    Update(time, delta) {
 
-        if (cursors.left.isDown) {
-            this.setVelocityX(-160);
-
-            this.anims.play('left', true);
-        } else if (cursors.right.isDown) {
-            this.setVelocityX(160);
-
-            this.anims.play('right', true);
-        } else {
-            this.setVelocityX(0);
-
-            this.anims.play('turn');
+    update(time, delta) {
+        if (this.scene.keyA.isDown) {
+            this.setVelocity(-160);
+            this.anims.play('DWalk', true);
         }
-
-        if (cursors.up.isDown && this.body.touching.down) {
-            this.HighJump();
+        else if (this.scene.keyD.isDown) {
+            this.setVelocity(160);
+            this.anims.play('DWalk', true);
         }
-
-        if (cursors.up.isDown && this.body.touching.left || cursors.up.isDown && this.body.touching.right) {
-            this.Climb();
+        else {
+            this.anims.play('DIdle', true);
         }
 
     }
-
-
-    HighJump() {
-
-        this.setVeolcityY(-400)
-        this.anims.play('jump', true);
-    }
-
-    Climb {
-        this.setVeolcityY(-200)
-        this.anims.play('climb', true);
-    }
-
 }
+
+
