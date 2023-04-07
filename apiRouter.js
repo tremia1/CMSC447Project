@@ -6,7 +6,9 @@ const dbPath = './src/database/game.db';
 const db = new sqlite3.Database(dbPath);
 
 router.get('/high-scores', (req, res) => {
-  db.all('SELECT * FROM high_scores ORDER BY score DESC LIMIT 5', (err, rows) => {
+  // Default limit is set to top five scores.
+  const limit = req.query.limit || 5; 
+  db.all(`SELECT * FROM high_scores ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error.');
