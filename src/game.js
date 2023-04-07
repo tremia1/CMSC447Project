@@ -18,8 +18,8 @@ const gameScene = {
         this.platforms = this.physics.add.staticGroup();
 
         // Create some platforms for the player to stand on
-        this.platforms.create(400, 568, 'platform').setScale(2).refreshBody();
-        this.platforms.create(600, 400, 'platform');
+        this.platforms.create(400, 568, 'platform').setScale(3).refreshBody();
+        this.platforms.create(600, 400, 'platform').setScale(2).refreshBody();
         this.platforms.create(50, 250, 'platform');
         this.platforms.create(750, 220, 'platform');
 
