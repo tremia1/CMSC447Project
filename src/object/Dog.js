@@ -12,18 +12,12 @@ export default class Dog extends Phaser.GameObjects.Sprite {
         super(config.scene, config.x, config.y, 'Dog');
         config.scene.add.existing(this);
         config.scene.physics.world.enable(this);
+   
         this.collideWorldBounds = true;
         config.scene.physics.add.sprite();
         this.bounce = 0.2;
         this.gravity = 300;
-     
-        //Load Spritesheet for dog
-        //config.scene.load.spritesheet('DogIdle', 'assets/images/Dog/Dog-Idle.png', { frameWidth: 50, frameHeight: 48 });
-        //config.scene.load.spritesheet('DogWalk', 'assets/images/Dog/Dog-Walk.png', { frameWidth: 50, frameHeight: 48 });
-        //config.scene.load.spritesheet('DogJump', 'assets/images/Dog/Dog-Jump.png', { frameWidth: 50, frameHeight: 48 });
-        //config.scene.load.spritesheet('DogSniff', 'assets/images/Dog/Dog-Sniff.png', { frameWidth: 50, frameHeight: 48 });
-        //config.scene.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 50, frameHeight: 48 });
-        //config.scene.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 50, frameHeight: 48 });
+
       
         //Create animation for Dog
         this.anims.create({

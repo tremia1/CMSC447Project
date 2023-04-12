@@ -24,8 +24,9 @@ class gameScene extends Phaser.Scene {
         this.backgroundImage.displayHeight = this.sys.canvas.height;
 
         
-       /* backgroundImage.setScale(2,1.5);*/
 
+        //Create tilemap and all the layers for it
+        //Add debug for any physics errors (remove later)
         const map = this.make.tilemap({ key: 'map'});
         const tileset = map.addTilesetImage('Textures-16', 'tiles');
       
@@ -46,12 +47,18 @@ class gameScene extends Phaser.Scene {
 
         // Set up player input controls
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.keys = this.input.keyboard.addKeys({
+            a: Phaser.Input.Keyboard.KeyCodes.A,
+            d: Phaser.Input.Keyboard.KeyCodes.D,
+            w: Phaser.Input.Keyboard.KeyCodes.W
+        });
 
         // Set up the player's physics properties
      
         this.player.setCollideWorldBounds(true);
         this.player.setBounce(0.2);
         this.player.setGravityY(300);
+      
 
         //Create dog class
         this.dog = new Dog({
@@ -59,8 +66,11 @@ class gameScene extends Phaser.Scene {
             x: 800,
             y: 600
         });
-
+     
         this.physics.add.collider(this.player, platforms);
+        this.physics.add.collider(this.dog, platforms);
+
+
     }
     update() {
           // Check for player input and move the player accordingly
@@ -71,7 +81,8 @@ class gameScene extends Phaser.Scene {
         } else {
             this.player.setVelocityX(0);
         }
-
+        this.dog.update(this.keys);
+        console.log(this.player.body.touching.down); //currently false when it should be true
         // Make the player jump if they're touching the ground
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-450);
