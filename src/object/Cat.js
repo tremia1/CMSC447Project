@@ -3,6 +3,8 @@ export default class Cat extends Phaser.GameObjects.Sprite {
     constructor (config){
         super(config.scene, config.x,config.y,'Cat');
         config.scene.add.existing(this);
+        config.scene.physics.world.enable(this);
+
         this.setCollideWorldBounds = true;
         config.scene.physics.add.sprite();
         this.bounce = 0.2;
@@ -47,15 +49,15 @@ export default class Cat extends Phaser.GameObjects.Sprite {
     }
     Update(cursors,time, delta)
     {
-      this.scene.physics.world.collide(this,this.scene.platform)
+      //this.scene.physics.world.collide(this,this.scene.platform)
       
-      if (this.cursors.left.isDown)
+      if (this.scene.cursors.left.isDown)
       {
       this.setVelocityX(-160);
 
       this.anims.play('left', true);
     }
-      else if (this.cursors.right.isDown)
+      else if (this.scene.cursors.right.isDown)
     {
       this.setVelocityX(160);
 
@@ -68,7 +70,7 @@ export default class Cat extends Phaser.GameObjects.Sprite {
       this.anims.play('turn',true);
     }
 
-    if (this.key.cursors.isDown && this.body.touching.down)
+    if (this.scene.cursors.ip.isDown && this.body.touching.down)
     {
       this.setVeolcityY(-320);
       this.anims.play('jump', true);
