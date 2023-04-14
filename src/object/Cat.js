@@ -1,11 +1,14 @@
 export default class Cat extends Phaser.GameObjects.Sprite {
 
-    constructor (scene){
-        super(scene, x,y,"Cat");
-        this.scene.add.existing(this);
-        this.setCollideWorldBounds(true);
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.setPosition(x, y);
+    constructor (config){
+        super(config.scene, config.x,config.y,'Cat');
+        config.scene.add.existing(this);
+        this.setCollideWorldBounds = true;
+        config.scene.physics.add.sprite();
+        this.bounce = 0.2;
+        this.gravity = 300;
+
+ 
     }
 
     create()
@@ -42,8 +45,9 @@ export default class Cat extends Phaser.GameObjects.Sprite {
       repeat: -1
           });
     }
-    Update (time, delta)
+    Update(cursors,time, delta)
     {
+      this.scene.physics.world.collide(this,this.scene.platform)
       
       if (this.cursors.left.isDown)
       {
@@ -64,9 +68,9 @@ export default class Cat extends Phaser.GameObjects.Sprite {
       this.anims.play('turn',true);
     }
 
-    if (this.cursors.up.isDown && this.body.touching.down)
+    if (this.key.cursors.isDown && this.body.touching.down)
     {
-      this.setVeolcityY(-320
+      this.setVeolcityY(-320);
       this.anims.play('jump', true);
     }
 
@@ -77,3 +81,4 @@ export default class Cat extends Phaser.GameObjects.Sprite {
 
     
 }
+
