@@ -1,8 +1,10 @@
 import Dog from '../src/object/Dog.js';
+import Cat from '../src/object/Cat.js';
+import Button from '../src/object/Button.js';
 class gameScene extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/images/background.png');
-        this.load.spritesheet('Button', 'assets/images/Button.png', { frameWidth: 18, frameHeight: 48 });
+        this.load.spritesheet('button', 'assets/images/Button.png', { frameWidth: 18, frameHeight: 48 });
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemap/platformer (3).json');
 
@@ -33,6 +35,8 @@ class gameScene extends Phaser.Scene {
         const platforms = map.createLayer('Tile Layer 1', tileset, 495, 130);
         platforms.setCollisionByProperty({ collides: true });
 
+      
+    //Test the colliding physics with tiles
         const debugGraphics = this.add.graphics().setAlpha(0.7);
         platforms.renderDebug(debugGraphics, {
 
@@ -66,9 +70,40 @@ class gameScene extends Phaser.Scene {
             x: 800,
             y: 600
         });
-     
+
+        //Create cat class
+        this.cat = new Cat({
+            scene: this,
+            x: 800,
+            y: 600
+        });
+
+        //Create groups for button, block and water
+        this.buttonGroup = this.add.group();
+        this.blockGroup = this.add.group();
+        this.waterGroup = this.add.group();
+
+        //Create button class and set it as tilemap object
+        map.getObjectLayer('Button').objects.forEach((button) => {
+            const buttonObject = new Button({
+                scene: this,
+                x: button.x,
+                y: button.y,
+                status: false,
+                cat: this.cat,
+                dog: this.dog
+            });
+            this.buttonGroup.add(buttonObject);
+        });
+        //this.buttonGroup = this.add.group();
+
+   
+
         this.physics.add.collider(this.player, platforms);
         this.physics.add.collider(this.dog, platforms);
+        this.physics.add.collider(this.cat, platforms);
+
+       
 
 
     }
@@ -81,10 +116,15 @@ class gameScene extends Phaser.Scene {
         } else {
             this.player.setVelocityX(0);
         }
-        this.dog.update(this.keys);
-        console.log(this.player.body.touching.down); //currently false when it should be true
+    this.dog.update(this.keys);
+
+    //Update button group
+        this.buttonGroup.children.entries.forEach((sprite) => {
+            sprite.update();
+        });
+     
         // Make the player jump if they're touching the ground
-        if (this.cursors.up.isDown && this.player.body.touching.down) {
+        if (this.cursors.up.isDown && this.player.body.blocked) {
             this.player.setVelocityY(-450);
         }
 
