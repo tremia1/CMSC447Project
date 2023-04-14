@@ -45,7 +45,7 @@ class gameScene extends Phaser.Scene {
      
 */
           //   Create a new sprite for the player
-        this.player = this.physics.add.sprite(800, 600, 'player');
+
 
         // Set up player input controls
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -55,40 +55,31 @@ class gameScene extends Phaser.Scene {
             w: Phaser.Input.Keyboard.KeyCodes.W
         });
 
-        // Set up the player's physics properties
-     
-        this.player.setCollideWorldBounds(true);
-        this.player.setBounce(0.2);
-        this.player.setGravityY(300);
+
       
 
         this.platforms = this.physics.add.staticGroup();
-        this.platforms.create(800,800, 'platform').setScale(3).refreshBody();
+        this.platforms.create(800,900, 'platform').setScale(3).refreshBody();
         //Create dog class
         
         this.Cat = new Cat({
             scene: this,
             x: 800,
-            y: 400
+            y: 500
         });
 
        // this.physics.add.collider(this.player, platforms);
-        this.physics.add.collider(this.Cat, this.platforms);
-        this.physics.add.collider(this.player, this.platforms);
+       this.physics.add.collider(this.Cat, this.platforms);
+ 
 
 
     }
     update() {
-        
-        if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-160);
-        } else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(160);
-        } else {
-            this.player.setVelocityX(0);
-        }
-        
+
         this.Cat.update(this.cursors);
+
+        
+        
           // Check for player input and move the player accordingly
    
         

@@ -13,12 +13,11 @@ export default class Cat extends Phaser.GameObjects.Sprite {
  
     }
 
-    create()
-    {
+    create(){
       
       this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('Cat', { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers('Cat', { start: 1, end: 1 }),
       frameRate: 10,
       repeat: -1
         });
@@ -42,38 +41,40 @@ export default class Cat extends Phaser.GameObjects.Sprite {
       
       this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('Cat', { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers('Cat', { start: 1, end: 1 }),
       frameRate: 10,
       repeat: -1
           });
     }
-    Update(cursors,time, delta)
+    update(cursors,time, delta)
     {
-      //this.scene.physics.world.collide(this,this.scene.platform)
+      this.scene.physics.world.collide(this,this.scene.platform)
       
       if (this.scene.cursors.left.isDown)
       {
-      this.setVelocityX(-160);
+      this.body.setVelocityX(-160);
 
       this.anims.play('left', true);
     }
       else if (this.scene.cursors.right.isDown)
     {
-      this.setVelocityX(160);
+      this.body.setVelocityX(160);
 
       this.anims.play('right', true);
     }
-    else
-    {
-      this.setVelocityX(0);
+ 
 
-      this.anims.play('turn',true);
+    else if (this.scene.cursors.up.isDown && !this.is.body.blocked)
+    {
+      this.body.setVeolcityY(-100);
+      this.anims.play('jump', true);
     }
 
-    if (this.scene.cursors.ip.isDown && this.body.touching.down)
+    else
     {
-      this.setVeolcityY(-320);
-      this.anims.play('jump', true);
+      this.body.setVelocityX(0);
+
+      this.anims.play('turn',true);
     }
 
 
