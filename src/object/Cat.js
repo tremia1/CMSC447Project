@@ -64,13 +64,13 @@ export default class Cat extends Phaser.GameObjects.Sprite {
     }
  
 
-    else if (this.scene.cursors.up.isDown && !this.is.body.blocked)
+      else if (this.scene.cursors.up.isDown)
     {
-      this.body.setVeolcityY(-100);
+      this.body.setVelocityY(-200);
       this.anims.play('jump', true);
     }
 
-    else
+      else
     {
       this.body.setVelocityX(0);
 

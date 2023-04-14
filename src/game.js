@@ -75,8 +75,9 @@ class gameScene extends Phaser.Scene {
 
     }
     update() {
-
+        console.log(this.cursors.up.isDown);
         this.Cat.update(this.cursors);
+        
 
         
         
