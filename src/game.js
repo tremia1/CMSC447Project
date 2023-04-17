@@ -6,7 +6,8 @@ class gameScene extends Phaser.Scene {
         this.load.image('background', 'assets/images/background.png');
         this.load.spritesheet('button', 'assets/images/Button.png', { frameWidth: 18, frameHeight: 48 });
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
-        this.load.tilemapTiledJSON('map', 'assets/tilemap/platformer (3).json');
+        this.load.image('bg', 'assets/images/background.png');
+        this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
 
 
         //Load Spritesheet for dog
@@ -19,31 +20,33 @@ class gameScene extends Phaser.Scene {
 
     }
     create() {
-     
-        //Add background image
-        this.backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        this.backgroundImage.displayWidth = this.sys.canvas.width;
-        this.backgroundImage.displayHeight = this.sys.canvas.height;
-
-        
-
+ 
         //Create tilemap and all the layers for it
         //Add debug for any physics errors (remove later)
         const map = this.make.tilemap({ key: 'map'});
+   
         const tileset = map.addTilesetImage('Textures-16', 'tiles');
-      
-        const platforms = map.createLayer('Tile Layer 1', tileset, 495, 130);
+        const backgroundImage = map.addTilesetImage('background', 'bg')
+        const background = map.createLayer('Tile Layer 2', backgroundImage);
+        const platforms = map.createLayer('Tile Layer 1', tileset);
+ 
+        platforms.displayHeight = this.sys.canvas.height;
+        platforms.displayWidth = this.sys.canvas.width;
+     
+        background.displayHeight = this.sys.canvas.height;
+        background.displayWidth = this.sys.canvas.width;
+        
         platforms.setCollisionByProperty({ collides: true });
+        
 
-      
     //Test the colliding physics with tiles
-        const debugGraphics = this.add.graphics().setAlpha(0.7);
-        platforms.renderDebug(debugGraphics, {
+        //const debugGraphics = this.add.graphics().setAlpha(0.7);
+        //platforms.renderDebug(debugGraphics, {
 
-            tileColor: null,
-            collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-            faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        });
+        //    tileColor: null,
+        //    collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+        //    faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+        //});
      
 
           //   Create a new sprite for the player
@@ -95,7 +98,7 @@ class gameScene extends Phaser.Scene {
             });
             this.buttonGroup.add(buttonObject);
         });
-        //this.buttonGroup = this.add.group();
+   
 
    
 
@@ -131,6 +134,7 @@ class gameScene extends Phaser.Scene {
 
 
     }
+  
 } export default gameScene;
 
 

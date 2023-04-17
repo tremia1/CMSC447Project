@@ -3,7 +3,8 @@ import gameScene from './game.js';
 const config = {
   type: Phaser.AUTO,
   width: 800,
-  height: 600,
+    height: 600,
+
   scale: {
     mode: Phaser.Scale.RESIZE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -15,10 +16,11 @@ const config = {
       debug: false,
     },
     },
+    transparent: true,
 
 
 
-  scene: gameScene,
+  scene: gameScene
 };
 
 const game = new Phaser.Game(config);
