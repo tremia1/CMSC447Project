@@ -72,6 +72,9 @@ class gameScene extends Phaser.Scene {
             x: 800,
             y: 500
         });
+
+        this.physics.add.collider(this.Dog,platforms);
+        this.physics.add.collider(this.Cat,platforms);
     //   //Create groups for button, block and water
     //   this.buttonGroup = this.add.group();
     //   this.blockGroup = this.add.group();
