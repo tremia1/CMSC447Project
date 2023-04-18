@@ -12,13 +12,13 @@ export default class Dog extends Phaser.GameObjects.Sprite {
         super(config.scene, config.x, config.y, 'Dog');
         config.scene.add.existing(this);
         config.scene.physics.world.enable(this);
+   
         this.collideWorldBounds = true;
         config.scene.physics.add.sprite();
         this.bounce = 0.2;
         this.gravity = 300;
-     
 
-
+      
         //Create animation for Dog
         this.anims.create({
             key: 'DIdle',
