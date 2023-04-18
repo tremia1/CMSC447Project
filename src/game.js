@@ -18,7 +18,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 22, frameHeight: 22 });
         this.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 57, frameHeight: 61 });
 
-        this.load.spritesheet('Cat', 'assets/iamges/Cat.png', {frameWidth: 50, frameHeight: 40});
+        this.load.spritesheet('Cat', 'assets/images/Cat.png', {frameWidth: 50, frameHeight: 40});
 
     }
     create() {
