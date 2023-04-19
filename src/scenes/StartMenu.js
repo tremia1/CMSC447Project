@@ -14,15 +14,11 @@ class StartMenu extends Phaser.Scene {
 
     }
     create() {
- 
-  
-
-
-
+        this.backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+        this.backgroundImage.displayWidth = this.sys.canvas.width;
+        this.backgroundImage.displayHeight = this.sys.canvas.height;
  
 
- 
- 
 
 
     }

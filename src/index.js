@@ -1,4 +1,5 @@
 import gameScene from './game.js';
+import StartMenu from './scenes/StartMenu.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -20,7 +21,7 @@ const config = {
 
 
 
-  scene: gameScene
+  scene: StartMenu
 };
 
 const game = new Phaser.Game(config);
