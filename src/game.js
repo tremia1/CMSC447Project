@@ -1,4 +1,4 @@
-import Dog from '../src/object/Characters/Dog.js';
+import Dog from '../src/object/Dog.js';
 import Cat from '../src/object/Cat.js';
 import Button from '../src/object/Button.js';
 
@@ -19,7 +19,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 50, frameHeight: 40});
         this.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 50, frameHeight: 40});
 
-        this.load.spritesheet('Cat', 'assets/images/Cat.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('Cat', 'assets/images/Cat Sprite Sheet.png', {frameWidth: 32, frameHeight: 32});
     }
     create() {
  

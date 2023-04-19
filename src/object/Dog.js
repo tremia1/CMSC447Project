@@ -1,4 +1,4 @@
-import PlayerController from "./PlayerController.js";
+import PlayerController from './PlayerController.js';
 
 export default class Dog extends PlayerController {
   constructor(scene, cursors, x, y, name) {
