@@ -1,4 +1,4 @@
-import StateMachine from "../Statemachine.js"
+import StateMachine from "./Statemachine.js"
 
 export default class PlayerController {
 
