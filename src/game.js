@@ -2,6 +2,9 @@ import Dog from '../src/object/Dog.js';
 import Cat from '../src/object/Cat.js';
 import Button from '../src/object/Button.js';
 class gameScene extends Phaser.Scene {
+    constructor(){
+        super('tutorialscene');
+    }
     preload() {
         this.load.image('background', 'assets/images/background.png');
         this.load.spritesheet('button', 'assets/images/Button.png', { frameWidth: 18, frameHeight: 48 });
