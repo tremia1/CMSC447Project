@@ -1,6 +1,7 @@
-import Dog from '../src/object/Dog.js';
+import Dog from '../src/object/Characters/Dog.js';
 import Cat from '../src/object/Cat.js';
 import Button from '../src/object/Button.js';
+
 class gameScene extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/images/background.png');
@@ -12,24 +13,25 @@ class gameScene extends Phaser.Scene {
 
         //Load Spritesheet for dog
         this.load.spritesheet('DogIdle', 'assets/images/Dog/Dog-Idle.png', { frameWidth: 50, frameHeight: 40 });
-        this.load.spritesheet('DogWalk', 'assets/images/Dog/Dog-Walk.png', { frameWidth: 46, frameHeight: 67 });
-        this.load.spritesheet('DogJump', 'assets/images/Dog/Dog-Jump.png', { frameWidth: 160, frameHeight: 34 });
+        this.load.spritesheet('DogWalk', 'assets/images/Dog/Dog-Walk.png', { frameWidth: 50, frameHeight: 40});
+        this.load.spritesheet('DogJump', 'assets/images/Dog/Dog-Jump.png', { frameWidth: 50, frameHeight: 40});
         this.load.spritesheet('DogSniff', 'assets/images/Dog/Dog-Sniff.png', { frameWidth: 57, frameHeight: 66 });
-        this.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 22, frameHeight: 22 });
-        this.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 57, frameHeight: 61 });
+        this.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 50, frameHeight: 40});
+        this.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 50, frameHeight: 40});
 
+        this.load.spritesheet('Cat', 'assets/images/Cat.png', {frameWidth: 32, frameHeight: 32});
     }
     create() {
  
         //Create tilemap and all the layers for it
         //Add debug for any physics errors (remove later)
         const map = this.make.tilemap({ key: 'map'});
-   
+
         const tileset = map.addTilesetImage('Textures-16', 'tiles');
         const backgroundImage = map.addTilesetImage('background', 'bg')
         const background = map.createLayer('Tile Layer 2', backgroundImage);
         const platforms = map.createLayer('Tile Layer 1', tileset);
- 
+        
         platforms.displayHeight = this.sys.canvas.height;
         platforms.displayWidth = this.sys.canvas.width;
      
@@ -37,48 +39,41 @@ class gameScene extends Phaser.Scene {
         background.displayWidth = this.sys.canvas.width;
         
         platforms.setCollisionByProperty({ collides: true });
-        
-
-    //Test the colliding physics with tiles
-        //const debugGraphics = this.add.graphics().setAlpha(0.7);
-        //platforms.renderDebug(debugGraphics, {
-
-        //    tileColor: null,
-        //    collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-        //    faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        //});
-     
-
-          //   Create a new sprite for the player
-        this.player = this.physics.add.sprite(800, 600, 'player');
 
         // Set up player input controls
         this.cursors = this.input.keyboard.createCursorKeys();
         this.keys = this.input.keyboard.addKeys({
-            a: Phaser.Input.Keyboard.KeyCodes.A,
-            d: Phaser.Input.Keyboard.KeyCodes.D,
-            w: Phaser.Input.Keyboard.KeyCodes.W
+            left: Phaser.Input.Keyboard.KeyCodes.A,
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            up: Phaser.Input.Keyboard.KeyCodes.W,
+            bark: Phaser.Input.Keyboard.KeyCodes.B,
+            sniff: Phaser.Input.Keyboard.KeyCodes.S,
         });
 
+
+        // platform creator 
+        this.platforms2 = this.physics.add.staticGroup();
+        this.platforms2.create(400,500, 'platform2').setScale(3).refreshBody();
+
+        //   Create a new sprite for the player
+        this.player = this.physics.add.sprite(800, 300, 'player');
+        
         // Set up the player's physics properties
-     
         this.player.setCollideWorldBounds(true);
         this.player.setBounce(0.2);
         this.player.setGravityY(300);
       
-
+        
         //Create dog class
-        this.dog = new Dog({
-            scene: this,
-            x: 800,
-            y: 600
-        });
+        this.dog = new Dog(this, this.keys, 800, 200, 'dog');
+        this.add.existing(this.dog.sprite);
+
 
         //Create cat class
         this.cat = new Cat({
             scene: this,
             x: 800,
-            y: 600
+            y: 200
         });
 
         //Create groups for button, block and water
@@ -99,15 +94,10 @@ class gameScene extends Phaser.Scene {
             this.buttonGroup.add(buttonObject);
         });
    
-
-   
-
         this.physics.add.collider(this.player, platforms);
-        this.physics.add.collider(this.dog, platforms);
+        this.physics.add.collider(this.dog.sprite, platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat, platforms);
-
-       
-
+        this.physics.add.collider(this.dog, this.platforms2);
 
     }
     update() {
@@ -120,6 +110,7 @@ class gameScene extends Phaser.Scene {
             this.player.setVelocityX(0);
         }
     this.dog.update(this.keys);
+    //this.cat.update(this.cursors);
 
     //Update button group
         this.buttonGroup.children.entries.forEach((sprite) => {
@@ -127,7 +118,7 @@ class gameScene extends Phaser.Scene {
         });
      
         // Make the player jump if they're touching the ground
-        if (this.cursors.up.isDown && this.player.body.blocked) {
+        if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-450);
         }
 
@@ -135,55 +126,4 @@ class gameScene extends Phaser.Scene {
 
     }
   
-} export default gameScene;
-
-
-
-
-//const gameScene = {
-//    preload: function() {
-//      this.load.image('background', 'assets/images/cobblestonewall.png');
-//    },
-//    create: function() {
-//        // Create a new sprite for the player
-//        this.player = this.physics.add.sprite(400, 300, 'player');
-
-//        // Set up player input controls
-//        this.cursors = this.input.keyboard.createCursorKeys();
-
-//        // Set up the player's physics properties
-//        this.player.setCollideWorldBounds(true);
-//        this.player.setBounce(0.2);
-//        this.player.setGravityY(300);
-
-//        // Create a group to hold the game's platforms
-//        this.platforms = this.physics.add.staticGroup();
-
-//        // Create some platforms for the player to stand on
-//        this.platforms.create(400, 568, 'platform').setScale(3).refreshBody();
-//        this.platforms.create(600, 400, 'platform').setScale(2).refreshBody();
-//        this.platforms.create(50, 250, 'platform');
-//        this.platforms.create(750, 220, 'platform');
-
-//        // Set up collision between the player and the platforms
-//        this.physics.add.collider(this.player, this.platforms);
-//    },
-//    update: function() {
-//        // Check for player input and move the player accordingly
-//        if (this.cursors.left.isDown) {
-//            this.player.setVelocityX(-160);
-//        } else if (this.cursors.right.isDown) {
-//            this.player.setVelocityX(160);
-//        } else {
-//            this.player.setVelocityX(0);
-//        }
-
-//        // Make the player jump if they're touching the ground
-//        if (this.cursors.up.isDown && this.player.body.touching.down) {
-//            this.player.setVelocityY(-450);
-//        }
-//    },
-//};
-  
-//export default gameScene;
-  
+} export default gameScene;  
