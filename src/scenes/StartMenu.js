@@ -27,6 +27,7 @@ class StartMenu extends Phaser.Scene {
 
         this.title = this.add.text(460, 100, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
+        this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
  
 
 
