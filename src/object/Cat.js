@@ -9,6 +9,8 @@ export default class Cat extends Phaser.GameObjects.Sprite {
         config.scene.physics.add.sprite();
         this.bounce = 0.2;
         this.gravity = 300;
+        this.displayWidth = 70;
+        this.displayHeight = 70;
 
  
     }
@@ -34,7 +36,8 @@ export default class Cat extends Phaser.GameObjects.Sprite {
       this.anims.create({
       key: 'turn',
       frames: [ { key: 'Cat', frame: 4 } ],
-      frameRate: 20
+      frameRate: 10,
+      repeat: -1
         });
 
 
@@ -48,7 +51,7 @@ export default class Cat extends Phaser.GameObjects.Sprite {
     }
     update(cursors,time, delta)
     {
-      this.scene.physics.world.collide(this,this.scene.platform)
+      this.scene.physics.world.collide(this,this.scene.platform);
       
       if (this.scene.cursors.left.isDown)
       {
