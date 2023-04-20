@@ -53,7 +53,6 @@ export default class Dog extends PlayerController {
   
 
   idleOnUpdate(){
-
     // add custom behavior (bark and sniff)
     if(this.cursors.bark.isDown){
         this.stateMachine.setState('bark')
