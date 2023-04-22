@@ -52,10 +52,10 @@ class GameMenu extends Phaser.Scene {
         this.QuitGame.setScale(.03);
         this.add.text(670, 520, 'Quit Game', { fontSize: '32px', fill: '#000000' });
 
-        this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(850, 200, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
-        this.Yaxis = 250;
+        this.Yaxis = 200;
 
         this.value = 0;
 

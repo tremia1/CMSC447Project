@@ -45,7 +45,7 @@ class QuitMenu extends Phaser.Scene {
 
 
 
-        this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
         this.Yaxis = 250;
