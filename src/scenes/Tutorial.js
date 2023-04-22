@@ -1,7 +1,7 @@
-import Dog from '../src/object/Dog.js';
-import Cat from '../src/object/Cat.js';
-import Button from '../src/object/Button.js';
-class gameScene extends Phaser.Scene {
+import Dog from '../object/Dog.js';
+import Cat from '../object/Cat.js';
+import Button from '../object/Button.js';
+class Tutorial extends Phaser.Scene {
 
     constructor()
 	{
@@ -79,7 +79,7 @@ class gameScene extends Phaser.Scene {
             y: 500
         });
 
-        this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#000000' });
+        this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
 
       
 
@@ -135,4 +135,4 @@ class gameScene extends Phaser.Scene {
 
 
   
-} export default gameScene;
+} export default Tutorial;
