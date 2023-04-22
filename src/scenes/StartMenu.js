@@ -113,6 +113,7 @@ class StartMenu extends Phaser.Scene {
 
             else if(this.value == 1){
                 this.Yaxis = 400;
+                this.scene.start('LoadGame');
             }
             else if (this.value == 2){
                 this.Yaxis = 500
