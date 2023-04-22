@@ -19,6 +19,7 @@ class StartMenu extends Phaser.Scene {
 
     create() {
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         this.backgroundImage.displayWidth = this.sys.canvas.width;
         this.backgroundImage.displayHeight = this.sys.canvas.height;
@@ -59,7 +60,7 @@ class StartMenu extends Phaser.Scene {
   
 
 		
-		if (this.cursors.up.isDown)
+		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
             this.value = this.value - 1;
 
@@ -82,7 +83,7 @@ class StartMenu extends Phaser.Scene {
             
 
 		}
-		else if (this.cursors.down.isDown)
+		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
 		{   
             this.value = this.value + 1;
             
@@ -102,8 +103,19 @@ class StartMenu extends Phaser.Scene {
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
-		else if (this.cursors.space.isDown)
+		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
+
+            if(this.value == 0){
+                this.scene.start("Turtorial");
+            }
+
+            else if(this.value == 1){
+                this.Yaxis = 400;
+            }
+            else if (this.value == 2){
+                this.Yaxis = 500
+            }
 
 		}
         
