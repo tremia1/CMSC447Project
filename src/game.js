@@ -79,6 +79,10 @@ class gameScene extends Phaser.Scene {
             y: 500
         });
 
+        this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#000000' });
+
+      
+
         this.physics.add.collider(this.Dog,platforms);
         this.physics.add.collider(this.Cat,platforms);
     //   //Create groups for button, block and water
@@ -105,10 +109,20 @@ class gameScene extends Phaser.Scene {
 
 
     }
-    update() {
+    update(time) {
         console.log(this.cursors.up.isDown);
         this.Cat.update(this.cursors);
         this.Dog.update(this.keys);
+
+
+        this.gameRuntime = time * 0.001;
+
+        this.minutes = Math.floor(this.gameRuntime / 60);
+  
+        this.seconds = this.gameRuntime - (this.minutes * 60);
+
+
+        this.timeText.setText("Time : " + this.minutes  + " Minutes " +  Math.round(this.seconds)  + " Seconds");
 //  //Update button group
 //  this.buttonGroup.children.entries.forEach((sprite) => {
 //     sprite.update();
