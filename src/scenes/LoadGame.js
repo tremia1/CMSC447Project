@@ -6,11 +6,19 @@ class LoadGame extends Phaser.Scene {
         super({ key: 'LoadGame'})
 	
 	}
+
+    init(data){
+        this.location = data.location;
+    }
+
+
     preload() {
         this.load.image('background', 'assets/images/background.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
+        this.load.image('Back','assets/images/Back.png');
+
 
         
 
@@ -51,6 +59,9 @@ class LoadGame extends Phaser.Scene {
         this.SaveFive.setScale(.03);
         this.add.text(670,570, 'SaveFive', { fontSize: '32px', fill: '#000000' });
 
+
+        this.Back = this.add.image(950, 500, 'Back').setOrigin(0, 0);
+        this.Back.setScale(.2);
 
         this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
@@ -127,6 +138,14 @@ class LoadGame extends Phaser.Scene {
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
+
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
+		{   
+                this.scene.start(this.location);
+	
+		}
+
+        
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
 

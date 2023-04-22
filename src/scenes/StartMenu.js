@@ -52,15 +52,12 @@ class StartMenu extends Phaser.Scene {
 
 
 
-   
-
-
     }
+
+
     update() {
 
-  
 
-		
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
             this.value = this.value - 1;
@@ -76,7 +73,7 @@ class StartMenu extends Phaser.Scene {
                 this.Yaxis = 400;
             }
             else if (this.value == 2){
-                this.Yaxis = 500
+                this.Yaxis = 500;
             }
 
             this.buttonSelector.setPosition(  850, this.Yaxis);
@@ -99,7 +96,7 @@ class StartMenu extends Phaser.Scene {
                 this.Yaxis = 400;
             }
             else if (this.value == 2){
-                this.Yaxis = 500
+                this.Yaxis = 500;
             }
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
@@ -113,7 +110,7 @@ class StartMenu extends Phaser.Scene {
 
             else if(this.value == 1){
                 this.Yaxis = 400;
-                this.scene.start('LoadGame');
+                this.scene.start('LoadGame',{ "location": 'StartMenu' });
             }
             else if (this.value == 2){
                 this.Yaxis = 500;

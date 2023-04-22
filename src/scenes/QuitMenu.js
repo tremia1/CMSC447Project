@@ -6,11 +6,18 @@ class QuitMenu extends Phaser.Scene {
         super({ key: 'Quit'})
 	
 	}
+
+    init(data){
+        this.location = data.location;
+    }
+
     preload() {
         this.load.image('background', 'assets/images/background.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
+        this.load.image('Back','assets/images/Back.png');
+
 
         
 
@@ -43,7 +50,8 @@ class QuitMenu extends Phaser.Scene {
         this.Save.setScale(.03);
         this.add.text(670, 450, 'Save Game', { fontSize: '32px', fill: '#000000' });
 
-
+        this.Back = this.add.image(950, 500, 'Back').setOrigin(0, 0);
+        this.Back.setScale(.2);
 
         this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
@@ -110,6 +118,14 @@ class QuitMenu extends Phaser.Scene {
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
+
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
+		{   
+                this.scene.start(this.location);
+	
+		}
+
+
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
 
@@ -121,7 +137,7 @@ class QuitMenu extends Phaser.Scene {
                 this.scene.start('GameMenu');
             }
             else if (this.value == 2){
-                this.scene.start('SaveGame');
+                this.scene.start('SaveGame' ,{ "location": 'Quit' });
             }
 
             

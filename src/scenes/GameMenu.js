@@ -125,22 +125,22 @@ class GameMenu extends Phaser.Scene {
 		{
 
             if(this.value == 0){
-                this.scene.start('SaveGame');
+                this.scene.start('SaveGame' ,{ "location": 'GameMenu' });
             }
 
             else if(this.value == 1){
                 this.Yaxis = 400;
-                this.scene.start('LoadGame');
+                this.scene.start('LoadGame' ,{ "location": 'GameMenu' });
             }
             else if (this.value == 2){
                 this.Yaxis = 500;
-                this.scene.start('LeaderBoard');
+                this.scene.start('LeaderBoard' ,{ "location": 'GameMenu' });
                 
             }
 
             else if (this.value == 3){
                 this.Yaxis = 500;
-                this.scene.start('Quit');
+                this.scene.start('Quit',{ "location": 'GameMenu' });
                 
             }
 
