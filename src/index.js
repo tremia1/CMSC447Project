@@ -21,7 +21,7 @@ const config = {
 
 
 
-  scene: StartMenu, gameScene
+  scene:[StartMenu, gameScene] 
 };
 
 const game = new Phaser.Game(config);

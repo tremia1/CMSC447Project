@@ -5,7 +5,8 @@ class gameScene extends Phaser.Scene {
 
     constructor()
 	{
-		super('Turtorial')
+        super({ key: 'Tutorial'})
+
 	}
     preload() {
         this.load.image('background', 'assets/images/background.png');

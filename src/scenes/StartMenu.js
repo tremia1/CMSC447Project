@@ -3,7 +3,8 @@ class StartMenu extends Phaser.Scene {
 
     constructor()
 	{
-		super('StartMenu')
+        super({ key: 'StartMenu'})
+	
 	}
     preload() {
         this.load.image('background', 'assets/images/background.png');
@@ -107,7 +108,7 @@ class StartMenu extends Phaser.Scene {
 		{
 
             if(this.value == 0){
-                this.scene.start("Turtorial");
+                this.scene.start('Tutorial');
             }
 
             else if(this.value == 1){
