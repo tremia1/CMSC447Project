@@ -75,7 +75,7 @@ class GameMenu extends Phaser.Scene {
             this.value = this.value - 1;
 
             if(this.value < 0){
-                this.value = 0;
+                this.value = 3;
             }
             if(this.value == 0){
                 this.Yaxis = 200;
@@ -102,7 +102,7 @@ class GameMenu extends Phaser.Scene {
             this.value = this.value + 1;
             
             if(this.value > 3){
-                this.value = 3;
+                this.value = 0;
             }
             if(this.value == 0){
                 this.Yaxis = 200;

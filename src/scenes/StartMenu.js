@@ -66,7 +66,7 @@ class StartMenu extends Phaser.Scene {
             this.value = this.value - 1;
 
             if(this.value < 0){
-                this.value = 0;
+                this.value = 2;
             }
             if(this.value == 0){
                 this.Yaxis = 250;
@@ -89,7 +89,7 @@ class StartMenu extends Phaser.Scene {
             this.value = this.value + 1;
             
             if(this.value > 2){
-                this.value = 2;
+                this.value = 0;
             }
             if(this.value == 0){
                 this.Yaxis = 250;
@@ -117,7 +117,7 @@ class StartMenu extends Phaser.Scene {
             }
             else if (this.value == 2){
                 this.Yaxis = 500;
-                this.scene.start('LeaderBoard');
+                this.scene.start('LeaderBoard',{ "location": 'StartMenu' });
                 
             }
 

@@ -7,12 +7,18 @@ class LeaderBoard extends Phaser.Scene {
 	
 	}
 
+    init(data){
+        this.location = data.location;
+    }
+
 
     preload() {
         this.load.image('background', 'assets/images/background.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
+        this.load.image('Back','assets/images/Back.png');
+
 
         
 
@@ -53,6 +59,9 @@ class LeaderBoard extends Phaser.Scene {
         this.NumberFive.setScale(.03);
         this.add.text(670,570, '5. ', { fontSize: '32px', fill: '#000000' });
 
+        this.Back = this.add.image(950, 500, 'Back').setOrigin(0, 0);
+        this.Back.setScale(.2);
+
 
         this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
@@ -77,6 +86,38 @@ class LeaderBoard extends Phaser.Scene {
             this.value = this.value - 1;
 
             if(this.value < 0){
+                this.value = 5;
+            }
+            if(this.value == 0){
+                this.Yaxis = 170;
+            }
+
+            else if(this.value == 1){
+                this.Yaxis = 270;
+            }
+            else if (this.value == 2){
+                this.Yaxis = 370;
+            }
+
+            else if(this.value == 3){
+                this.Yaxis = 470;
+            }
+            else if (this.value == 4){
+                this.Yaxis = 570;
+            }
+
+ 
+
+            this.buttonSelector.setPosition(  850, this.Yaxis);
+            
+            
+
+		}
+		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
+		{   
+            this.value = this.value + 1;
+            
+            if(this.value > 5){
                 this.value = 0;
             }
             if(this.value == 0){
@@ -97,36 +138,14 @@ class LeaderBoard extends Phaser.Scene {
                 this.Yaxis = 570;
             }
 
-            this.buttonSelector.setPosition(  850, this.Yaxis);
-            
-            
 
-		}
-		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
-		{   
-            this.value = this.value + 1;
-            
-            if(this.value > 4){
-                this.value = 4;
-            }
-            if(this.value == 0){
-                this.Yaxis = 170;
-            }
-
-            else if(this.value == 1){
-                this.Yaxis = 270;
-            }
-            else if (this.value == 2){
-                this.Yaxis = 370;
-            }
-
-            else if(this.value == 3){
-                this.Yaxis = 470;
-            }
-            else if (this.value == 4){
-                this.Yaxis = 570;
-            }
             this.buttonSelector.setPosition(  850, this.Yaxis );
+	
+		}
+
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
+		{   
+                this.scene.start(this.location);
 	
 		}
         
