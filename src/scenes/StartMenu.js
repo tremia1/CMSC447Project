@@ -49,16 +49,7 @@ class StartMenu extends Phaser.Scene {
         this.value = 0;
 
 
-      
-        /*
-        var buttons = [];
-        this.selectedButtonIndex = 0;
-        this.buttons.push(this.StartButton);
-        this.buttons.push(this.LoadButton);
-        this.buttons.push(this.LeaderBoard);
- 
-        this.selectButton(0);
-        */
+
    
 
 
@@ -71,7 +62,20 @@ class StartMenu extends Phaser.Scene {
 		if (this.cursors.up.isDown)
 		{
             this.value = this.value - 1;
-            this.Yaxis = this.Yaxis  - 100;
+
+            if(this.value < 0){
+                this.value = 0;
+            }
+            if(this.value == 0){
+                this.Yaxis = 250;
+            }
+
+            else if(this.value == 1){
+                this.Yaxis = 400;
+            }
+            else if (this.value == 2){
+                this.Yaxis = 500
+            }
 
             this.buttonSelector.setPosition(  850, this.Yaxis);
             
@@ -81,7 +85,20 @@ class StartMenu extends Phaser.Scene {
 		else if (this.cursors.down.isDown)
 		{   
             this.value = this.value + 1;
-            this.Yaxis = this.Yaxis  + 100;
+            
+            if(this.value > 2){
+                this.value = 2;
+            }
+            if(this.value == 0){
+                this.Yaxis = 250;
+            }
+
+            else if(this.value == 1){
+                this.Yaxis = 400;
+            }
+            else if (this.value == 2){
+                this.Yaxis = 500
+            }
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
@@ -92,52 +109,5 @@ class StartMenu extends Phaser.Scene {
         
 
     }
-/*
-    selectButton(index){
-	const currentButton = this.buttons[this.selectedButtonIndex];
-
-	// set the current selected button to a white tint
-	this.currentButton.setTint(0xffffff);
-
-	this.button = this.buttons[index];
-
-	// set the newly selected button to a green tint
-	this.button.setTint(0x66ff7f);
-
-	// move the hand cursor to the right edge
-	this.buttonSelector.x = button.x + button.displayWidth * 0.5;
-	this.buttonSelector.y = button.y + 10;
-
-	// store the new selected index
-	this.selectedButtonIndex = index;
-}
-        
-        
-selectNextButton(number)
-{
-	let index = this.selectedButtonIndex + number;
-
-	// wrap the index to the front or end of array
-	if (index >= this.buttons.length)
-	{
-		index = 0;
-	}
-	else if (index < 0)
-	{
-		index = this.buttons.length - 1;
-	}
-
-	this.selectButton(index);
-}       
-
-confirmSelection()
-{
-	// get the currently selected button
-	button = this.buttons[this.selectedButtonIndex];
-
-	// emit the 'selected' event
-	button.emit('selected');
-}
-
-*/  
+ 
 } export default StartMenu;
