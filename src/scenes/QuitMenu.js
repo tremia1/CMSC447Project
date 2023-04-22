@@ -118,7 +118,7 @@ class QuitMenu extends Phaser.Scene {
             }
 
             else if(this.value == 1){
-                 /* back to level using key */
+                this.scene.start('GameMenu');
             }
             else if (this.value == 2){
                 this.scene.start('SaveGame');
