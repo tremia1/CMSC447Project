@@ -11,33 +11,89 @@ class StartMenu extends Phaser.Scene {
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
 
+        
 
     }
 
 
 
     create() {
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         this.backgroundImage.displayWidth = this.sys.canvas.width;
         this.backgroundImage.displayHeight = this.sys.canvas.height;
         
-        /*this.add.image(0, 0, 'cursor').setOrigin(0, 0);
-          */
-        this.button = this.add.image(0, 0, 'wood').setOrigin(0, 0);
-        this.button.setScale(.05);
-      
+        this.buttonSelector = this.add.image(200, 300, 'cursor').setOrigin(0, 0);
+        this.buttonSelector.setScale(.4)
+        this.selectedButtonIndex = 0;
+
+
 
         this.title = this.add.text(460, 100, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
- 
 
+        this.StartButton = this.add.image(650, 300, 'wood').setOrigin(0, 0);
+        this.StartButton.setScale(.03);
+        this.add.text(670, 320, 'Start Game', { fontSize: '32px', fill: '#000000' });
+
+        this.LoadButton = this.add.image(650, 400, 'wood').setOrigin(0, 0);
+        this.LoadButton.setScale(.03);
+        this.add.text(670, 420, 'Load Game', { fontSize: '32px', fill: '#000000' });
+
+        this.LeaderBoard = this.add.image(650, 500, 'wood').setOrigin(0, 0);
+        this.LeaderBoard.setScale(.03);
+        this.add.text(670, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
+      
+
+        var buttons = [];
+
+        buttons.push(this.StartButton);
+        buttons.push(this.LoadButton);
+        buttons.push(this.LeaderBoard);
+ 
+        this.selectButton(0);
 
 
     }
     update() {
 
+  
+
+		
+		if (this.cursors.up.isDown)
+		{
+			this.selectNextButton(-1);
+		}
+		else if (this.cursors.down.isDown)
+		{
+			this.selectNextButton(1);
+		}
+		else if (this.cursors.space.isDown)
+		{
+			this.confirmSelection();
+		}
+
     }
+
+    selectButton(number){
+	this.currentButton = this.buttons[this.selectedButtonIndex]
+
+	// set the current selected button to a white tint
+	this.currentButton.setTint(0xffffff)
+
+	this.button = this.buttons[index]
+
+	// set the newly selected button to a green tint
+	this.button.setTint(0x66ff7f)
+
+	// move the hand cursor to the right edge
+	this.buttonSelector.x = button.x + button.displayWidth * 0.5
+	this.buttonSelector.y = button.y + 10
+
+	// store the new selected index
+	this.selectedButtonIndex = index
+}
         
         
        
