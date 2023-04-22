@@ -25,7 +25,7 @@ class StartMenu extends Phaser.Scene {
         
         this.buttonSelector = this.add.image(200, 300, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
-        this.selectedButtonIndex = 0;
+    
 
 
 
@@ -47,12 +47,13 @@ class StartMenu extends Phaser.Scene {
       
 
         var buttons = [];
-
-        buttons.push(this.StartButton);
-        buttons.push(this.LoadButton);
-        buttons.push(this.LeaderBoard);
+        this.selectedButtonIndex = 0;
+        this.buttons.push(this.StartButton);
+        this.buttons.push(this.LoadButton);
+        this.buttons.push(this.LeaderBoard);
  
         this.selectButton(0);
+   
 
 
     }
@@ -76,29 +77,51 @@ class StartMenu extends Phaser.Scene {
 
     }
 
-    selectButton(number){
-	this.currentButton = this.buttons[this.selectedButtonIndex]
+    selectButton(index){
+	const currentButton = this.buttons[this.selectedButtonIndex];
 
 	// set the current selected button to a white tint
-	this.currentButton.setTint(0xffffff)
+	this.currentButton.setTint(0xffffff);
 
-	this.button = this.buttons[index]
+	this.button = this.buttons[index];
 
 	// set the newly selected button to a green tint
-	this.button.setTint(0x66ff7f)
+	this.button.setTint(0x66ff7f);
 
 	// move the hand cursor to the right edge
-	this.buttonSelector.x = button.x + button.displayWidth * 0.5
-	this.buttonSelector.y = button.y + 10
+	this.buttonSelector.x = button.x + button.displayWidth * 0.5;
+	this.buttonSelector.y = button.y + 10;
 
 	// store the new selected index
-	this.selectedButtonIndex = index
+	this.selectedButtonIndex = index;
 }
         
         
-       
+selectNextButton(number)
+{
+	let index = this.selectedButtonIndex + number;
 
+	// wrap the index to the front or end of array
+	if (index >= this.buttons.length)
+	{
+		index = 0;
+	}
+	else if (index < 0)
+	{
+		index = this.buttons.length - 1;
+	}
 
+	this.selectButton(index);
+}       
+
+confirmSelection()
+{
+	// get the currently selected button
+	button = this.buttons[this.selectedButtonIndex];
+
+	// emit the 'selected' event
+	button.emit('selected');
+}
 
   
 } export default StartMenu;
