@@ -23,10 +23,6 @@ class StartMenu extends Phaser.Scene {
         this.backgroundImage.displayWidth = this.sys.canvas.width;
         this.backgroundImage.displayHeight = this.sys.canvas.height;
         
-        this.buttonSelector = this.add.image(200, 300, 'cursor').setOrigin(0, 0);
-        this.buttonSelector.setScale(.4)
-    
-
 
 
         this.title = this.add.text(460, 100, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
@@ -44,8 +40,17 @@ class StartMenu extends Phaser.Scene {
         this.LeaderBoard = this.add.image(650, 500, 'wood').setOrigin(0, 0);
         this.LeaderBoard.setScale(.03);
         this.add.text(670, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
-      
 
+        this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
+        this.buttonSelector.setScale(.4)
+
+        this.Yaxis = 250;
+
+        this.value = 0;
+
+
+      
+        /*
         var buttons = [];
         this.selectedButtonIndex = 0;
         this.buttons.push(this.StartButton);
@@ -53,6 +58,7 @@ class StartMenu extends Phaser.Scene {
         this.buttons.push(this.LeaderBoard);
  
         this.selectButton(0);
+        */
    
 
 
@@ -64,19 +70,29 @@ class StartMenu extends Phaser.Scene {
 		
 		if (this.cursors.up.isDown)
 		{
-			this.selectNextButton(-1);
+            this.value = this.value - 1;
+            this.Yaxis = this.Yaxis  - 100;
+
+            this.buttonSelector.setPosition(  850, this.Yaxis);
+            
+            
+
 		}
 		else if (this.cursors.down.isDown)
-		{
-			this.selectNextButton(1);
+		{   
+            this.value = this.value + 1;
+            this.Yaxis = this.Yaxis  + 100;
+            this.buttonSelector.setPosition(  850, this.Yaxis );
+	
 		}
 		else if (this.cursors.space.isDown)
 		{
-			this.confirmSelection();
+
 		}
+        
 
     }
-
+/*
     selectButton(index){
 	const currentButton = this.buttons[this.selectedButtonIndex];
 
@@ -123,5 +139,5 @@ confirmSelection()
 	button.emit('selected');
 }
 
-  
+*/  
 } export default StartMenu;
