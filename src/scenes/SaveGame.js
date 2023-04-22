@@ -1,13 +1,11 @@
 
-class LeaderBoard extends Phaser.Scene {
+class SaveGame extends Phaser.Scene {
 
     constructor()
 	{
-        super({ key: 'LeaderBoard'})
+        super({ key: 'SaveGame'})
 	
 	}
-
-
     preload() {
         this.load.image('background', 'assets/images/background.png');
 
@@ -29,29 +27,29 @@ class LeaderBoard extends Phaser.Scene {
         
 
 
-        this.title = this.add.text(660, 100, 'LeaderBoard', { fontSize: '32px', fill: '#FFFFFF' });
+        this.title = this.add.text(660, 100, 'Save Game', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
-        this.NumberOne = this.add.image(650, 150, 'wood').setOrigin(0, 0);
-        this.NumberOne.setScale(.03);
-        this.add.text(660, 170, '1. ', { fontSize: '32px', fill: '#000000' });
+        this.SaveOne = this.add.image(650, 150, 'wood').setOrigin(0, 0);
+        this.SaveOne.setScale(.03);
+        this.add.text(670, 170, 'SaveOne', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberTwo = this.add.image(650, 250, 'wood').setOrigin(0, 0);
-        this.NumberTwo.setScale(.03);
-        this.add.text(660, 270, '2. ', { fontSize: '32px', fill: '#000000' });
+        this.SaveTwo = this.add.image(650, 250, 'wood').setOrigin(0, 0);
+        this.SaveTwo.setScale(.03);
+        this.add.text(670, 270, 'SaveTwo', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberThree = this.add.image(650, 350, 'wood').setOrigin(0, 0);
-        this.NumberThree.setScale(.03);
-        this.add.text(660, 370, '3.', { fontSize: '32px', fill: '#000000' });
+        this.SaveThree = this.add.image(650, 350, 'wood').setOrigin(0, 0);
+        this.SaveThree.setScale(.03);
+        this.add.text(670, 370, 'SaveThree', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberFour = this.add.image(650, 450, 'wood').setOrigin(0, 0);
-        this.NumberFour.setScale(.03);
-        this.add.text(670, 470, '4. ', { fontSize: '32px', fill: '#000000' });
+        this.SaveFour = this.add.image(650, 450, 'wood').setOrigin(0, 0);
+        this.SaveFour.setScale(.03);
+        this.add.text(670, 470, 'SaveFour', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberFive = this.add.image(650, 550, 'wood').setOrigin(0, 0);
-        this.NumberFive.setScale(.03);
-        this.add.text(670,570, '5. ', { fontSize: '32px', fill: '#000000' });
+        this.SaveFive = this.add.image(650, 550, 'wood').setOrigin(0, 0);
+        this.SaveFive.setScale(.03);
+        this.add.text(670,570, 'SaveFive', { fontSize: '32px', fill: '#000000' });
 
 
         this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
@@ -129,27 +127,26 @@ class LeaderBoard extends Phaser.Scene {
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
-        
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
 
             if(this.value == 0){
-                /*View number one*/
+                /*save  at one*/
             }
 
             else if(this.value == 1){
-                 /*View number two*/
+                 /*save  at  two*/
             }
             else if (this.value == 2){
-                 /*View number three*/
+                 /*save  at  three*/
             }
 
             
             else if(this.value == 3){
-                 /*View number  four*/
+                 /*save  at four*/
             }
             else if (this.value == 4){
-                 /*View number five*/
+                 /*save  at  five*/
             }
 
 		}
@@ -157,4 +154,4 @@ class LeaderBoard extends Phaser.Scene {
 
     }
  
-} export default LeaderBoard;
+} export default SaveGame;
