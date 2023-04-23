@@ -59,7 +59,7 @@ class SaveGame extends Phaser.Scene {
         this.SaveFive.setScale(.03);
         this.add.text(670,570, 'SaveFive', { fontSize: '32px', fill: '#000000' });
 
-        this.Back = this.add.image(950, 500, 'Back').setOrigin(0, 0);
+        this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
         this.Back.setScale(.2);
 
         this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);

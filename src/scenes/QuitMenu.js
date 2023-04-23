@@ -50,7 +50,7 @@ class QuitMenu extends Phaser.Scene {
         this.Save.setScale(.03);
         this.add.text(670, 450, 'Save Game', { fontSize: '32px', fill: '#000000' });
 
-        this.Back = this.add.image(950, 500, 'Back').setOrigin(0, 0);
+        this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
         this.Back.setScale(.2);
 
         this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);

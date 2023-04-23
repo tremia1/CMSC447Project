@@ -59,7 +59,7 @@ class LeaderBoard extends Phaser.Scene {
         this.NumberFive.setScale(.03);
         this.add.text(670,570, '5. ', { fontSize: '32px', fill: '#000000' });
 
-        this.Back = this.add.image(950, 500, 'Back').setOrigin(0, 0);
+        this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
         this.Back.setScale(.2);
 
 
