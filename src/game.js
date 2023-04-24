@@ -25,6 +25,7 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('CatIdle', 'assets/images/Cat/Cat-Idle.png', { frameWidth: 15, frameHeight: 15});
         this.load.spritesheet('CatWalk', 'assets/images/Cat/Cat-Walk.png', { frameWidth: 15, frameHeight: 15});
         this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 15, frameHeight: 15});
+        this.load.spritesheet('CatHiss', 'assets/images/Cat/Cat-Hiss.png', { frameWidth: 15, frameHeight: 15});
 
     }
     create() {
@@ -47,8 +48,8 @@ class gameScene extends Phaser.Scene {
         platforms.setCollisionByProperty({ collides: true });
 
         // Set up player input controls
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.keys = this.input.keyboard.addKeys({
+
+        this.dogKeys = this.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
             up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -56,18 +57,26 @@ class gameScene extends Phaser.Scene {
             sniff: Phaser.Input.Keyboard.KeyCodes.S,
         });
 
+        this.catKeys = this.input.keyboard.addKeys({
+            left: Phaser.Input.Keyboard.KeyCodes.LEFT,
+            right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
+            up: Phaser.Input.Keyboard.KeyCodes.UP,
+            hiss: Phaser.Input.Keyboard.KeyCodes.H,
+        });
+
+        
+
               
         //Create dog class
-        this.dog = new Dog(this, this.keys, 800, 200, 'dog');
+        this.dog = new Dog(this, this.dogKeys, 800, 200, 'dog');
         this.add.existing(this.dog.sprite);
-        this.dog.sprite.setOrigin(.5, .5)
-        this.dog.sprite.setScale(1.5)
+        this.dog.sprite.setScale(1.2)
 
         //Create cat class
-        this.cat = new Cat(this, this.cursors, 800, 200, 'cat');
+        this.cat = new Cat(this, this.catKeys, 800, 200, 'cat');
         this.add.existing(this.cat.sprite);
         this.cat.sprite.body.setSize(this.cat.sprite.width, this.cat.sprite.height); // fixes collisions
-        this.cat.sprite.setScale(3) // make it bigger
+        this.cat.sprite.setScale(1.8) // make it bigger
         this.cat.sprite.setOffset(0, -2) // a little off the ground
 
 

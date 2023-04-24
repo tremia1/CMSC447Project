@@ -87,6 +87,15 @@ export default class Dog extends PlayerController {
     });
 
 
+    // this is for custom behavior for animations on our sprite
+    this.sprite.on('animationcomplete-idle', (animation, frame, sprite) => {
+      // check if jump finished, if it has then set it to the last frame so it does repeat 
+      if (animation.key === this.charName + '-jump') {
+        // stop the animation at its final frame
+        this.sprite.anims.pause()
+      }
+    });
+
     // call the parent class's createAnimations method to create the default animations
     super.createAnimations();
   }
