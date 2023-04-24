@@ -19,8 +19,10 @@ class StartMenu extends Phaser.Scene {
 
 
     create() {
+
         this.cursors = this.input.keyboard.createCursorKeys();
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
         this.backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         this.backgroundImage.displayWidth = this.sys.canvas.width;
         this.backgroundImage.displayHeight = this.sys.canvas.height;
@@ -65,6 +67,7 @@ class StartMenu extends Phaser.Scene {
             if(this.value < 0){
                 this.value = 2;
             }
+
             if(this.value == 0){
                 this.Yaxis = 250;
             }
@@ -72,6 +75,7 @@ class StartMenu extends Phaser.Scene {
             else if(this.value == 1){
                 this.Yaxis = 400;
             }
+
             else if (this.value == 2){
                 this.Yaxis = 500;
             }
@@ -88,6 +92,7 @@ class StartMenu extends Phaser.Scene {
             if(this.value > 2){
                 this.value = 0;
             }
+
             if(this.value == 0){
                 this.Yaxis = 250;
             }
@@ -95,9 +100,11 @@ class StartMenu extends Phaser.Scene {
             else if(this.value == 1){
                 this.Yaxis = 400;
             }
+
             else if (this.value == 2){
                 this.Yaxis = 500;
             }
+            
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
@@ -112,6 +119,7 @@ class StartMenu extends Phaser.Scene {
                 this.Yaxis = 400;
                 this.scene.start('LoadGame',{ "location": 'StartMenu' });
             }
+            
             else if (this.value == 2){
                 this.Yaxis = 500;
                 this.scene.start('LeaderBoard',{ "location": 'StartMenu' });
