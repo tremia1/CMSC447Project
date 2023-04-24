@@ -2,6 +2,7 @@ import Dog from '../../src/object/Dog.js';
 import Cat from '../../src/object/Cat.js';
 import Button from '../../src/object/Button.js';
 
+
 class Turtorial extends Phaser.Scene {
 
     constructor()
@@ -33,6 +34,7 @@ class Turtorial extends Phaser.Scene {
         this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 15, frameHeight: 15});
         this.load.spritesheet('CatHiss', 'assets/images/Cat/Cat-Hiss.png', { frameWidth: 15, frameHeight: 15});
 
+
     }
     create() {
  
@@ -56,12 +58,14 @@ class Turtorial extends Phaser.Scene {
        // Set up player input controls
 
         this.dogKeys = this.input.keyboard.addKeys({
+
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D,
             up: Phaser.Input.Keyboard.KeyCodes.W,
             bark: Phaser.Input.Keyboard.KeyCodes.B,
             sniff: Phaser.Input.Keyboard.KeyCodes.S,
         });
+
 
         this.catKeys = this.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes.LEFT,
@@ -83,6 +87,7 @@ class Turtorial extends Phaser.Scene {
         this.add.existing(this.cat.sprite);
         this.cat.sprite.body.setSize(this.cat.sprite.width, this.cat.sprite.height); // fixes collisions
         this.cat.sprite.setScale(1.8) // make it bigger
+
         this.cat.sprite.setOffset(0, -2) // a little off the ground
 
 
