@@ -34,9 +34,10 @@ class SaveGame extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this.backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+        this.backgroundImage = this.add.image(0, 0, 'background');
         this.backgroundImage.displayWidth = this.sys.canvas.width;
         this.backgroundImage.displayHeight = this.sys.canvas.height;
+        this.backgroundImage.setScale( 8);
         
 
        // Creates the title and the button layout for Saveing Games
