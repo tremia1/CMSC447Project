@@ -1,4 +1,4 @@
-import gameScene from './game.js';
+import Turtorial from './scenes/Turtorial .js';
 
 const config = {
   type: Phaser.AUTO,
@@ -20,7 +20,7 @@ const config = {
 
 
 
-  scene: gameScene
+  scene: Turtorial 
 };
 
 const game = new Phaser.Game(config);
