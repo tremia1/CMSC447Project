@@ -5,7 +5,10 @@ import Button from '../src/object/Button.js';
 class gameScene extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/images/background.png');
-        this.load.spritesheet('button', 'assets/images/Button.png', { frameWidth: 18, frameHeight: 48 });
+        
+        this.load.spritesheet('button-up', 'assets/images/Button1.png', { frameWidth: 9, frameHeight: 6});
+        this.load.spritesheet('button-down', 'assets/images/ButtonTwo.png', { frameWidth: 9, frameHeight: 6});
+
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
@@ -71,6 +74,8 @@ class gameScene extends Phaser.Scene {
         this.waterGroup = this.add.group();
 
         //Create button class and set it as tilemap object
+
+        /*
         map.getObjectLayer('Button').objects.forEach((button) => {
             const buttonObject = new Button({
                 scene: this,
@@ -80,12 +85,34 @@ class gameScene extends Phaser.Scene {
                 cat: this.cat,
                 dog: this.dog
             });
+
             this.buttonGroup.add(buttonObject);
         });
-   
+            buttonObject.body.setSize(25,25);
+            this.buttonGroup.add(buttonObject);
+        });
+        */
+        
+        this.ButtonOne = new Button({
+            scene: this,
+            x: 750,
+            y: 200,
+            status: false,
+            cat: this.cat,
+            dog: this.dog
+        });
+
+        this.add.existing(this.ButtonOne.sprite);
+        //this.ButtonOne.immovable = true;
+        //this.ButtonOne.body.moves = false;
+        
+
         this.physics.add.collider(this.dog.sprite, platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, platforms, this.cat.onCollide);
         this.physics.add.collider(this.cat.sprite, this.dog.sprite);
+        this.physics.add.collider(this.ButtonOne.sprite, platforms);
+        this.physics.add.collider(this.ButtonOne.sprite, this.dog.sprite);
+        this.physics.add.collider(this.ButtonOne.sprite, this.cat.sprite);
 
     }
     update() {
@@ -93,10 +120,14 @@ class gameScene extends Phaser.Scene {
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
 
-        //Update button group
+        this.ButtonOne.update();
+
+        //Update button grou
+        /*
         this.buttonGroup.children.entries.forEach((sprite) => {
             sprite.update();
         });
+        */
     }
   
 } export default gameScene;  

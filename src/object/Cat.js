@@ -1,3 +1,4 @@
+
 import PlayerController from './PlayerController.js';
 
 export default class Cat extends PlayerController {
@@ -44,3 +45,4 @@ export default class Cat extends PlayerController {
     });
 }
 }
+
