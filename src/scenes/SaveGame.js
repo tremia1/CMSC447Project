@@ -67,7 +67,7 @@ class SaveGame extends Phaser.Scene {
         this.add.text(670,570, 'SaveFive', { fontSize: '32px', fill: '#000000' });
 
         //Creates Back Buttton
-        this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
+        this.Back = this.add.image(100, 700, 'Back').setOrigin(0, 0);
         this.Back.setScale(.3);
 
         // Creates the Selection Cursor 

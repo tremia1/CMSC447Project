@@ -69,7 +69,7 @@ class LeaderBoard extends Phaser.Scene {
 
         //Creates Back Buttton
 
-        this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
+        this.Back = this.add.image(100, 630, 'Back').setOrigin(0, 0);
         this.Back.setScale(.3);
   
         // Creates the Selection Cursor 
