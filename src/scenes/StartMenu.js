@@ -20,6 +20,8 @@ class StartMenu extends Phaser.Scene {
 
     create() {
 
+        // Creates Cursor and Spacebar input and Background
+
         this.cursors = this.input.keyboard.createCursorKeys();
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -28,7 +30,7 @@ class StartMenu extends Phaser.Scene {
         this.backgroundImage.displayHeight = this.sys.canvas.height;
         
 
-
+        // Creates the title and the button layout for start Menu
         this.title = this.add.text(460, 100, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
@@ -45,9 +47,12 @@ class StartMenu extends Phaser.Scene {
         this.LeaderBoard.setScale(.03);
         this.add.text(670, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
 
+        // Creates the Selection Cursor 
         this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
+
+        // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
         this.Yaxis = 250;
 
         this.value = 0;
@@ -59,7 +64,7 @@ class StartMenu extends Phaser.Scene {
 
     update() {
 
-
+		// Makes the selection cursor goes  up from each button and when it reach top button it loop back to bottom one
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
             this.value = this.value - 1;
@@ -85,6 +90,7 @@ class StartMenu extends Phaser.Scene {
             
 
 		}
+        // Makes the selection cursor goes down  from each button and when it reach last button it loop back to top one
 		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
 		{   
             this.value = this.value + 1;
@@ -108,6 +114,8 @@ class StartMenu extends Phaser.Scene {
             this.buttonSelector.setPosition(  850, this.Yaxis );
 	
 		}
+
+        // Goes to a scene based on button selection, feed location so user can come back
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
 
@@ -119,7 +127,7 @@ class StartMenu extends Phaser.Scene {
                 this.Yaxis = 400;
                 this.scene.start('LoadGame',{ "location": 'StartMenu' });
             }
-            
+
             else if (this.value == 2){
                 this.Yaxis = 500;
                 this.scene.start('LeaderBoard',{ "location": 'StartMenu' });
