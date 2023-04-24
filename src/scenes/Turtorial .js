@@ -116,14 +116,31 @@ class Turtorial extends Phaser.Scene {
         this.physics.add.collider(this.ButtonOne.sprite, platforms);
         this.physics.add.collider(this.ButtonOne.sprite, this.dog.sprite);
         this.physics.add.collider(this.ButtonOne.sprite, this.cat.sprite);
+        
+        this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
+        this.esc= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
 
     }
-    update() {
+    update(time) {
 
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
 
         this.ButtonOne.update();
+        
+        this.gameRuntime = time * 0.001;
+
+        this.minutes = Math.floor(this.gameRuntime / 60);
+  
+        this.seconds = this.gameRuntime - (this.minutes * 60);
+
+
+        this.timeText.setText("Time : " + this.minutes  + " Minutes " +  Math.round(this.seconds)  + " Seconds");
+
+        if (Phaser.Input.Keyboard.JustDown(this.esc)){
+            this.scene.start('GameMenu',{ "location": 'Tutorial'});
+        }
 
         //Update button grou
         /*
