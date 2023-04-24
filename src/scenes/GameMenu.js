@@ -8,7 +8,7 @@ class GameMenu extends Phaser.Scene {
 	}
 
     init(data){
-        // Feeds the key of the menu of where this scene was assess from
+        // Feeds the key of the menu of where this scene was access from
         this.location = data.location;
     }
 
