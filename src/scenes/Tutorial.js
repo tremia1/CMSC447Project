@@ -45,6 +45,8 @@ class Tutorial extends Phaser.Scene {
         background.displayWidth = this.sys.canvas.width;
         
         platforms.setCollisionByProperty({ collides: true });
+
+        
         
 
     //Test the colliding physics with tiles
@@ -65,6 +67,7 @@ class Tutorial extends Phaser.Scene {
             w: Phaser.Input.Keyboard.KeyCodes.W
         });
 
+        this.esc= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //Create dog class
         this.Dog = new Dog({
@@ -123,6 +126,10 @@ class Tutorial extends Phaser.Scene {
 
 
         this.timeText.setText("Time : " + this.minutes  + " Minutes " +  Math.round(this.seconds)  + " Seconds");
+
+        if (Phaser.Input.Keyboard.JustDown(this.esc)){
+            this.scene.start('GameMenu',{ "location": 'Tutorial'});
+        }
 //  //Update button group
 //  this.buttonGroup.children.entries.forEach((sprite) => {
 //     sprite.update();

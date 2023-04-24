@@ -6,12 +6,18 @@ class GameMenu extends Phaser.Scene {
         super({ key: 'GameMenu'})
 	
 	}
+
+    init(data){
+        // Feeds the key of the menu of where this scene was assess from
+        this.location = data.location;
+    }
+
     preload() {
         this.load.image('background', 'assets/images/background.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
-
+        this.load.image('Back','assets/images/Back.png');
         
 
     }
@@ -57,6 +63,9 @@ class GameMenu extends Phaser.Scene {
         this.QuitGame = this.add.image(650, 500, 'wood').setOrigin(0, 0);
         this.QuitGame.setScale(.03);
         this.add.text(670, 520, 'Quit Game', { fontSize: '32px', fill: '#000000' });
+
+        this.Back = this.add.image(100, 630, 'Back').setOrigin(0, 0);
+        this.Back.setScale(.3);
 
          // Creates the Selection Cursor 
 
@@ -167,6 +176,12 @@ class GameMenu extends Phaser.Scene {
             }
 
 
+		}
+
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
+		{   
+                this.scene.start(this.location);
+	
 		}
         
 
