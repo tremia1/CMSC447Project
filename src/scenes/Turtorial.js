@@ -3,6 +3,12 @@ import Cat from '../object/Cat.js';
 import Button from '../object/Button.js';
 
 class Turtorial extends Phaser.Scene {
+
+    constructor()
+	{
+        super({ key: 'Turtorial'})
+
+	}
     preload() {
         this.load.image('background', 'assets/images/background.png');
         

@@ -120,7 +120,7 @@ class StartMenu extends Phaser.Scene {
 		{
 
             if(this.value == 0){
-                this.scene.start('Tutorial');
+                this.scene.start('Turtorial');
             }
 
             else if(this.value == 1){

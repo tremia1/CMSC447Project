@@ -1,4 +1,4 @@
-import Tutorial from './scenes/Tutorial.js';
+import Turtorial from './scenes/Turtorial.js';
 import StartMenu from './scenes/StartMenu.js';
 import LoadGame from './scenes/LoadGame.js';
 import LeaderBoard from './scenes/LeaderBoard.js';
@@ -27,7 +27,7 @@ const config = {
 
 
 
-    scene:[StartMenu,  Tutorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
+    scene:[StartMenu,  Turtorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
 };
 
 const game = new Phaser.Game(config);
