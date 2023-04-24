@@ -61,7 +61,7 @@ class LoadGame extends Phaser.Scene {
 
 
         this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
-        this.Back.setScale(.2);
+        this.Back.setScale(.3);
 
         this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)

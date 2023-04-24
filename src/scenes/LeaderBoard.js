@@ -60,7 +60,8 @@ class LeaderBoard extends Phaser.Scene {
         this.add.text(670,570, '5. ', { fontSize: '32px', fill: '#000000' });
 
         this.Back = this.add.image(400, 500, 'Back').setOrigin(0, 0);
-        this.Back.setScale(.2);
+        this.Back.setScale(.3);
+  
 
 
         this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
