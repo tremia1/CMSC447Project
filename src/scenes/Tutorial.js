@@ -1,8 +1,14 @@
-import Dog from '../src/object/Dog.js';
-import Cat from '../src/object/Cat.js';
-import Button from '../src/object/Button.js';
+import Dog from '../object/Dog.js';
+import Cat from '../object/Cat.js';
+import Button from '../object/Button.js';
 
-class gameScene extends Phaser.Scene {
+class Tutorial extends Phaser.Scene {
+
+        constructor()
+	{
+        super({ key: 'Tutorial'})
+
+	}
     preload() {
         this.load.image('background', 'assets/images/background.png');
         
@@ -117,13 +123,29 @@ class gameScene extends Phaser.Scene {
         this.physics.add.collider(this.ButtonOne.sprite, this.dog.sprite);
         this.physics.add.collider(this.ButtonOne.sprite, this.cat.sprite);
 
+        this.esc= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
     }
-    update() {
+    update(time) {
 
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
 
         this.ButtonOne.update();
+
+
+        this.gameRuntime = time * 0.001;
+
+        this.minutes = Math.floor(this.gameRuntime / 60);
+  
+        this.seconds = this.gameRuntime - (this.minutes * 60);
+
+
+        this.timeText.setText("Time : " + this.minutes  + " Minutes " +  Math.round(this.seconds)  + " Seconds");
+
+        if (Phaser.Input.Keyboard.JustDown(this.esc)){
+            this.scene.start('GameMenu',{ "location": 'Tutorial'});
+        }
 
         //Update button grou
         /*
@@ -133,4 +155,4 @@ class gameScene extends Phaser.Scene {
         */
     }
   
-} export default gameScene;  
+} export default Tutorial;  
