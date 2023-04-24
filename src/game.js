@@ -5,8 +5,10 @@ import Button from '../src/object/Button.js';
 class gameScene extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/images/background.png');
+        
         this.load.spritesheet('button-up', 'assets/images/Button1.png', { frameWidth: 9, frameHeight: 6});
         this.load.spritesheet('button-down', 'assets/images/ButtonTwo.png', { frameWidth: 9, frameHeight: 6});
+
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
@@ -72,6 +74,7 @@ class gameScene extends Phaser.Scene {
         this.waterGroup = this.add.group();
 
         //Create button class and set it as tilemap object
+
         /*
         map.getObjectLayer('Button').objects.forEach((button) => {
             const buttonObject = new Button({
@@ -82,11 +85,13 @@ class gameScene extends Phaser.Scene {
                 cat: this.cat,
                 dog: this.dog
             });
+
+            this.buttonGroup.add(buttonObject);
+        });
             buttonObject.body.setSize(25,25);
             this.buttonGroup.add(buttonObject);
         });
         */
-
         
         this.ButtonOne = new Button({
             scene: this,

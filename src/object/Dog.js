@@ -1,88 +1,93 @@
-export default class Dog extends Phaser.GameObjects.Sprite {
+import PlayerController from './PlayerController.js';
 
-    //need function for bark
-    //need function for pushing (colliding) with block
-    //need check for falling from high place
-    //need function for dig
-    //need function for sniff
-    //need animation for digging
-    //need animation for sniffing
-    //need to check if sniffing is true (meaning there is an object there, then dig)
-    constructor(config) {
-        super(config.scene, config.x, config.y, 'Dog');
-        config.scene.add.existing(this);
-        config.scene.physics.world.enable(this);
-   
-        this.collideWorldBounds = true;
-        config.scene.physics.add.sprite();
-        this.bounce = 0.2;
-        this.gravity = 300;
+export default class Dog extends PlayerController {
+  constructor(scene, cursors, x, y, name) {
+    
+    // create the sprite and add it to the physics engine
+    const sprite = scene.physics.add.sprite(x, y, name + '-idle');
+    super(scene, sprite, cursors, name); // call constructor of parent 
+    
+    this.createAnimations(); // create the animation
 
-      
-        //Create animation for Dog
-        this.anims.create({
-            key: 'DIdle',
-            frames: this.anims.generateFrameNumbers("DogIdle"),
-            frameRate: 10,
-            repeat: -1
+    this.stateMachine
+    .addState("sniffWalk", {
+        onEnter: this.sniffWalkOnEnter,
+        onUpdate: this.sniffWalkOnUpdate
+    })
+    .addState('bark', {
+        onEnter: this.barkOnEnter,
+        onUpdate: this.barkOnUpdate
+    })
+  }
 
-        });
-        this.anims.create({
-            key: 'DWalk',
-            frames: this.anims.generateFrameNumbers("DogWalk"),
-            frameRate: 10,
-            repeat: -1,
-           
-        });
-        this.anims.create({
-            key: 'DJump',
-            frames: this.anims.generateFrameNumbers("DogJump"),
-            frameRate: 12,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'DBark',
-            frames: this.anims.generateFrameNumbers("DogBark"),
-            frameRate: 12,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'DSniff',
-            frames: this.anims.generateFrameNumbers("DogSniff"),
-            frameRate: 12,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'DSniffWalk',
-            frames: this.anims.generateFrameNumbers("DogSniffAndWalk"),
-            frameRate: 12,
-            repeat: -1
-        });
-        this.anims.play('DIdle',true);
- 
-    }
+  sniffWalkOnEnter(){
+    this.sprite.play(`${this.charName}-sniffwalk`)
+  }
+
+  sniffWalkOnUpdate(){
+    // do walk functionality plus more 
+    this.walkOnUpdate();
+
+    // do more down here
+
+  }
+  
+  barkOnEnter(){
+    this.sprite.play(`${this.charName}-bark`)
+
+    // bark and freeze for a little before going back to idle
+    this.scene.time.addEvent({
+        delay: 500,
+        callback: ()=>{
+            // spawn a new apple
+            this.stateMachine.setState('idle')
+        },
+        loop: false
+    })
+  }
+
+  barkOnUpdate(){
+    // do stuff 
+    
+  }
   
 
-    update(keys, time, delta) {
-        this.scene.physics.world.collide(this, this.scene.platforms);
-        if (this.scene.keys.a.isDown) {
-            this.body.setVelocityX(-160);
-
-            this.anims.play('DWalk',true);
-            this.flipX = true;
-        }
-        else if (this.scene.keys.d.isDown) {
-            this.body.setVelocityX(160);
-      
-            this.anims.play('DWalk',true);
-          
-        }
-        else {
-            this.body.setVelocityX(0);
-            this.anims.play('DIdle',true);
-        }
-     
+  idleOnUpdate(){
+    // add custom behavior (bark and sniff)
+    if(this.cursors.bark.isDown){
+        this.stateMachine.setState('bark')
     }
+
+    if((this.cursors.left.isDown || this.cursors.right.isDown) && this.cursors.sniff.isDown){
+        this.stateMachine.setState('sniffWalk')
+        return 
+    }
+    
+    // call the parent idle update function
+    super.idleOnUpdate();
+  }
+  createAnimations() {
+    this.anims.create({
+        key: this.charName + '-sniff',
+        frames: this.anims.generateFrameNumbers("DogSniff"),
+        frameRate: 12,
+        repeat: -1
+    });
+    this.anims.create({
+        key: this.charName + '-sniffwalk',
+        frames: this.anims.generateFrameNumbers("DogSniffAndWalk"),
+        frameRate: 12,
+        repeat: -1
+    });
+    this.anims.create({
+        key: this.charName + '-bark',
+        frames: this.anims.generateFrameNumbers("DogBark"),
+        frameRate: 12,
+        repeat: -1
+    });
+
+
+    // call the parent class's createAnimations method to create the default animations
+    super.createAnimations();
+  }
 }
-
-
