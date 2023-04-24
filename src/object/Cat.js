@@ -1,4 +1,3 @@
-
 import PlayerController from './PlayerController.js';
 
 export default class Cat extends PlayerController {
@@ -22,25 +21,27 @@ export default class Cat extends PlayerController {
     this.anims.create({
         key: this.charName + '-idle',
         frames: this.anims.generateFrameNumbers("CatIdle"),
-        frameRate: 10,
+        frameRate: 15,
         repeat: -1,
 
     });
 
     this.anims.create({
         key: this.charName + "-walk",
-        frames: this.anims.generateFrameNumbers("CatWalk"),
-        frameRate: 10, 
+        frames: this.anims.generateFrameNumbers("CatWalk", {
+          start: 8,
+          end:16
+        }),
+        frameRate: 15, 
         repeat: -1,
-        frameWidth: 32,
-        frameHeight: 32
+        
        
     });
 
     this.anims.create({
         key: this.charName + '-jump',
         frames: this.anims.generateFrameNumbers("CatJump"),
-        frameRate: 20,
+        frameRate: 15,
         repeat: -1
     });
 }

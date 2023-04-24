@@ -22,9 +22,9 @@ class gameScene extends Phaser.Scene {
         this.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 50, frameHeight: 40});
         this.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 50, frameHeight: 40});
 
-        this.load.spritesheet('CatIdle', 'assets/images/Cat/Cat-Idle.png', { frameWidth: 50, frameHeight: 40});
-        this.load.spritesheet('CatWalk', 'assets/images/Cat/Cat-Walk.png', { frameWidth: 50, frameHeight: 40});
-        this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 50, frameHeight: 40});
+        this.load.spritesheet('CatIdle', 'assets/images/Cat/Cat-Idle.png', { frameWidth: 15, frameHeight: 15});
+        this.load.spritesheet('CatWalk', 'assets/images/Cat/Cat-Walk.png', { frameWidth: 15, frameHeight: 15});
+        this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 15, frameHeight: 15});
 
     }
     create() {
@@ -60,13 +60,16 @@ class gameScene extends Phaser.Scene {
         //Create dog class
         this.dog = new Dog(this, this.keys, 800, 200, 'dog');
         this.add.existing(this.dog.sprite);
-
+        this.dog.sprite.setOrigin(.5, .5)
+        this.dog.sprite.setScale(1.5)
 
         //Create cat class
         this.cat = new Cat(this, this.cursors, 800, 200, 'cat');
-        this.cat.sprite.setOffset(-2, -7)
         this.add.existing(this.cat.sprite);
-       
+        this.cat.sprite.body.setSize(this.cat.sprite.width, this.cat.sprite.height); // fixes collisions
+        this.cat.sprite.setScale(3) // make it bigger
+        this.cat.sprite.setOffset(0, -2) // a little off the ground
+
 
         //Create groups for button, block and water
         this.buttonGroup = this.add.group();
