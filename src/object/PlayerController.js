@@ -1,5 +1,8 @@
 import StateMachine from "./Statemachine.js"
 
+const WALK_SPEED = 160
+const JUMP_HEIGHT = 200
+
 export default class PlayerController {
 
 
@@ -10,6 +13,9 @@ export default class PlayerController {
         this.cursors = cursors
         this.charName = name
         this.anims = this.scene.anims
+        this.body = sprite.body
+        this.jumpHeight = WALK_SPEED
+        this.walkSpeed = JUMP_HEIGHT
 
         this.createAnimations()
 
@@ -63,7 +69,7 @@ export default class PlayerController {
     }
 
     walkOnUpdate() {
-        const speed = 160
+        const speed = this.walkSpeed
 
         if (this.cursors.left.isDown) {
             this.sprite.flipX = true
@@ -85,7 +91,7 @@ export default class PlayerController {
     }
 
     jumpOnEnter() {
-        const speed = -200
+        const speed = -this.jumpHeight
 
         this.sprite.play(`${this.charName}-jump`)
         this.sprite.setVelocityY(speed)
@@ -96,7 +102,7 @@ export default class PlayerController {
             this.stateMachine.setState('idle');
         }
 
-        const speed = 160
+        const speed = this.walkSpeed
 		if (this.cursors.left.isDown)
 		{
 			this.sprite.flipX = true
@@ -143,9 +149,9 @@ export default class PlayerController {
 
         this.anims.create({
             key: this.charName + '-jump',
-            frames: this.anims.generateFrameNumbers("DogJump"),
+            frames: this.anims.generateFrameNumbers("DogJump", {end: 7}),
             frameRate: 20,
-            repeat: -1
+            repeat: 0
         });
     }
 }
