@@ -6,6 +6,7 @@ import LeaderBoard from './scenes/LeaderBoard.js';
 import GameMenu from './scenes/GameMenu.js';
 import QuitMenu from './scenes/QuitMenu.js';
 import SaveGame from './scenes/SaveGame.js';
+import test from './scenes/test.js'
 
 /* Game Scene*/
 const config = {
@@ -24,12 +25,14 @@ const config = {
     }
   },
     transparent: true,
+    parent: 'game',
+    backgroundColor: '#000000',
     
 
 
-  
-     scene:[StartMenu,  Turtorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
+    scene: [test]
+    // scene:[StartMenu,  Turtorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
 };
 
 const game = new Phaser.Game(config);
-console.log(game)
+

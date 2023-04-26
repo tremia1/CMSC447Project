@@ -44,23 +44,70 @@ class Turtorial extends Phaser.Scene {
      
 
         const tileset = map.addTilesetImage('Textures-16', 'tiles');
-        const blocktile = map.addTilesetImage('Textures-16', 'tile', 97);
+  
         const backgroundImage = map.addTilesetImage('background', 'bg')
         const background = map.createLayer('Tile Layer 2', backgroundImage);
         const platforms = map.createLayer('Tile Layer 1', tileset);
-        
-        
-        platforms.displayHeight = this.sys.game.config.height;
-        platforms.displayWidth =  this.sys.game.config.width;
-     
-      
 
-        background.displayHeight = this.sys.game.config.height;
-        background.displayWidth = this.sys.game.config.width;
-        // console .log(background.displayHeight)
-        // console .log(background.displayWidth)
-        
         platforms.setCollisionByProperty({ collides: true });
+
+        //Testing object layer from Tiled to match width and height of window
+      
+        //Create groups for button, block and water
+        //Can be used to call update functions of each object classes
+       
+
+        
+        // platforms.displayHeight = this.sys.game.config.height;
+        // platforms.displayWidth =  this.sys.game.config.width;
+
+        // background.displayHeight = this.sys.game.config.height;
+        // background.displayWidth = this.sys.game.config.width;
+        
+        // platforms.setCollisionByProperty({ collides: true });
+
+        // nonmoveableLayer.displayHeight = this.sys.game.config.height;
+        // nonmoveableLayer.displayWidth = this.sys.game.config.width;
+        // nonmoveableLayer.scaleX = nonmoveableLayer.scaleY;
+        
+        // this.buttonGroup = this.add.group();
+        // this.blockGroup = this.add.group();
+        // this.waterGroup = this.add.group();
+        // this.notmovingGroup = this.add.group();
+
+        // const nonmoveableLayer = map.getObjectLayer('Nonmovable Block', ['objects'], blocktile)
+        // map.createFromObjects('Nonmovable Block', {
+        //     gid: 97
+        // });
+
+        // nonmoveableLayer.displayHeight = this.sys.game.config.height;
+        // nonmoveableLayer.displayWidth = this.sys.game.config.width;
+
+
+        // var nonmoveableObjects = map.createFromObjects('Nonmovable Block', {
+        //             gid: 97,
+        //             key: 'tile'
+        //         });
+    //    nonmoveableLayer.objects.forEach((platform) =>{
+    //     platform.visible = true;
+    //     console.log(platforms.visible)
+    //    });
+
+   
+
+            //    nonmoveableObjects.forEach((block) =>{
+    //         block.visible = true;
+    //         block.x =  block.x;
+           
+            
+    //         this.notmovingGroup.add(block);
+    //    });
+        // nonmoveableLayer.objects.forEach((object) => {
+        //     object.visible = true;
+        //   this.notmovingGroup.create(object.x, object.y, "nonmoving block")
+            
+        // });
+
 
        // Set up player input controls
 
@@ -85,13 +132,13 @@ class Turtorial extends Phaser.Scene {
 
             
         //Create dog class
-        this.dog = new Dog(this, this.dogKeys, 200, 925, 'dog');
+        this.dog = new Dog(this, this.dogKeys, 200, 600, 'dog');
        
         this.add.existing(this.dog.sprite);
         this.dog.sprite.setScale(1.2)
 
         //Create cat class
-        this.cat = new Cat(this, this.catKeys, 150, 925, 'cat');
+        this.cat = new Cat(this, this.catKeys, 150, 600, 'cat');
         this.add.existing(this.cat.sprite);
         this.cat.sprite.body.setSize(this.cat.sprite.width, this.cat.sprite.height); // fixes collisions
         this.cat.sprite.setScale(1.8) // make it bigger
@@ -99,26 +146,20 @@ class Turtorial extends Phaser.Scene {
         this.cat.sprite.setOffset(0, -2) // a little off the ground
 
 
-        //Create groups for button, block and water
-        //Can be used to call update functions of each object classes
-        this.buttonGroup = this.add.group();
-        this.blockGroup = this.add.group();
-        this.waterGroup = this.add.group();
-        this.notmovingGroup = this.add.group();
+      
 
-
-        // Create non moveable objects
-        var nonmoveableObjects = map.createFromObjects('Nonmovable Block', {
-            gid: 97,
-            key: 'tile'
-        });
-       nonmoveableObjects.forEach((block) =>{
-            block.visible = true;
-            block.x =  block.x;
-            console.log(block.x)
+    //     // Create non moveable objects
+    //     var nonmoveableObjects = map.createFromObjects('Nonmovable Block', {
+    //         gid: 97,
+    //         key: 'tile'
+    //     });
+    //    nonmoveableObjects.forEach((block) =>{
+    //         block.visible = true;
+    //         block.x =  block.x;
+           
             
-            this.notmovingGroup.add(block);
-       });
+    //         this.notmovingGroup.add(block);
+    //    });
         //Create button class and set it as tilemap object
 
         /*

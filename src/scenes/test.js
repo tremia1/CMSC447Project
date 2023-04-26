@@ -1,16 +1,29 @@
-class test extends Phaser.Scene{
+export default class test extends Phaser.Scene{
     constructor(){
-        super("testGame");
+        super("test");
     }
     preload(){
-
-        this.load.image("background","assets/background.png")
+        
+        this.load.image('tiles', 'assets/tileset/Textures-16.png');
+        this.load.image('bg', 'assets/images/background.png');
+        this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
+       
     }
 
     create(){
+        const map = this.make.tilemap({ key: 'map'});
+     
 
-        this.background = this.add.tileSprite(0,0,config.width,config.height,"background");
-        this.background.setOrigin(0,0);
+        const tileset = map.addTilesetImage('Textures-16', 'tiles');
+  
+        const backgroundImage = map.addTilesetImage('background', 'bg')
+  
+        const background = map.createLayer('Tile Layer 2', backgroundImage);
+        const platforms = map.createLayer('Tile Layer 1', tileset);
+        platforms.setCollisionByProperty({ collides: true });
+
+        this.cameras.main.setBounds(0, 0, map.height, map.height);
+        console.log(map.height)
     }
 
 
