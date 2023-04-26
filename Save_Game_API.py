@@ -34,27 +34,18 @@ def index():
 # This edit the user by using the id and the index way to edit the user name, id and # points
 # and isn't in a new page but at the bottom of each user display set 
 
-@app.route('/<int:id>/edit/', methods=('GET', 'POST'))
-def edit(id):
-    user = get_user(id)
+@app.route('/<int:SaveNumber>/edit/', methods=('GET', 'POST'))
+def edit(PlayerName, ID, levelNumber,TimeScore , SaveNumber):
+    user = get_user(SaveNumber)
     # After POST get the user name and points change and update the database with no id
     # Can't change the id as need id to edit
-    user_name = request.form['user_name']
-    points = request.form['points']
 
-    if not user_name:
-        flash('User Name is required!')
-
-    elif not points:
-        flash('Points is required!')
-
-    else:
-        conn = get_db_connection()
-        conn.execute('UPDATE SaveGame SET user_name = ?, points = ?'
-                         ' WHERE id = ?',
-                         (user_name, points, id))
-            conn.commit()
-            conn.close()
+    conn = get_db_connection()
+    conn.execute('UPDATE SaveGame SET PlayerName = ?, ID = ?,  levelNumber = ? , TimeScore = ?'
+                         ' WHERE SaveNumber = ?',
+                         (PlayerName, ID, levelNumber,TimeScore , SaveNumber))
+    conn.commit()
+    conn.close()
 
 
 
