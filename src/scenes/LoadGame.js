@@ -51,19 +51,19 @@ class LoadGame extends Phaser.Scene {
 
         this.SaveTwo = this.add.image(650, 250, 'wood').setOrigin(0, 0);
         this.SaveTwo.setScale(.03);
-        this.add.text(670, 270, 'SaveTwo', { fontSize: '32px', fill: '#000000' });
+        this.add.text(670, 270, 'Save Two', { fontSize: '32px', fill: '#000000' });
 
         this.SaveThree = this.add.image(650, 350, 'wood').setOrigin(0, 0);
         this.SaveThree.setScale(.03);
-        this.add.text(670, 370, 'SaveThree', { fontSize: '32px', fill: '#000000' });
+        this.add.text(670, 370, 'Save Three', { fontSize: '32px', fill: '#000000' });
 
         this.SaveFour = this.add.image(650, 450, 'wood').setOrigin(0, 0);
         this.SaveFour.setScale(.03);
-        this.add.text(670, 470, 'SaveFour', { fontSize: '32px', fill: '#000000' });
+        this.add.text(670, 470, 'Save Four', { fontSize: '32px', fill: '#000000' });
 
         this.SaveFive = this.add.image(650, 550, 'wood').setOrigin(0, 0);
         this.SaveFive.setScale(.03);
-        this.add.text(670,570, 'SaveFive', { fontSize: '32px', fill: '#000000' });
+        this.add.text(670,570, 'Save Five', { fontSize: '32px', fill: '#000000' });
 
         //Creates Back Buttton
 

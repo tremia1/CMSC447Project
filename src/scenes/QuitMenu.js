@@ -153,7 +153,8 @@ class QuitMenu extends Phaser.Scene {
             }
 
             else if(this.value == 1){
-                this.scene.start('GameMenu');
+                
+                this.scene.start('GameMenu',{ "location": this.location});
             }
 
             else if (this.value == 2){
