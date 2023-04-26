@@ -11,7 +11,7 @@ class Turtorial extends Phaser.Scene {
 
 	}
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+        // this.load.image('background', 'assets/images/background.png');
         
         this.load.spritesheet('button-up', 'assets/images/Button1.png', { frameWidth: 9, frameHeight: 6});
         this.load.spritesheet('button-down', 'assets/images/ButtonTwo.png', { frameWidth: 9, frameHeight: 6});
@@ -41,17 +41,24 @@ class Turtorial extends Phaser.Scene {
         //Create tilemap and all the layers for it
         //Add debug for any physics errors (remove later)
         const map = this.make.tilemap({ key: 'map'});
+     
 
         const tileset = map.addTilesetImage('Textures-16', 'tiles');
+        const blocktile = map.addTilesetImage('Textures-16', 'tile', 97);
         const backgroundImage = map.addTilesetImage('background', 'bg')
         const background = map.createLayer('Tile Layer 2', backgroundImage);
         const platforms = map.createLayer('Tile Layer 1', tileset);
         
-        platforms.displayHeight = this.sys.canvas.height;
-        platforms.displayWidth = this.sys.canvas.width;
+        
+        platforms.displayHeight = this.sys.game.config.height;
+        platforms.displayWidth =  this.sys.game.config.width;
      
-        background.displayHeight = this.sys.canvas.height;
-        background.displayWidth = this.sys.canvas.width;
+      
+
+        background.displayHeight = this.sys.game.config.height;
+        background.displayWidth = this.sys.game.config.width;
+        // console .log(background.displayHeight)
+        // console .log(background.displayWidth)
         
         platforms.setCollisionByProperty({ collides: true });
 
@@ -78,12 +85,13 @@ class Turtorial extends Phaser.Scene {
 
             
         //Create dog class
-        this.dog = new Dog(this, this.dogKeys, 800, 200, 'dog');
+        this.dog = new Dog(this, this.dogKeys, 200, 925, 'dog');
+       
         this.add.existing(this.dog.sprite);
         this.dog.sprite.setScale(1.2)
 
         //Create cat class
-        this.cat = new Cat(this, this.catKeys, 800, 200, 'cat');
+        this.cat = new Cat(this, this.catKeys, 150, 925, 'cat');
         this.add.existing(this.cat.sprite);
         this.cat.sprite.body.setSize(this.cat.sprite.width, this.cat.sprite.height); // fixes collisions
         this.cat.sprite.setScale(1.8) // make it bigger
@@ -92,10 +100,25 @@ class Turtorial extends Phaser.Scene {
 
 
         //Create groups for button, block and water
+        //Can be used to call update functions of each object classes
         this.buttonGroup = this.add.group();
         this.blockGroup = this.add.group();
         this.waterGroup = this.add.group();
+        this.notmovingGroup = this.add.group();
 
+
+        // Create non moveable objects
+        var nonmoveableObjects = map.createFromObjects('Nonmovable Block', {
+            gid: 97,
+            key: 'tile'
+        });
+       nonmoveableObjects.forEach((block) =>{
+            block.visible = true;
+            block.x =  block.x;
+            console.log(block.x)
+            
+            this.notmovingGroup.add(block);
+       });
         //Create button class and set it as tilemap object
 
         /*
@@ -146,7 +169,7 @@ class Turtorial extends Phaser.Scene {
 
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
-
+        
         this.ButtonOne.update();
         
         this.gameRuntime = time * 0.001;
