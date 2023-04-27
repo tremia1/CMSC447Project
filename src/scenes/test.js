@@ -1,3 +1,5 @@
+
+
 export default class test extends Phaser.Scene{
     constructor(){
         super("test");
@@ -22,8 +24,16 @@ export default class test extends Phaser.Scene{
         const platforms = map.createLayer('Tile Layer 1', tileset);
         platforms.setCollisionByProperty({ collides: true });
 
+        console.log(map.widthInPixels)
+        this.cameras.main.setSize(944, 736)
+       
+        
+      
+
         this.cameras.main.setBounds(0, 0, map.height, map.height);
-        console.log(map.height)
+        this.cameras.main.centerToBounds();
+  
+        // console.log(this.cameras.main.getBounds())
     }
 
 
