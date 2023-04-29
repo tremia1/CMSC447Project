@@ -1,11 +1,21 @@
 import Dog from '../../src/object/Dog.js';
 import Cat from '../../src/object/Cat.js';
+import Button from '../../src/object/Button.js';
+import Block from '../../src/object/Block.js';
+import Door from '../../src/object/Door.js';
 
 export default class test extends Phaser.Scene {
     constructor() {
         super("test");
     }
     preload() {
+        this.load.spritesheet('button-up', 'assets/images/ButtonUp.png', { frameWidth: 9, frameHeight: 6});
+        this.load.spritesheet('box', 'assets/images/box.png', { frameWidth: 37, frameHeight: 37});
+        this.load.spritesheet('button-down', 'assets/images/ButtonDown.png', { frameWidth: 9, frameHeight: 6});
+
+        this.load.spritesheet('door-closed', 'assets/images/DoorClosed.png', { frameWidth: 73, frameHeight: 85});
+        this.load.spritesheet('door-open', 'assets/images/DoorOpen.png', { frameWidth: 73, frameHeight: 85});
+        this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png');
@@ -107,6 +117,10 @@ export default class test extends Phaser.Scene {
             allowGravity: true
 
         });
+        this.doorGroup = this.physics.add.group({
+            immovable: true,
+            allowGravity: false
+        });
 
         //Create Wall objects
         //They are invisible till button is pressed
@@ -126,13 +140,53 @@ export default class test extends Phaser.Scene {
 
         //Create Button objects
         this.map.getObjectLayer('Button').objects.forEach((button) =>{
-            this.buttonSprite = new Button
+            this.buttonSprite = new Button({
+                scene: this,
+                x: button.x,
+                y:button.y-button.height,
+                status: false,
+                cat: this.cat,
+                dog: this.dog,
+                dur: 200
+                });
+            this.physics.add.collider(this.buttonSprite, this.platforms);
+            this.buttonGroup.add(this.buttonSprite, true);
         });
         //Create Water objects
 
-        //Create Block objects
 
-        //Create Door object
+        // //Create Block objects
+        // this.map.getObjectLayer('Block').objects.forEach((block) =>{
+        //     this.blockSprite = new Block({
+        //         scene: this,
+        //         x: block.x,
+        //         y: block.y - block.height,
+        //         status: false,
+        //         cat: this.cat,
+        //         dog: this.dog
+        //     });
+        //     this.physics.add.collider(this.blockSprite, this.platforms);
+        //     this.buttonGroup.forEach(function(button){
+        //         this.physics.add.overlap(block, button);
+        //     });
+        //     this.blockGroup.add(this.blockSprite,true);
+           
+        // });
+
+        // //Create Door object
+        // this.map.getObjectLayer('Door').objects.forEach((door) =>{
+        //     this.doorSprite = new Door({
+        //         scene: this,
+        //         x: door.x,
+        //         y: door.y,
+        //         status: false,
+        //         cat: this.cat,
+        //         dog: this.dog,
+        //         button: this.buttonGroup.getChildren().find(v => v.name === 'button2')
+        //     });
+        //     this.physics.add.collider(door, this.platforms);
+        //     this.doorGroup.add(this.doorSprite, true);
+        // });
 
         this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
@@ -150,10 +204,27 @@ export default class test extends Phaser.Scene {
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
         
+        this.buttonGroup.forEach(function(button){
+            button.update();
+            if(button.status == true && button.name =='button1' && wallGroup[0].visible == false){
+                wallMakeVisible('wall1');
+            };
+            if(button.status == true && button.name == 'button2' && wallGroup[1].visible == false){
+                wallMakeVisible('wall2');
+            };
+        });
+
+        // this.doorGroup.forEach(function(door){
+        //     door.update();
+        // });
+
+        // this.blockGroup.forEach(function(block){
+        //     block.update();
+        // });
         //If a button set to wall is pushed, call wallMakeVisible()
         //Pass in wall name
 
-        // this.ButtonOne.update();
+     
 
         this.gameRuntime = time * 0.001;
 
@@ -175,7 +246,14 @@ export default class test extends Phaser.Scene {
 
     //Function for when button is pushed to make wall visible
     //Get the children from group, set to visible, add physics collider
-    wallMakeVisible(name){}
+    wallMakeVisible(name){
+        this.wall = this.wallGroup.getChildren().find(v => v.name === name);
+        this.wall.visible = true;
+        this.physics.add.collider(this.cat.sprite, this.wall); //add collision if the blocks are visible
+        this.physics.add.collider(this.dog.sprite, this.wall);
+
+
+    }
 
 
 }
