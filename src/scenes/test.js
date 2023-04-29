@@ -86,9 +86,26 @@ export default class test extends Phaser.Scene {
 
         });
 
+        //Create groups for wall, button, water, and block
         this.wallGroup = this.physics.add.group({
             immovable: true,
             allowGravity: false,
+        });
+
+        this.buttonGroup = this.physics.add.group({
+            immovable: true,
+            allowGravity: false
+        });
+
+        this.waterGroup = this.physics.add.group({
+            immovable: true,
+            allowGravity: false
+        });
+
+        this.blockGroup = this.physics.add.group({
+            immovable: false,
+            allowGravity: true
+
         });
 
         //Create Wall objects
@@ -103,9 +120,19 @@ export default class test extends Phaser.Scene {
             this.wallSprite.visible = false; //the blocks are originally visible 
             this.wallSprite.body.height = wall.height;
            
-            // this.physics.add.collider(this.cat.sprite, this.wallSprite);
+            // this.physics.add.collider(this.cat.sprite, this.wallSprite); //add collision if the blocks are visible
             // this.physics.add.collider(this.dog.sprite, this.wallSprite);
         });
+
+        //Create Button objects
+        this.map.getObjectLayer('Button').objects.forEach((button) =>{
+            this.buttonSprite = new Button
+        });
+        //Create Water objects
+
+        //Create Block objects
+
+        //Create Door object
 
         this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
@@ -123,6 +150,8 @@ export default class test extends Phaser.Scene {
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
         
+        //If a button set to wall is pushed, call wallMakeVisible()
+        //Pass in wall name
 
         // this.ButtonOne.update();
 
@@ -143,4 +172,10 @@ export default class test extends Phaser.Scene {
 
 
     }
+
+    //Function for when button is pushed to make wall visible
+    //Get the children from group, set to visible, add physics collider
+    wallMakeVisible(name){}
+
+
 }
