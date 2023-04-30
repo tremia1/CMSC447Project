@@ -7,6 +7,7 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.x = config.x;
         this.y = config.y;
         this.scene = config.scene;
+        this.buttongroup = config.button;
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
         this.body.setVelocity(0, 0).setBounce(0,0).setCollideWorldBounds(false);
@@ -17,7 +18,12 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.body.allowDrag = true;
         this.body.setDragX(800); // basically friction for block on x axis 
         this.scene.physics.add.collider(this, this.dog.sprite);
-        this.scene.physics.add.collider(this, this.cat.sprite);
+        this.scene.physics.add.collider(this, this.cat.sprite); 
+
+        let block = this;
+        this.buttongroup.getChildren().forEach(function(button){
+            config.scene.physics.add.overlap(block,button);
+        });
     }
     update(){
         this.scene.physics.add.collider(this, this.dog.sprite); // this is needed so the cat and dog dont glitch through the box when running into it

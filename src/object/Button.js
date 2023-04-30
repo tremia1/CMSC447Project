@@ -54,6 +54,7 @@ export default class Button extends Phaser.GameObjects.Sprite {
         //this.scene.physics.add.overlap(this, this.dog.sprite);
         //this.scene.physics.add.overlap(this, this.cat.sprite);
         this.checkPressed();
+   
     }
 
     setStatus(state){
@@ -66,10 +67,10 @@ export default class Button extends Phaser.GameObjects.Sprite {
 
     checkPressed(){ // didnt do a collider as we want to have more than just player be able to be on it 
         
-        //console.log(`Is it touching down ${this.body.touching.down}`);
-        console.log(`Is it touching up ${this.body.touching.up}`);
-        //console.log(`Is it touching none ${this.body.touching.none}`);
-        console.log(`Is it touching embedded ${this.body.embedded}`);
+        // //console.log(`Is it touching down ${this.body.touching.down}`);
+        // console.log(`Is it touching up ${this.body.touching.up}`);
+        // //console.log(`Is it touching none ${this.body.touching.none}`);
+        // console.log(`Is it touching embedded ${this.body.embedded}`);
         //console.log(`The status is ${this.status}`);
         
         if(this.falseCount > this.durration){

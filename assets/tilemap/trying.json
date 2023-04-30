@@ -121,7 +121,7 @@
                  "visible":true,
                  "width":208,
                  "x":320,
-                 "y":576.666666666667
+                 "y":576.667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -139,11 +139,17 @@
                  "height":48,
                  "id":12,
                  "name":"wall1",
+                 "properties":[
+                        {
+                         "name":"button",
+                         "type":"string",
+                         "value":"button1"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":false,
                  "width":16,
-                 "x":142.666666666667,
+                 "x":142.667,
                  "y":560
                 }, 
                 {
@@ -151,6 +157,12 @@
                  "height":46,
                  "id":13,
                  "name":"wall2",
+                 "properties":[
+                        {
+                         "name":"button",
+                         "type":"string",
+                         "value":"button2"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":false,
@@ -181,36 +193,24 @@
                  "height":0,
                  "id":8,
                  "name":"button1",
-                 "properties":[
-                        {
-                         "name":"AffectsThis",
-                         "type":"object",
-                         "value":12
-                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":210.666666666667,
-                 "y":470.666666666667
+                 "x":210.667,
+                 "y":470.667
                 }, 
                 {
                  "ellipse":true,
                  "height":0,
                  "id":9,
                  "name":"button2",
-                 "properties":[
-                        {
-                         "name":"AffectsThis",
-                         "type":"object",
-                         "value":13
-                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":696.666666666667,
-                 "y":470.666666666667
+                 "x":696.667,
+                 "y":470.667
                 }],
          "opacity":1,
          "properties":[
@@ -239,8 +239,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":286.666666666667,
-                 "y":559.333333333333
+                 "x":286.667,
+                 "y":559.333
                 }],
          "opacity":1,
          "properties":[
@@ -290,8 +290,8 @@
                  "type":"Dog",
                  "visible":true,
                  "width":0,
-                 "x":117.333333333333,
-                 "y":551.333333333333
+                 "x":117.333,
+                 "y":551.333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -314,7 +314,7 @@
                  "visible":true,
                  "width":0,
                  "x":34,
-                 "y":550.666666666667
+                 "y":550.667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2440,6 +2440,19 @@
                  "imagewidth":9
                 }],
          "tilewidth":9
+        }, 
+        {
+         "columns":1,
+         "firstgid":2877,
+         "image":"..\/CMSC447Project\/CMSC447Project\/assets\/tileset\/Tiles\/tile042.png",
+         "imageheight":16,
+         "imagewidth":16,
+         "margin":0,
+         "name":"tile042",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":16,
  "type":"map",
