@@ -26,10 +26,10 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('wallTile', 'assets/tileset/Tiles/tile042.png');
-        this.load.image('wall', 'assets/tileset/Textures-16.png');
+     
 
         this.load.image('waterTile', 'assets/tileset/Tiles/tile261.png');
-        this.load.image('water', 'assets/tileset/Textures-16.png');
+      
 
 
         //Load Spritesheet for Dog
@@ -172,13 +172,17 @@ export default class test extends Phaser.Scene {
 
         //Create Water objects
         this.map.getObjectLayer('Water').objects.forEach((water) => {
+            
             this.waterSprite = new Water({
                 scene: this,
                 x: water.x,
-                y : water.y,
+                y : water.y- water.height,
                 cat: this.cat,
-                dog: this.dog
+                dog: this.dog,
+                width: water.width,
+                height: water.height
             });
+           
             this.physics.add.collider(this.waterSprite, this.platforms);
             this.waterGroup.add(this.waterSprite);
         });
