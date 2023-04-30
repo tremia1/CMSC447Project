@@ -192,13 +192,15 @@ export default class test extends Phaser.Scene {
 
             this.blockSprite = new Block({
                 scene: this,
-                x: block.x,
-                y: block.y - block.height,
+                x: block.x - 50,
+                y: block.y - block.height -75,
                 status: false,
                 cat: this.cat,
                 dog: this.dog,
                 button: this.buttonGroup
             });
+
+            
             this.physics.add.collider(this.blockSprite, this.platforms);
             this.blockGroup.add(this.blockSprite, true);
 

@@ -26,11 +26,26 @@ export default class Block extends Phaser.GameObjects.Sprite {
         });
     }
     update(){
-        this.scene.physics.add.collider(this, this.dog.sprite); // this is needed so the cat and dog dont glitch through the box when running into it
-        this.scene.physics.add.collider(this, this.cat.sprite);
+        //Check if cat is colliding with object
+        let catPushes = this.checkCollision(this,this.cat);
+        let isPushable = this.body.pushable;
+        if(catPushes == true){
+            isPushable = false;
+        }
+        else{
+            isPushable = true;
+        }
+        this.body.pushable = isPushable;
+        // this.scene.physics.add.collider(this, this.dog.sprite); // this is needed so the cat and dog dont glitch through the box when running into it
+        // this.scene.physics.add.collider(this, this.cat.sprite);
     }
     move(){ // move block left or right 
         return;
+    }
+    checkCollision(spriteA, spriteB){
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.sprite.getBounds();
+        return Phaser.Geom.Intersects.RectangleToRectangle(boundsA,boundsB);
     }
 
 }

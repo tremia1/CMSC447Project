@@ -10,10 +10,14 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         this.dog = config.dog;
         this.name = config.name;
         this.button = config.button;
-        this.setScale(1, 3);
+        this.width = config.width;
+        this.height = config.height;
+
+    
         this.setOrigin(0);
         this.isActive = false;
 
+        this.frame.setSize(this.width, this.height);
 
         config.scene.add.existing(this);
         config.scene.physics.world.enable(this);
