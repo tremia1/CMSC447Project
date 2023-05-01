@@ -3,9 +3,7 @@ const express = require("express");
 
 var app = express();
 
-const port = 3004;
-
-
+const port = 3000;
 
 
 const db = new sqlite3.Database('./SaveGames.db', (err) => {
@@ -34,9 +32,9 @@ const db = new sqlite3.Database('./SaveGames.db', (err) => {
     }
 });
 
-app.get("/GetSave/:id", (req, res, next) => {
-    var params = [req.params.id]
-    db.get("SELECT * FROM SaveGame where SaveNumber = ?", [req.params.id], (err, row) => {
+app.get("/api/GetSave/:SaveNumber", (req, res, next) => {
+    var params = [req.params.SaveNumber]
+    db.get("SELECT * FROM SaveGame where SaveNumber = ?", [req.params.SaveNumber], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
@@ -48,7 +46,7 @@ app.get("/GetSave/:id", (req, res, next) => {
 
 
 
-app.patch("/SaveGame", (req, res, next) => {
+app.patch("/api/SaveGame", (req, res, next) => {
     var reqBody = re.body;
     db.run(`UPDATE SaveGame set PlayerName = ?, Id = ?, LevelNumber = ?, TimeScore = ? WHERE SaveNumber = ?`,
         [reqBody.PlayerName, Id.first_name, reqBody. LevelNumber, reqBody.TimeScore, reqBody.SaveNumber],

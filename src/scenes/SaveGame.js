@@ -45,9 +45,16 @@ class SaveGame extends Phaser.Scene {
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
+        (async () => {
+            this.saveone = fetch('/api/GetSave/1');
+            console.log(this.saveone); // {"metadata": "for: test.png"}
+        })();
+
+        
+
         this.SaveOne = this.add.image(650, 150, 'wood').setOrigin(0, 0);
         this.SaveOne.setScale(.03);
-        this.add.text(670, 170, 'Save One', { fontSize: '32px', fill: '#000000' });
+        this.add.text(670, 170, this.saveone , { fontSize: '32px', fill: '#000000' });
 
         this.SaveTwo = this.add.image(650, 250, 'wood').setOrigin(0, 0);
         this.SaveTwo.setScale(.03);
