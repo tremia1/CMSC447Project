@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3').verbose();
 const express = require("express");
 
 var app = express();
@@ -32,9 +32,9 @@ const db = new sqlite3.Database('./SaveGames.db', (err) => {
     }
 });
 
-app.get("/api/GetSave/:SaveNumber", (req, res, next) => {
-    var params = [req.params.SaveNumber]
-    db.get("SELECT * FROM SaveGame where SaveNumber = ?", [req.params.SaveNumber], (err, row) => {
+app.get("/GetSave/:id", (req, res, next) => {
+    var params = [req.params.id]
+    db.get("SELECT * FROM SaveGame where SaveNumber = ?", [req.params.id], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
@@ -58,4 +58,8 @@ app.patch("/api/SaveGame", (req, res, next) => {
             res.status(200).json({ updatedID: this.changes });
         });
 });
+
+
+
+
 

@@ -46,7 +46,7 @@ class SaveGame extends Phaser.Scene {
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
         (async () => {
-            this.saveone = fetch('/api/GetSave/1');
+            this.saveone = fetch('/GetSave/4');
             console.log(this.saveone); // {"metadata": "for: test.png"}
         })();
 
