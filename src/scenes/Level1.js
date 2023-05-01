@@ -7,13 +7,13 @@ import Wall from '../../src/object/Wall.js';
 import Water from '../../src/object/Water.js';
 export default class test extends Phaser.Scene {
     constructor() {
-        super("Turtorial");
+        super("Level1");
     }
     preload() {
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png'); //Warning: image tile is not tile size multiple in: bakcground (doesnt affect anything)
-        this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemap/level1.json');
      
 
         //Load spritesheets for objects
@@ -192,13 +192,14 @@ export default class test extends Phaser.Scene {
 
             this.blockSprite = new Block({
                 scene: this,
-                x: block.x ,
+                x: block.x,
                 y: block.y - block.height,
-                width: block.width,
-                height: block.height,
+                status: false,
                 cat: this.cat,
                 dog: this.dog,
-                button: this.buttonGroup
+                button: this.buttonGroup,
+                width: this.width,
+                height: this.height
             });
 
             
@@ -216,7 +217,7 @@ export default class test extends Phaser.Scene {
             status: false,
             cat: this.cat,
             dog: this.dog,
-            button: this.buttonGroup.getChildren().find(v => v.name === 'button2')
+            button: this.buttonGroup.getChildren().find(v => v.name === 'button6')
         });
         this.physics.add.collider(this.door, this.platforms);
 

@@ -12,10 +12,12 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         this.button = config.button;
         this.width = config.width;
         this.height = config.height;
-
+        this.rotate = config.rotate;
     
         this.setOrigin(0);
         this.isActive = false;
+       
+       
 
         this.frame.setSize(this.width, this.height);
 
@@ -26,7 +28,8 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         this.body.height = config.height;
         this.body.allowGravity = false;
         this.body.pushable = false;
-
+        
+        console.log();
 
         this.scene.physics.add.collider(this, this.scene.platforms);
 

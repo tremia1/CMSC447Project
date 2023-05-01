@@ -13,7 +13,7 @@ export default class test extends Phaser.Scene {
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png'); //Warning: image tile is not tile size multiple in: bakcground (doesnt affect anything)
-        this.load.tilemapTiledJSON('map', 'assets/tilemap/trying.json');
+        this.load.tilemapTiledJSON('map', 'assets/tilemap/level1.json');
      
 
         //Load spritesheets for objects
@@ -163,7 +163,8 @@ export default class test extends Phaser.Scene {
                 name: wall.name,
                 button: buttonForWall,
                 width: wall.width,
-                height: wall.height
+                height: wall.height,
+                rotate: wall.rotation
 
             });
             this.physics.add.collider(this.wallSprite, this.platforms);
@@ -192,14 +193,17 @@ export default class test extends Phaser.Scene {
 
             this.blockSprite = new Block({
                 scene: this,
-                x: block.x - 50,
-                y: block.y - block.height -75,
+                x: block.x,
+                y: block.y - block.height,
                 status: false,
                 cat: this.cat,
                 dog: this.dog,
-                button: this.buttonGroup
+                button: this.buttonGroup,
+                width: block.width,
+                height: block.height
             });
 
+            
             
             this.physics.add.collider(this.blockSprite, this.platforms);
             this.blockGroup.add(this.blockSprite, true);
@@ -215,7 +219,7 @@ export default class test extends Phaser.Scene {
             status: false,
             cat: this.cat,
             dog: this.dog,
-            button: this.buttonGroup.getChildren().find(v => v.name === 'button2')
+            button: this.buttonGroup.getChildren().find(v => v.name === 'button6')
         });
         this.physics.add.collider(this.door, this.platforms);
 

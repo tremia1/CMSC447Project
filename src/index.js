@@ -1,5 +1,6 @@
 
 import Turtorial from './scenes/Turtorial.js';
+import Level1 from './scenes/Level1.js';
 import StartMenu from './scenes/StartMenu.js';
 import LoadGame from './scenes/LoadGame.js';
 import LeaderBoard from './scenes/LeaderBoard.js';
@@ -30,8 +31,8 @@ const config = {
     
 
 
-    //scene: [test]
-    scene:[StartMenu,  Turtorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
+    scene: [Level1]
+    // scene:[StartMenu,  Turtorial, Level1,GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
 };
 
 const game = new Phaser.Game(config);
