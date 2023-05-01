@@ -121,6 +121,11 @@ class StartMenu extends Phaser.Scene {
 
             if(this.value == 0){
                 this.scene.start('Turtorial');
+                
+                var musicScene = this.scene.get('MusicScene')
+                if (musicScene.music){
+                    musicScene.music.stop()
+                }
             }
 
             else if(this.value == 1){

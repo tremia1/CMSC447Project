@@ -24,6 +24,7 @@ class GameMenu extends Phaser.Scene {
 
 
     create() {
+        this.scene.get('MusicScene').music.play()
 
         // Creates Cursor and Spacebar input and Background
 

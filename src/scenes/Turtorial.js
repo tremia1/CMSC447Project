@@ -28,7 +28,7 @@ class Turtorial extends Phaser.Scene {
         this.load.spritesheet('DogSniff', 'assets/images/Dog/Dog-Sniff.png', { frameWidth: 57, frameHeight: 66 });
         this.load.spritesheet('DogBark', 'assets/images/Dog/Dog-Bark.png', { frameWidth: 50, frameHeight: 40});
         this.load.spritesheet('DogSniffAndWalk', 'assets/images/Dog/Dog-Sniff-Walk.png', { frameWidth: 50, frameHeight: 40});
-
+        // load spritesheet for cat
         this.load.spritesheet('CatIdle', 'assets/images/Cat/Cat-Idle.png', { frameWidth: 15, frameHeight: 15});
         this.load.spritesheet('CatWalk', 'assets/images/Cat/Cat-Walk.png', { frameWidth: 15, frameHeight: 15});
         this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 15, frameHeight: 15});
@@ -87,9 +87,7 @@ class Turtorial extends Phaser.Scene {
         this.add.existing(this.cat.sprite);
         this.cat.sprite.body.setSize(this.cat.sprite.width, this.cat.sprite.height); // fixes collisions
         this.cat.sprite.setScale(1.8) // make it bigger
-
         this.cat.sprite.setOffset(0, -2) // a little off the ground
-
 
         //Create groups for button, block and water
         this.buttonGroup = this.add.group();
@@ -139,7 +137,8 @@ class Turtorial extends Phaser.Scene {
         
         this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
+        
+        
 
     }
     update(time) {
