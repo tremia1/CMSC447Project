@@ -198,8 +198,8 @@ export default class test extends Phaser.Scene {
                 cat: this.cat,
                 dog: this.dog,
                 button: this.buttonGroup,
-                width: this.width,
-                height: this.height
+                width: block.width,
+                height: block.height
             });
 
             
