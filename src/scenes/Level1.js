@@ -8,12 +8,14 @@ import Water from '../../src/object/Water.js';
 export default class test extends Phaser.Scene {
     constructor() {
         super("Level1");
+        
     }
     preload() {
+       
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png'); //Warning: image tile is not tile size multiple in: bakcground (doesnt affect anything)
-        this.load.tilemapTiledJSON('map', 'assets/tilemap/level1.json');
+        this.load.tilemapTiledJSON('level1', 'assets/tilemap/level1.json');
      
 
         //Load spritesheets for objects
@@ -51,12 +53,14 @@ export default class test extends Phaser.Scene {
 
     create() {
         //Creates map and adds layers to it
+
         this.map = this.make.tilemap({
-            key: 'map',
+            key: 'level1',
             tileHeight: 16,
             tileWidth: 16
         });
 
+        
         this.tileset = this.map.addTilesetImage('Textures-16', 'tiles');
         this.backgroundImage = this.map.addTilesetImage('background', 'bg');
         this.background = this.map.createLayer('Background', this.backgroundImage);
@@ -83,6 +87,7 @@ export default class test extends Phaser.Scene {
             hiss: Phaser.Input.Keyboard.KeyCodes.H,
         });
 
+    
 
         //Create Dog Object
         this.map.getObjectLayer('Dog').objects.forEach((dog) => {
@@ -150,6 +155,7 @@ export default class test extends Phaser.Scene {
             //find the button in the button group and pass it into wall class
             this.buttonGroup.getChildren().forEach(function (button) {
                 if (button.name == buttonName) {
+                 
                     buttonForWall = button;
                 }
             });
@@ -208,6 +214,7 @@ export default class test extends Phaser.Scene {
 
         });
 
+        
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
         this.door = new Door({

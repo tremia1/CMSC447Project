@@ -29,8 +29,7 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         this.body.allowGravity = false;
         this.body.pushable = false;
         
-        console.log();
-
+        
         this.scene.physics.add.collider(this, this.scene.platforms);
 
 

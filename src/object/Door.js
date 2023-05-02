@@ -8,6 +8,7 @@ export default class Door extends Phaser.GameObjects.Sprite {
         this.x = config.x;
         this.y = config.y;
         this.button = config.button;
+       
         this.scene = config.scene
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
