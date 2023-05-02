@@ -1,3 +1,4 @@
+import Level1 from './../scenes/Level1.js';
 import Dog from '../../src/object/Dog.js';
 import Cat from '../../src/object/Cat.js';
 import Button from '../../src/object/Button.js';
@@ -5,6 +6,8 @@ import Block from '../../src/object/Block.js';
 import Door from '../../src/object/Door.js';
 import Wall from '../../src/object/Wall.js';
 import Water from '../../src/object/Water.js';
+
+
 export default class test extends Phaser.Scene {
     constructor() {
         super("Turtorial");
@@ -61,6 +64,7 @@ export default class test extends Phaser.Scene {
         this.backgroundImage = this.map.addTilesetImage('background', 'bg');
         this.background = this.map.createLayer('Background', this.backgroundImage);
         this.platforms = this.map.createLayer('Platform', this.tileset);
+        this.levelComplete = 0;
 
         //Sets the collision properties of all tiles in this layer to true
         this.platforms.setCollisionByProperty({ collides: true });
@@ -252,7 +256,13 @@ export default class test extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
             this.scene.start('GameMenu', { "location": 'Tutorial' });
         }
+        if(this.levelComplete == 1){
+            this.scene.start('Level1', { "location": 'Tutorial' });
+        }
 
+    }
+    goNextLevel(){
+        this.levelComplete = 1;
     }
 
 }

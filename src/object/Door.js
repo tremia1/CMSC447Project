@@ -69,6 +69,7 @@ export default class Door extends Phaser.GameObjects.Sprite {
         this.dogCheck = this.checkOverlap(this, this.dog.sprite);
         if(this.catCheck && this.dogCheck){
             console.log(`Worked`);
+            this.scene.goNextLevel();
         }
         /*
         if(this.status == true){
