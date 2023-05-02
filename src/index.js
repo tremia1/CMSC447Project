@@ -31,7 +31,7 @@ const config = {
     
 
 
-    scene: [Level1]
+    scene: [Turtorial, Level1]
     // scene:[StartMenu,  Turtorial, Level1,GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
 };
 
