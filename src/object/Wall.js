@@ -13,6 +13,7 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         this.width = config.width;
         this.height = config.height;
         this.rotate = config.rotate;
+        this.blocks = config.blocks;
     
         this.setOrigin(0);
         this.isActive = false;
@@ -53,6 +54,7 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         if(this.visible == true && this.isActive == false){ //so that collider is only created once
             this.dogCollider = this.scene.physics.add.collider(this.dog.sprite, this);
             this.catCollider = this.scene.physics.add.collider(this.cat.sprite, this);
+            this.blockCollider = this.scene.physics.add.collider(this.blocks, this);
             this.isActive = true;
         };
        
@@ -66,6 +68,7 @@ export default class Wall extends Phaser.GameObjects.Sprite {
         this.visible = false;
         this.dogCollider.destroy();
         this.catCollider.destroy();
+        this.blockCollider.destroy();
         this.isActive = false;
 
     }

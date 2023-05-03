@@ -126,6 +126,24 @@ export default class test extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.map.getObjectLayer('Block').objects.forEach((block) => {
+
+            this.blockSprite = new Block({
+                scene: this,
+                x: block.x ,
+                y: block.y - block.height,
+                width: block.width,
+                height: block.height,
+                cat: this.cat,
+                dog: this.dog,
+                button: this.buttonGroup
+            });
+
+            
+            this.physics.add.collider(this.blockSprite, this.platforms);
+            this.blockGroup.add(this.blockSprite, true);
+
+        });
 
         //Create Button objects
         this.map.getObjectLayer('Button').objects.forEach((button) => {
@@ -136,7 +154,8 @@ export default class test extends Phaser.Scene {
                 status: false,
                 cat: this.cat,
                 dog: this.dog,
-                dur: 200
+                dur: 200,
+                blocks: this.blockGroup,
             });
             this.buttonSprite.name = button.name;
             this.physics.add.collider(this.buttonSprite, this.platforms);
@@ -166,7 +185,8 @@ export default class test extends Phaser.Scene {
                 name: wall.name,
                 button: buttonForWall,
                 width: wall.width,
-                height: wall.height
+                height: wall.height,
+                blocks: this.blockGroup,
 
             });
             this.physics.add.collider(this.wallSprite, this.platforms);
@@ -191,24 +211,7 @@ export default class test extends Phaser.Scene {
         });
 
         // //Create Block objects
-        this.map.getObjectLayer('Block').objects.forEach((block) => {
 
-            this.blockSprite = new Block({
-                scene: this,
-                x: block.x ,
-                y: block.y - block.height,
-                width: block.width,
-                height: block.height,
-                cat: this.cat,
-                dog: this.dog,
-                button: this.buttonGroup
-            });
-
-            
-            this.physics.add.collider(this.blockSprite, this.platforms);
-            this.blockGroup.add(this.blockSprite, true);
-
-        });
 
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];

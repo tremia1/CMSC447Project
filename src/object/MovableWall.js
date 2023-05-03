@@ -13,6 +13,7 @@ export default class MovableWall extends Phaser.GameObjects.Sprite {
         this.width = config.width;
         this.height = config.height;
         this.rotate = config.rotate;
+        this.blocks = config.blocks;
 
         this.setOrigin(0);
         this.isActive = true;
@@ -35,6 +36,7 @@ export default class MovableWall extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.collider(this, this.scene.platforms);
         this.dogCollider = this.scene.physics.add.collider(this.dog.sprite, this);
         this.catCollider = this.scene.physics.add.collider(this.cat.sprite, this);
+        this.blockCollider = this.scene.physics.add.collider(this.blocks, this);
 
 
     }
@@ -55,6 +57,7 @@ export default class MovableWall extends Phaser.GameObjects.Sprite {
         if(this.visible == true && this.isActive == false){
             this.dogCollider = this.scene.physics.add.collider(this.dog.sprite, this);
             this.catCollider = this.scene.physics.add.collider(this.cat.sprite, this);
+            this.blockCollider = this.scene.physics.add.collider(this.blocks, this);
             this.isActive = true;
         }
       
@@ -69,6 +72,7 @@ export default class MovableWall extends Phaser.GameObjects.Sprite {
         if (this.visible == false && this.isActive == true) {
             this.dogCollider.destroy();
             this.catCollider.destroy();
+            this.blockCollider.destroy();
             this.isActive = false;
 
         }

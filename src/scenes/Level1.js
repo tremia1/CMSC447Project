@@ -128,6 +128,26 @@ export default class test extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.map.getObjectLayer('Block').objects.forEach((block) => {
+
+            this.blockSprite = new Block({
+                scene: this,
+                x: block.x,
+                y: block.y - block.height,
+                status: false,
+                cat: this.cat,
+                dog: this.dog,
+                button: this.buttonGroup,
+                width: block.width,
+                height: block.height
+            });
+
+
+            this.physics.add.collider(this.blockSprite, this.platforms);
+            this.blockGroup.add(this.blockSprite, true);
+
+        });
+
 
         //Create Button objects
         this.map.getObjectLayer('Button').objects.forEach((button) => {
@@ -139,7 +159,8 @@ export default class test extends Phaser.Scene {
                 status: false,
                 cat: this.cat,
                 dog: this.dog,
-                dur: button.properties[0].value
+                dur: button.properties[0].value,
+                blocks: this.blockGroup,
             });
             this.buttonSprite.name = button.name;
             this.physics.add.collider(this.buttonSprite, this.platforms);
@@ -174,6 +195,7 @@ export default class test extends Phaser.Scene {
                 button: buttonForWall,
                 width: wall.width,
                 height: wall.height,
+                blocks: this.blockGroup,
             });
 
 
@@ -199,25 +221,6 @@ export default class test extends Phaser.Scene {
         });
 
         // //Create Block objects
-        this.map.getObjectLayer('Block').objects.forEach((block) => {
-
-            this.blockSprite = new Block({
-                scene: this,
-                x: block.x,
-                y: block.y - block.height,
-                status: false,
-                cat: this.cat,
-                dog: this.dog,
-                button: this.buttonGroup,
-                width: block.width,
-                height: block.height
-            });
-
-
-            this.physics.add.collider(this.blockSprite, this.platforms);
-            this.blockGroup.add(this.blockSprite, true);
-
-        });
 
 
         //Create Door object
@@ -237,6 +240,7 @@ export default class test extends Phaser.Scene {
         this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
         this.physics.add.collider(this.cat.sprite, this.dog.sprite);
+        this.physics.add.collider(this.blockGroup, this.blockGroup);
 
 
 
@@ -251,6 +255,7 @@ export default class test extends Phaser.Scene {
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
         this.door.update();
+        this.physics.add.collider(this.blockGroup, this.blockGroup);
 
         this.gameRuntime = time * 0.001;
 

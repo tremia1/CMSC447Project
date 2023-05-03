@@ -18,6 +18,7 @@ export default class Button extends Phaser.GameObjects.Sprite {
         this.body.setSize(9,6);
         this.body.offset.set(-6,0);    
         this.body.immovable = true;
+        this.blockgroup = config.blocks;
         config.scene.physics.add.overlap(this, this.dog.sprite);
         config.scene.physics.add.overlap(this, this.cat.sprite);
 
@@ -46,7 +47,14 @@ export default class Button extends Phaser.GameObjects.Sprite {
             frameRate: 5,
             repeat: -1
         });
-  */      
+
+  */    
+
+
+        let button = this;
+        this.blockgroup.getChildren().forEach(function(block){
+            config.scene.physics.add.overlap(block,button);
+        });
         
     }
 
