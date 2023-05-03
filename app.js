@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
-const apiRouter = require('./apiRouter');
+const apiRouter = require('./api/apiRouter');
 
 const app = express();
 

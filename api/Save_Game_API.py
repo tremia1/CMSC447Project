@@ -30,9 +30,6 @@ def index():
     return render_template('index.html', users=users)
 
 
-
-
-
 @app.route('/insert/', methods=('GET', 'POST'))
 def insert():
   # Set up up the search form and let the person fill in the form of the new user of 
