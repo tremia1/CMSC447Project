@@ -5,9 +5,10 @@ import Block from '../../src/object/Block.js';
 import Door from '../../src/object/Door.js';
 import Wall from '../../src/object/Wall.js';
 import Water from '../../src/object/Water.js';
+import MovableWall from '../../src/object/MovableWall.js';
 export default class test extends Phaser.Scene {
     constructor() {
-        super("Level1");
+        super("Level2");
 
     }
     preload() {
@@ -15,7 +16,7 @@ export default class test extends Phaser.Scene {
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png'); //Warning: image tile is not tile size multiple in: bakcground (doesnt affect anything)
-        this.load.tilemapTiledJSON('level1', 'assets/tilemap/level1.json');
+        this.load.tilemapTiledJSON('level2', 'assets/tilemap/level2.json');
 
 
         //Load spritesheets for objects
@@ -28,7 +29,7 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('wallTile', 'assets/tileset/Tiles/tile042.png');
-
+        this.load.image('movewallTile', 'assets/tileset/Tiles/tile042.png');
 
         this.load.image('waterTile', 'assets/tileset/Tiles/tile261.png');
 
@@ -55,7 +56,7 @@ export default class test extends Phaser.Scene {
         //Creates map and adds layers to it
 
         this.map = this.make.tilemap({
-            key: 'level1',
+            key: 'level2',
             tileHeight: 16,
             tileWidth: 16
         });
@@ -128,6 +129,9 @@ export default class test extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.movableWallGroup = this.add.group({
+            runChildUpdate: true
+        });
 
         //Create Button objects
         this.map.getObjectLayer('Button').objects.forEach((button) => {
@@ -151,7 +155,7 @@ export default class test extends Phaser.Scene {
         //Can change specific walls according to id
         this.map.getObjectLayer('Wall').objects.forEach((wall) => {
             //get the name of the button that this wall is associated with
-           
+            console.log(wall)
             let buttonName = wall.properties[0].value;
 
 
@@ -180,6 +184,40 @@ export default class test extends Phaser.Scene {
             this.physics.add.collider(this.wallSprite, this.platforms);
             this.wallGroup.add(this.wallSprite);
         });
+
+        //Create Wall objects that are visible at first and then disappears when button is pressed
+        this.map.getObjectLayer('Movable walls').objects.forEach((mwall) => {
+            //get the name of the button that this wall is associated with
+            
+            let buttonName = mwall.properties[0].value;
+
+
+            let buttonForWall;
+            //find the button in the button group and pass it into wall class
+            this.buttonGroup.getChildren().forEach(function (button) {
+                if (button.name == buttonName) {
+
+                    buttonForWall = button;
+                }
+            });
+            this.mwallSprite = new MovableWall({
+                scene: this,
+                x: mwall.x,
+                y: mwall.y,
+                visible: true,
+                cat: this.cat,
+                dog: this.dog,
+                name: mwall.name,
+                button: buttonForWall,
+                width: mwall.width,
+                height: mwall.height,
+            });
+
+
+            this.physics.add.collider(this.mwallSprite, this.platforms);
+            this.movableWallGroup.add(this.mwallSprite);
+        });
+
 
         //Create Water objects
         this.map.getObjectLayer('Water').objects.forEach((water) => {
@@ -229,7 +267,7 @@ export default class test extends Phaser.Scene {
             status: false,
             cat: this.cat,
             dog: this.dog,
-            button: this.buttonGroup.getChildren().find(v => v.name === 'button6')
+            button: this.buttonGroup.getChildren().find(v => v.name === 'button2')
         });
         this.physics.add.collider(this.door, this.platforms);
 
@@ -263,11 +301,11 @@ export default class test extends Phaser.Scene {
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
-            this.scene.start('GameMenu', { "location": 'Level1' });
+            this.scene.start('GameMenu', { "location": 'Level2' });
         }
         if (this.levelComplete == 1) {
 
-            this.scene.start('Level2', { "location": 'Level1' });
+            this.scene.start('Level3', { "location": 'Level2' });
 
 
 

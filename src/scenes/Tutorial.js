@@ -5,18 +5,18 @@ import Block from '../../src/object/Block.js';
 import Door from '../../src/object/Door.js';
 import Wall from '../../src/object/Wall.js';
 import Water from '../../src/object/Water.js';
+
+
 export default class test extends Phaser.Scene {
     constructor() {
-        super("Level1");
-
+        super("Tutorial");
     }
     preload() {
-
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png'); //Warning: image tile is not tile size multiple in: bakcground (doesnt affect anything)
-        this.load.tilemapTiledJSON('level1', 'assets/tilemap/level1.json');
-
+        this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
+     
 
         //Load spritesheets for objects
         this.load.spritesheet('button-up', 'assets/images/ButtonUp.png', { frameWidth: 9, frameHeight: 6 });
@@ -28,10 +28,10 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('wallTile', 'assets/tileset/Tiles/tile042.png');
-
+     
 
         this.load.image('waterTile', 'assets/tileset/Tiles/tile261.png');
-
+      
 
 
         //Load Spritesheet for Dog
@@ -53,18 +53,17 @@ export default class test extends Phaser.Scene {
 
     create() {
         //Creates map and adds layers to it
-
         this.map = this.make.tilemap({
-            key: 'level1',
+            key: 'map',
             tileHeight: 16,
             tileWidth: 16
         });
-
 
         this.tileset = this.map.addTilesetImage('Textures-16', 'tiles');
         this.backgroundImage = this.map.addTilesetImage('background', 'bg');
         this.background = this.map.createLayer('Background', this.backgroundImage);
         this.platforms = this.map.createLayer('Platform', this.tileset);
+        this.levelComplete = 0;
 
         //Sets the collision properties of all tiles in this layer to true
         this.platforms.setCollisionByProperty({ collides: true });
@@ -86,7 +85,6 @@ export default class test extends Phaser.Scene {
             up: Phaser.Input.Keyboard.KeyCodes.UP,
             hiss: Phaser.Input.Keyboard.KeyCodes.H,
         });
-
 
 
         //Create Dog Object
@@ -123,7 +121,7 @@ export default class test extends Phaser.Scene {
         this.blockGroup = this.add.group({
             runChildUpdate: true
         });
-
+        
         this.waterGroup = this.add.group({
             runChildUpdate: true
         });
@@ -131,7 +129,6 @@ export default class test extends Phaser.Scene {
 
         //Create Button objects
         this.map.getObjectLayer('Button').objects.forEach((button) => {
-
             this.buttonSprite = new Button({
                 scene: this,
                 x: button.x,
@@ -139,7 +136,7 @@ export default class test extends Phaser.Scene {
                 status: false,
                 cat: this.cat,
                 dog: this.dog,
-                dur: button.properties[0].value
+                dur: 200
             });
             this.buttonSprite.name = button.name;
             this.physics.add.collider(this.buttonSprite, this.platforms);
@@ -151,49 +148,44 @@ export default class test extends Phaser.Scene {
         //Can change specific walls according to id
         this.map.getObjectLayer('Wall').objects.forEach((wall) => {
             //get the name of the button that this wall is associated with
-           
             let buttonName = wall.properties[0].value;
-
-
             let buttonForWall;
             //find the button in the button group and pass it into wall class
             this.buttonGroup.getChildren().forEach(function (button) {
                 if (button.name == buttonName) {
-
                     buttonForWall = button;
                 }
             });
             this.wallSprite = new Wall({
                 scene: this,
                 x: wall.x,
-                y: wall.y,
+                y: wall.y - wall.height,
                 visible: false,
                 cat: this.cat,
                 dog: this.dog,
                 name: wall.name,
                 button: buttonForWall,
                 width: wall.width,
-                height: wall.height,
+                height: wall.height
+
             });
-
-
             this.physics.add.collider(this.wallSprite, this.platforms);
             this.wallGroup.add(this.wallSprite);
         });
 
         //Create Water objects
         this.map.getObjectLayer('Water').objects.forEach((water) => {
-
+            
             this.waterSprite = new Water({
                 scene: this,
                 x: water.x,
-                y: water.y - water.height,
+                y : water.y- water.height,
                 cat: this.cat,
                 dog: this.dog,
                 width: water.width,
                 height: water.height
             });
-
+           
             this.physics.add.collider(this.waterSprite, this.platforms);
             this.waterGroup.add(this.waterSprite);
         });
@@ -203,22 +195,20 @@ export default class test extends Phaser.Scene {
 
             this.blockSprite = new Block({
                 scene: this,
-                x: block.x,
+                x: block.x ,
                 y: block.y - block.height,
-                status: false,
+                width: block.width,
+                height: block.height,
                 cat: this.cat,
                 dog: this.dog,
-                button: this.buttonGroup,
-                width: block.width,
-                height: block.height
+                button: this.buttonGroup
             });
 
-
+            
             this.physics.add.collider(this.blockSprite, this.platforms);
             this.blockGroup.add(this.blockSprite, true);
 
         });
-
 
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
@@ -229,7 +219,7 @@ export default class test extends Phaser.Scene {
             status: false,
             cat: this.cat,
             dog: this.dog,
-            button: this.buttonGroup.getChildren().find(v => v.name === 'button6')
+            button: this.buttonGroup.getChildren().find(v => v.name === 'button2')
         });
         this.physics.add.collider(this.door, this.platforms);
 
@@ -263,17 +253,18 @@ export default class test extends Phaser.Scene {
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
-            this.scene.start('GameMenu', { "location": 'Level1' });
+            this.scene.start('GameMenu', { "location": 'Tutorial' });
         }
-        if (this.levelComplete == 1) {
-
-            this.scene.start('Level2', { "location": 'Level1' });
-
-
+        if(this.levelComplete == 1){
+          
+             this.scene.start('Level1', { "location": 'Tutorial' });
+            
+           
 
         }
+
     }
-    goNextLevel() {
+    goNextLevel(){
         this.levelComplete = 1;
     }
 

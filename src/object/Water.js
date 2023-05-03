@@ -16,7 +16,7 @@ export default class Water extends Phaser.GameObjects.Sprite {
         config.scene.physics.world.enable(this);
 
 
-        this.body.setVelocity(0, 0).setBounce(0, 0).setCollideWorldBounds(true);
+        
         this.body.allowGravity = true;
         this.body.setSize(this.width, this.height); 
            

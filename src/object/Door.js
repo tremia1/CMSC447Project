@@ -42,11 +42,7 @@ export default class Door extends Phaser.GameObjects.Sprite {
             frameWidth: 73,
             frameHeight: 85
         });
-        //config.scene.physics.add.overlap(this, this.dog.sprite,this.openDoor);
-        //config.scene.physics.add.overlap(this, this.cat.sprite,this.closeDoor);
-        //this.scene.physics.add.overlap(this, this.dog.sprite, this.openDoor);
-        //this.scene.physics.add.overlap(this, this.cat.sprite, this.closeDoor);
-
+     
         this.anims.play('closed');
     }
     update(){
@@ -69,18 +65,10 @@ export default class Door extends Phaser.GameObjects.Sprite {
         this.catCheck= this.checkOverlap(this, this.cat.sprite);
         this.dogCheck = this.checkOverlap(this, this.dog.sprite);
         if(this.catCheck && this.dogCheck){
-            console.log(`Worked`);
+            
             this.scene.goNextLevel();
         }
-        /*
-        if(this.status == true){
-            this.anims.play('animation');
-            this.anims.play('open');
-        }else{
-            this.anims.playReverse('animation');
-            this.anims.play('closed');
-        }
-        */
+      
 
     }
 
