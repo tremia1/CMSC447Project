@@ -64,6 +64,7 @@ export default class test extends Phaser.Scene {
         this.background = this.map.createLayer('Background', this.backgroundImage);
         this.platforms = this.map.createLayer('Platform', this.tileset);
         this.levelComplete = 0;
+        this.timeEvent = this.time.addEvent({ delay: 1000, callback: this.updateTime, callbackScope: this, loop: true });
 
         //Sets the collision properties of all tiles in this layer to true
         this.platforms.setCollisionByProperty({ collides: true });
@@ -239,23 +240,35 @@ export default class test extends Phaser.Scene {
       
 
     }
+    init(data){
+        console.log('init', data);
+        console.log('1st', this.gameRuntime);
 
-    update(time) {
+        this.gameRuntime = data.Time;
+        console.log('2st', this.gameRuntime);
+    }
+
+    update() {
 
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
         this.door.update();
-        
+        /*
+        var temp = (time * .001) - this.gameRuntime;
 
-
-        this.gameRuntime = time * 0.001;
+        this.gameRuntime = temp + this.gameRuntime;
+        console.log(`Temp ${temp}`);
+        console.log(`Time ${this.gameRuntime}`);
 
         this.minutes = Math.floor(this.gameRuntime / 60);
 
         this.seconds = this.gameRuntime - (this.minutes * 60);
-
+        */
         //Check to see if button was pressed, if pressed, set wall to visible and add physic collider
         //Probably call a function to do this once
+        this.minutes = Math.floor(this.gameRuntime / 60);
+
+        this.seconds = this.gameRuntime - (this.minutes * 60); 
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
@@ -266,7 +279,7 @@ export default class test extends Phaser.Scene {
         }
         if(this.levelComplete == 1){
           
-             this.scene.start('Level1', { "location": 'Tutorial' });
+             this.scene.start('Level1', {Time: 0});
             
            
 
@@ -275,6 +288,10 @@ export default class test extends Phaser.Scene {
     }
     goNextLevel(){
         this.levelComplete = 1;
+    }
+
+    updateTime(){
+        this.gameRuntime += 1;
     }
 
 }

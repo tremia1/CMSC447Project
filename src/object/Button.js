@@ -16,7 +16,7 @@ export default class Button extends Phaser.GameObjects.Sprite {
         this.body.setVelocity(0, 0).setBounce(0,0).setCollideWorldBounds(false);
         this.body.allowGravity = true;
         this.body.setSize(9,6);
-        this.body.offset.set(-6,0);    
+        this.body.offset.set(0,0);    
         this.body.immovable = true;
         this.blockgroup = config.blocks;
         config.scene.physics.add.overlap(this, this.dog.sprite);

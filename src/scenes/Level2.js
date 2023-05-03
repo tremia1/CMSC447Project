@@ -66,6 +66,7 @@ export default class test extends Phaser.Scene {
         this.backgroundImage = this.map.addTilesetImage('background', 'bg');
         this.background = this.map.createLayer('Background', this.backgroundImage);
         this.platforms = this.map.createLayer('Platform', this.tileset);
+        this.timeEvent = this.time.addEvent({ delay: 1000, callback: this.updateTime, callbackScope: this, loop: true });
 
         //Sets the collision properties of all tiles in this layer to true
         this.platforms.setCollisionByProperty({ collides: true });
@@ -308,15 +309,21 @@ export default class test extends Phaser.Scene {
 
 
     }
+    init(data){
+        console.log('init', data);
+        //console.log('1st', this.gameRuntime);
 
-    update(time) {
+        this.gameRuntime = data.Time;
+        //console.log('2st', this.gameRuntime);
+    }
+
+    update() {
 
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
         this.door.update();
         this.physics.add.collider(this.blockGroup, this.blockGroup);
 
-        this.gameRuntime = time * 0.001;
 
         this.minutes = Math.floor(this.gameRuntime / 60);
 
@@ -332,7 +339,7 @@ export default class test extends Phaser.Scene {
         }
         if (this.levelComplete == 1) {
 
-            this.scene.start('Level3', { "location": 'Level2' });
+            this.scene.start('Level3', {Time: this.gameRuntime});
 
 
 
@@ -340,6 +347,10 @@ export default class test extends Phaser.Scene {
     }
     goNextLevel() {
         this.levelComplete = 1;
+    }
+
+    updateTime(){
+        this.gameRuntime += 1;
     }
 
 }
