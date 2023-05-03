@@ -1,6 +1,6 @@
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
-const gameDbPath = path.resolve(__dirname, '../src/database/game.db');
+const gameDbPath = path.resolve(__dirname, '../src/database/test.db');
 
 // Create leaderboard table in the game database
 const createLeaderboard = () => {
