@@ -232,7 +232,8 @@ export default class test extends Phaser.Scene {
 
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
+       
+      
 
     }
 
@@ -241,6 +242,8 @@ export default class test extends Phaser.Scene {
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
         this.door.update();
+        
+
 
         this.gameRuntime = time * 0.001;
 
@@ -253,7 +256,10 @@ export default class test extends Phaser.Scene {
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
-            this.scene.start('GameMenu', { "location": 'Tutorial' });
+            this.scene.pause();
+            
+            this.scene.launch('GameMenu', { "location": 'Tutorial'});
+         
         }
         if(this.levelComplete == 1){
           

@@ -12,7 +12,7 @@ class QuitMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+        this.load.image('background', 'assets/images/background1.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
@@ -30,30 +30,32 @@ class QuitMenu extends Phaser.Scene {
         // Creates Cursor and Spacebar input and Background
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
 
         this.backgroundImage = this.add.image(0, 0, 'background');
-        this.backgroundImage.displayWidth = this.sys.canvas.width;
-        this.backgroundImage.displayHeight = this.sys.canvas.height;
-        this.backgroundImage.setScale( 8);
-
+        this.backgroundImage.displayHeight = this.sys.game.config.height;
+        this.backgroundImage.displayWidth = this.sys.game.config.width;
+        this.backgroundImage.scaleX = this.backgroundImage.scaleY
+        this.backgroundImage.y = this.sys.game.config.height/2;
+        this.backgroundImage.x = this.sys.game.config.width /2;
+  
         // Creates the title and the button layout for Quit Menu
 
-        this.title = this.add.text(660, 100, 'Quit Game ?', { fontSize: '32px', fill: '#FFFFFF' });
+        this.title = this.add.text(this.sys.canvas.width / 2 - 95, 100, 'Quit Game ?', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
-        this.Yes = this.add.image(650, 250, 'wood').setOrigin(0, 0);
+        this.Yes = this.add.image(this.sys.canvas.width / 2 - 130, 250, 'wood').setOrigin(0, 0);
         this.Yes.setScale(.03);
-        this.add.text(670, 250, 'Yes', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 50, 270, 'Yes', { fontSize: '32px', fill: '#000000' });
 
-        this.No = this.add.image(650, 350, 'wood').setOrigin(0, 0);
+        this.No = this.add.image(this.sys.canvas.width / 2 - 130, 350, 'wood').setOrigin(0, 0);
         this.No.setScale(.03);
-        this.add.text(670, 350, 'No', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 50, 370, 'No', { fontSize: '32px', fill: '#000000' });
 
-        this.Save = this.add.image(650, 450, 'wood').setOrigin(0, 0);
+        this.Save = this.add.image(this.sys.canvas.width / 2 - 130, 450, 'wood').setOrigin(0, 0);
         this.Save.setScale(.03);
-        this.add.text(670, 450, 'Save Game', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 -100, 470, 'Save Game', { fontSize: '32px', fill: '#000000' });
 
         //Creates Back Buttton
         this.Back = this.add.image(100, 630, 'Back').setOrigin(0, 0);
@@ -61,12 +63,12 @@ class QuitMenu extends Phaser.Scene {
 
          // Creates the Selection Cursor 
 
-        this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 50, 270, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
         // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
 
-        this.Yaxis = 250;
+        this.Yaxis = 270;
 
         this.value = 0;
 
@@ -91,21 +93,21 @@ class QuitMenu extends Phaser.Scene {
             }
 
             if(this.value == 0){
-                this.Yaxis = 250;
+                this.Yaxis = 270;
             }
 
             else if(this.value == 1){
-                this.Yaxis = 350;
+                this.Yaxis = 370;
             }
 
             else if (this.value == 2){
-                this.Yaxis = 450;
+                this.Yaxis = 470;
             }
 
 
 
 
-            this.buttonSelector.setPosition(  850, this.Yaxis);
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 50, this.Yaxis);
             
             
 
@@ -121,24 +123,24 @@ class QuitMenu extends Phaser.Scene {
             }
 
             if(this.value == 0){
-                this.Yaxis = 250;
+                this.Yaxis = 270;
             }
 
             else if(this.value == 1){
-                this.Yaxis = 350;
+                this.Yaxis = 370;
             }
 
             else if (this.value == 2){
-                this.Yaxis = 450;
+                this.Yaxis = 470;
             }
 
-            this.buttonSelector.setPosition(  850, this.Yaxis );
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 50, this.Yaxis );
 	
 		}
         // Goes back to the previous scene determine by Location
 
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
-		{   
+		{       
                 this.scene.start(this.location);
 	
 		}

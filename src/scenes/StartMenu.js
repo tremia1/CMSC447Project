@@ -36,17 +36,17 @@ class StartMenu extends Phaser.Scene {
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
-        this.StartButton = this.add.image(this.sys.canvas.width / 2 - 150, 300, 'wood').setOrigin(0, 0);
+        this.StartButton = this.add.image(this.sys.canvas.width / 2 - 130, 300, 'wood').setOrigin(0, 0);
         this.StartButton.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 140, 320, 'Start Game', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 120, 320, 'Start Game', { fontSize: '32px', fill: '#000000' });
 
-        this.LoadButton = this.add.image(this.sys.canvas.width / 2 - 150, 400, 'wood').setOrigin(0, 0);
+        this.LoadButton = this.add.image(this.sys.canvas.width / 2 - 130, 400, 'wood').setOrigin(0, 0);
         this.LoadButton.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 140, 420, 'Load Game', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 120, 420, 'Load Game', { fontSize: '32px', fill: '#000000' });
 
-        this.LeaderBoard = this.add.image(this.sys.canvas.width / 2 - 150, 500, 'wood').setOrigin(0, 0);
+        this.LeaderBoard = this.add.image(this.sys.canvas.width / 2 - 130, 500, 'wood').setOrigin(0, 0);
         this.LeaderBoard.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 140, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 120, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
 
         // Creates the Selection Cursor 
         this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 50, 325, 'cursor').setOrigin(0, 0);
@@ -121,7 +121,7 @@ class StartMenu extends Phaser.Scene {
 		{
 
             if(this.value == 0){
-                this.scene.start('Turtorial');
+                this.scene.start('Tutorial');
             }
 
             else if(this.value == 1){

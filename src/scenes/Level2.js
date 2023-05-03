@@ -301,7 +301,8 @@ export default class test extends Phaser.Scene {
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
-            this.scene.start('GameMenu', { "location": 'Level2' });
+            this.scene.pause();
+            this.scene.launch('GameMenu', { "location": 'Level2' });
         }
         if (this.levelComplete == 1) {
 
