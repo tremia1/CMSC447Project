@@ -8,10 +8,11 @@ class StartMenu extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/images/background.png');
 
-        this.load.image('cursor','assets/images/cursor.png');
-        this.load.image('wood','assets/images/wood.png');
-
-        
+        this.load.image('cursor','assets/images/cursor.png')
+        this.load.image('wood','assets/images/wood.png')
+        this.load.audio('backgroundMusic', 'assets/sounds/GameMenu.mp3')
+        this.load.audio('clickedSound', 'assets/sounds/clicked.mp3')
+        this.load.audio('navigateSound', 'assets/sounds/navigate.mp3')
 
     }
 
@@ -58,7 +59,22 @@ class StartMenu extends Phaser.Scene {
         this.value = 0;
 
 
+        // In another scene where you want to check if the sound exists
+        var soundManager = this.scene.get('StartMenu').sound;
+        var soundObject = soundManager.get('backgroundMusic');
 
+        if (soundObject) {
+            this.music = soundObject
+        } else {
+            // create the background music 
+            this.music = this.sound.add('backgroundMusic', { loop: true });
+            this.music.play();
+        }
+        
+        // set selected sound
+        this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
+        // set cursor moving music
+        this.navSound = soundManager.get('navigateSound') || this.sound.add('navigateSound', { loop: false })
     }
 
 
@@ -68,7 +84,7 @@ class StartMenu extends Phaser.Scene {
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
             this.value = this.value - 1;
-
+            this.navSound.play()
             if(this.value < 0){
                 this.value = 2;
             }
@@ -94,7 +110,8 @@ class StartMenu extends Phaser.Scene {
 		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
 		{   
             this.value = this.value + 1;
-            
+            this.navSound.play()
+
             if(this.value > 2){
                 this.value = 0;
             }
@@ -118,14 +135,10 @@ class StartMenu extends Phaser.Scene {
         // Goes to a scene based on button selection, feed location so user can come back
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
-
+            this.clickedSound.play()
             if(this.value == 0){
+                this.music.stop();
                 this.scene.start('Turtorial');
-                
-                var musicScene = this.scene.get('MusicScene')
-                if (musicScene.music){
-                    musicScene.music.stop()
-                }
             }
 
             else if(this.value == 1){

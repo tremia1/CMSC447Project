@@ -80,7 +80,12 @@ class LoadGame extends Phaser.Scene {
         this.Yaxis = 150;
 
         this.value = 0;
-
+        
+        var soundManager = this.scene.get('StartMenu').sound;
+        // set selected sound
+        this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
+        // set cursor moving music
+        this.navSound = soundManager.get('navigateSound') || this.sound.add('navigateSound', { loop: false })
 
 
    
@@ -95,6 +100,7 @@ class LoadGame extends Phaser.Scene {
 
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
+            this.navSound.play()
             this.value = this.value - 1;
 
             if(this.value < 0){
@@ -130,6 +136,7 @@ class LoadGame extends Phaser.Scene {
 
 		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
 		{   
+            this.navSound.play()
             this.value = this.value + 1;
             
             if(this.value > 4){
@@ -163,6 +170,7 @@ class LoadGame extends Phaser.Scene {
 
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
 		{   
+                this.clickedSound.play()
                 this.scene.start(this.location);
 	
 		}
@@ -171,7 +179,7 @@ class LoadGame extends Phaser.Scene {
         
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
-
+            this.clickedSound.play()
             if(this.value == 0){
                 /*Load save one*/
             }

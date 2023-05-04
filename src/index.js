@@ -5,7 +5,7 @@ import LeaderBoard from './scenes/LeaderBoard.js';
 import GameMenu from './scenes/GameMenu.js';
 import QuitMenu from './scenes/QuitMenu.js';
 import SaveGame from './scenes/SaveGame.js';
-import MusicScene from './scenes/MusicScene.js'
+
 
 const config = {
   type: Phaser.AUTO,
@@ -27,7 +27,7 @@ const config = {
 
 
 
-    scene:[StartMenu, MusicScene, Turtorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
+    scene:[StartMenu, Turtorial, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
 };
 
 const game = new Phaser.Game(config);
