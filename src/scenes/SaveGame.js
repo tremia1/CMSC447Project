@@ -80,10 +80,12 @@ class SaveGame extends Phaser.Scene {
         this.Yaxis = 120;
 
         this.value = 0;
-
-
-
-   
+        
+        var soundManager = this.scene.get('StartMenu').sound;
+        // set selected sound
+        this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
+        // set cursor moving music
+        this.navSound = soundManager.get('navigateSound') || this.sound.add('navigateSound', { loop: false })
 
 
     }
@@ -95,6 +97,7 @@ class SaveGame extends Phaser.Scene {
 
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
+            this.navSound.play()
             this.value = this.value - 1;
 
             if(this.value < 0){
@@ -129,6 +132,7 @@ class SaveGame extends Phaser.Scene {
         // Makes the selection cursor goes down  from each button and when it reach last button it loop back to top one
 		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
 		{   
+            this.navSound.play()
             this.value = this.value + 1;
             
             if(this.value > 4){
@@ -161,14 +165,16 @@ class SaveGame extends Phaser.Scene {
         // Goes back to the previous scene determine by Location
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
 		{   
-                this.scene.start(this.location);
+            this.clickedSound.play()
+            this.scene.start(this.location);
 	
 		}
 
         // Save at chosen button using value 
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
-
+            
+            this.clickedSound.play()
             if(this.value == 0){
                 /*save  at one*/
             }

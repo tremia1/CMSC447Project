@@ -33,8 +33,6 @@ const config = {
     parent: 'game',
     backgroundColor: '#000000',
     
-
-
     
    scene:[StartMenu, Tutorial, Level1, Level2, Level3, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
 };

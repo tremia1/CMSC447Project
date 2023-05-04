@@ -24,7 +24,6 @@ class GameMenu extends Phaser.Scene {
 
 
     create() {
-
         // Creates Cursor and Spacebar input and Background
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -81,9 +80,16 @@ class GameMenu extends Phaser.Scene {
 
 
 
-   
-
-
+        // In another scene where you want to check if the sound exists
+        var soundManager = this.scene.get('StartMenu').sound;
+        var soundObject = soundManager.get('backgroundMusic');
+        if(!soundObject.isPlaying){
+            soundObject.play()
+        }
+        // set selected sound
+        this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
+        // set cursor moving music
+        this.navSound = soundManager.get('navigateSound') || this.sound.add('navigateSound', { loop: false })
     }
     update() {
 
@@ -93,8 +99,10 @@ class GameMenu extends Phaser.Scene {
 		
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
-            this.value = this.value - 1;
+            this.navSound.play()
 
+            this.value = this.value - 1;
+    
             if(this.value < 0){
                 this.value = 3;
             }
@@ -123,7 +131,8 @@ class GameMenu extends Phaser.Scene {
         // Makes the selection cursor goes down  from each button and when it reach last button it loop back to top one
 
 		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
-		{   
+		{  
+            this.navSound.play() 
             this.value = this.value + 1;
             
             if(this.value > 3){
@@ -154,7 +163,7 @@ class GameMenu extends Phaser.Scene {
 
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
-
+            this.clickedSound.play()
             if(this.value == 0){
                 this.scene.start('SaveGame' ,{ "location": 'GameMenu' });
             }

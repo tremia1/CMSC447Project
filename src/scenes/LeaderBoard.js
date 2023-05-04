@@ -75,24 +75,23 @@ class LeaderBoard extends Phaser.Scene {
   
  
 
-
-
+        var soundManager = this.scene.get('StartMenu').sound;
+        // set selected sound
+        this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
+        // set cursor moving music
+        this.navSound = soundManager.get('navigateSound') || this.sound.add('navigateSound', { loop: false })
    
 
 
     }
     update() {
-
         // Goes back to the previous scene determine by Location
 
-        if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
-		{   
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.left)){   
+                this.clickedSound.play()
                 this.scene.start(this.location);
-	
-		}
-   
+		    }
         
-
     }
  
 } export default LeaderBoard;

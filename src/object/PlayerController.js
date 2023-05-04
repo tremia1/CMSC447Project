@@ -16,6 +16,8 @@ export default class PlayerController {
         this.body = sprite.body
         this.jumpHeight = WALK_SPEED
         this.walkSpeed = JUMP_HEIGHT
+        this.sprite.setDamping(true);
+        this.sprite.setDrag(0.1 * this.body.mass, 0);
 
         this.createAnimations()
 

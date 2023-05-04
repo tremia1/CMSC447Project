@@ -72,7 +72,11 @@ class QuitMenu extends Phaser.Scene {
 
         this.value = 0;
 
-
+        var soundManager = this.scene.get('StartMenu').sound;
+        // set selected sound
+        this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
+        // set cursor moving music
+        this.navSound = soundManager.get('navigateSound') || this.sound.add('navigateSound', { loop: false })
 
    
 
@@ -86,6 +90,7 @@ class QuitMenu extends Phaser.Scene {
 
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{
+            this.navSound.play()
             this.value = this.value - 1;
 
             if(this.value < 0){
@@ -116,6 +121,7 @@ class QuitMenu extends Phaser.Scene {
 
 		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
 		{   
+            this.navSound.play()
             this.value = this.value + 1;
             
             if(this.value > 2){
@@ -140,8 +146,10 @@ class QuitMenu extends Phaser.Scene {
         // Goes back to the previous scene determine by Location
 
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
-		{       
-                this.scene.start(this.location);
+
+		{   
+            this.clickedSound.play()
+            this.scene.start(this.location);
 	
 		}
 
@@ -149,6 +157,7 @@ class QuitMenu extends Phaser.Scene {
 
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
+            this.clickedSound.play()
 
             if(this.value == 0){
                 this.scene.start('StartMenu');
