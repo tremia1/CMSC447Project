@@ -9,7 +9,7 @@ import LeaderBoard from './scenes/LeaderBoard.js';
 import GameMenu from './scenes/GameMenu.js';
 import QuitMenu from './scenes/QuitMenu.js';
 import SaveGame from './scenes/SaveGame.js';
-import test from './scenes/test.js'
+
 
 /* Game Scene*/
 const config = {

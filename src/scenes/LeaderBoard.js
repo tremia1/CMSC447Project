@@ -73,17 +73,7 @@ class LeaderBoard extends Phaser.Scene {
         this.Back = this.add.image(100, 630, 'Back').setOrigin(0, 0);
         this.Back.setScale(.3);
   
-        // Creates the Selection Cursor 
-
-
-        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 30, 120, 'cursor').setOrigin(0, 0);
-        this.buttonSelector.setScale(.4)
-
-        // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
-
-        this.Yaxis = 120;
-
-        this.value = 0;
+ 
 
 
 
@@ -93,113 +83,14 @@ class LeaderBoard extends Phaser.Scene {
     }
     update() {
 
-  
-
-		// Makes the selection cursor goes  up from each button and when it reach top button it loop back to bottom one
-
-		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
-		{
-            this.value = this.value - 1;
-
-            if(this.value < 0){
-                this.value = 4;
-            }
-
-            if(this.value == 0){
-                this.Yaxis = 120;
-            }
-
-            else if(this.value == 1){
-                this.Yaxis = 220;
-            }
-
-            else if (this.value == 2){
-                this.Yaxis = 320;
-            }
-
-            else if(this.value == 3){
-                this.Yaxis = 420;
-            }
-
-            else if (this.value == 4){
-                this.Yaxis = 520;
-            }
-
- 
-
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 30, this.Yaxis);
-            
-            
-
-		}
-        // Makes the selection cursor goes down  from each button and when it reach last button it loop back to top one
-
-		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
-		{   
-            this.value = this.value + 1;
-            
-            if(this.value > 4){
-                this.value = 0;
-            }
-
-            if(this.value == 0){
-                this.Yaxis = 120;
-            }
-
-            else if(this.value == 1){
-                this.Yaxis = 220;
-            }
-
-            else if (this.value == 2){
-                this.Yaxis = 320;
-            }
-
-            else if(this.value == 3){
-                this.Yaxis = 420;
-            }
-
-            else if (this.value == 4){
-                this.Yaxis = 520;
-            }
-
-
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 30, this.Yaxis );
-	
-		}
         // Goes back to the previous scene determine by Location
 
-        else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
 		{   
                 this.scene.start(this.location);
 	
 		}
-        // Does action said by Button Selected
-
-		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
-		{
-
-            if(this.value == 0){
-                /*View number one*/
-            }
-
-            else if(this.value == 1){
-                 /*View number two*/
-            }
-
-            else if (this.value == 2){
-                 /*View number three*/
-            }
-
-            
-            else if(this.value == 3){
-                 /*View number  four*/
-            }
-
-            else if (this.value == 4){
-                 /*View number five*/
-            }
-
-		}
+   
         
 
     }
