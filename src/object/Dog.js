@@ -1,5 +1,7 @@
 import PlayerController from './PlayerController.js';
 
+const WALK_SPEED = 150
+const JUMP_HEIGHT = 180
 export default class Dog extends PlayerController {
   constructor(scene, cursors, x, y, name) {
     
@@ -8,6 +10,9 @@ export default class Dog extends PlayerController {
     super(scene, sprite, cursors, name); // call constructor of parent 
     
     this.createAnimations(); // create the animation
+
+    this.jumpHeight = JUMP_HEIGHT
+    this.walkSpeed = WALK_SPEED
 
     this.stateMachine
     .addState("sniffWalk", {

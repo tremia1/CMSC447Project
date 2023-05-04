@@ -1,7 +1,8 @@
 import Dog from '../../src/object/Dog.js';
 import Cat from '../../src/object/Cat.js';
 import Button from '../../src/object/Button.js';
-
+import Block from '../../src/object/Block.js';
+import Door from '../../src/object/Door.js';
 
 class Turtorial extends Phaser.Scene {
 
@@ -12,9 +13,14 @@ class Turtorial extends Phaser.Scene {
 	}
     preload() {
         this.load.image('background', 'assets/images/background.png');
-        
-        this.load.spritesheet('button-up', 'assets/images/Button1.png', { frameWidth: 9, frameHeight: 6});
-        this.load.spritesheet('button-down', 'assets/images/ButtonTwo.png', { frameWidth: 9, frameHeight: 6});
+
+        this.load.spritesheet('button-up', 'assets/images/ButtonUp.png', { frameWidth: 9, frameHeight: 6});
+        this.load.spritesheet('box', 'assets/images/box.png', { frameWidth: 37, frameHeight: 37});
+        this.load.spritesheet('button-down', 'assets/images/ButtonDown.png', { frameWidth: 9, frameHeight: 6});
+
+        this.load.spritesheet('door-closed', 'assets/images/DoorClosed.png', { frameWidth: 73, frameHeight: 85});
+        this.load.spritesheet('door-open', 'assets/images/DoorOpen.png', { frameWidth: 73, frameHeight: 85});
+        this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png');
@@ -114,16 +120,36 @@ class Turtorial extends Phaser.Scene {
         });
         */
         
-        this.ButtonOne = new Button({
+        this.buttonOne = new Button({
             scene: this,
-            x: 750,
+            x: 650,
             y: 200,
+            status: false,
+            cat: this.cat,
+            dog: this.dog,
+            dur: 200
+        });
+
+        this.blockOne = new Block({
+            scene: this,
+            x: 725,
+            y: 400,
             status: false,
             cat: this.cat,
             dog: this.dog
         });
 
-        this.add.existing(this.ButtonOne.sprite);
+        this.DoorOne = new Door({
+            scene: this,
+            x: 300,
+            y: 500,
+            status: false,
+            cat: this.cat,
+            dog: this.dog,
+            button: this.buttonOne
+        });
+
+        //this.add.existing(this.ButtonOne.sprite);
         //this.ButtonOne.immovable = true;
         //this.ButtonOne.body.moves = false;
         
@@ -131,9 +157,10 @@ class Turtorial extends Phaser.Scene {
         this.physics.add.collider(this.dog.sprite, platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, platforms, this.cat.onCollide);
         this.physics.add.collider(this.cat.sprite, this.dog.sprite);
-        this.physics.add.collider(this.ButtonOne.sprite, platforms);
-        this.physics.add.collider(this.ButtonOne.sprite, this.dog.sprite);
-        this.physics.add.collider(this.ButtonOne.sprite, this.cat.sprite);
+        this.physics.add.collider(this.buttonOne.sprite, platforms);
+        this.physics.add.collider(this.blockOne, platforms);
+        this.physics.add.collider(this.DoorOne, platforms);
+        this.physics.add.overlap(this.blockOne, this.buttonOne);
         
         this.timeText =  this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
@@ -146,7 +173,9 @@ class Turtorial extends Phaser.Scene {
         this.dog.update(this.keys);
         this.cat.update(this.cursors);
 
-        this.ButtonOne.update();
+        this.buttonOne.update();
+        this.blockOne.update();
+        this.DoorOne.update();
         
         this.gameRuntime = time * 0.001;
 

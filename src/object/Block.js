@@ -1,26 +1,61 @@
-class Block extends Phaser.GameObjects.Sprite {
+export default class Block extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y, cat, dog){ // may be able to get desired effect by making the block pushable when interact button pressed but need to test that
-        super(scene,x ,y ,'Block');
-        this.cat = cat;
-        this.dog = dog;
-        this.scene.add.existing(this); 
-        this.getBody().setCollideWorldBounds(true); 
-        cursors = this.input.keyboard.createCursorKeys(); 
-        this.setPosition(x,y);
+    constructor(config){ // may be able to get desired effect by making the block pushable when interact button pressed but need to test that
+        super(config.scene,config.x ,config.y ,'box');
+        this.cat = config.cat;
+        this.dog = config.dog;
+        this.x = config.x;
+        this.y = config.y;
+        this.scene = config.scene;
+        this.buttongroup = config.button; //Contains the array of the button objects
+        this.width = config.width;
+        this.height = config.height;
+      
+        this.setOrigin(0);
+
+        this.frame.setSize(this.width, this.height);
+
+        config.scene.physics.world.enable(this);
+        config.scene.add.existing(this);
+        
+        this.body.setVelocity(0, 0).setBounce(0,0).setCollideWorldBounds(false);
+        this.body.allowGravity = true;
+         
+        this.body.pushable = true;
+        this.body.allowDrag = true;
+        this.body.width = this.width;
+        this.body.height = this.height;
+        this.body.setDragX(800); // basically friction for block on x axis 
+        this.scene.physics.add.collider(this, this.dog.sprite);
+        this.scene.physics.add.collider(this, this.cat.sprite); 
+
+       
+        let block = this;
+        this.buttongroup.getChildren().forEach(function(button){
+            config.scene.physics.add.overlap(block,button);
+        });
     }
-    Update(){
-        this.scene.physics.collider(this, this.cat, move()); // may need a collider for buttons so it get pressed by block
-        this.scene.physics.collider(this, this.dog, move()); 
+    update(){
+        //Check if cat is colliding with object
+        let catPushes = this.checkCollision(this,this.cat);
+        let isPushable = this.body.pushable;
+        if(catPushes == true){
+            isPushable = false;
+        }
+        else{
+            isPushable = true;
+        }
+        this.body.pushable = isPushable;
+        // this.scene.physics.add.collider(this, this.dog.sprite); // this is needed so the cat and dog dont glitch through the box when running into it
+        // this.scene.physics.add.collider(this, this.cat.sprite);
     }
     move(){ // move block left or right 
-        if(cursor.left.isDown && cursor.down.isDown){
-            this.setVelocityX(-160);
-        }  else if(cursor.right.isDown && cursor.down.isDown){
-            this.setVelocityX(160);
-        } else{
-            this.setVelocityX(0);
-        }
+        return;
+    }
+    checkCollision(spriteA, spriteB){
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.sprite.getBounds();
+        return Phaser.Geom.Intersects.RectangleToRectangle(boundsA,boundsB);
     }
 
 }

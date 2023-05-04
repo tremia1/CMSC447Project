@@ -13,7 +13,7 @@ class SaveGame extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+        this.load.image('background', 'assets/images/background1.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
@@ -34,48 +34,50 @@ class SaveGame extends Phaser.Scene {
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.backgroundImage = this.add.image(0, 0, 'background');
-        this.backgroundImage.displayWidth = this.sys.canvas.width;
-        this.backgroundImage.displayHeight = this.sys.canvas.height;
-        this.backgroundImage.setScale( 8);
-        
+        this.backgroundImage.displayHeight = this.sys.game.config.height;
+        this.backgroundImage.displayWidth = this.sys.game.config.width;
+        this.backgroundImage.scaleX = this.backgroundImage.scaleY;
+        this.backgroundImage.y = this.sys.game.config.height/2;
+        this.backgroundImage.x = this.sys.game.config.width /2;
+       
 
        // Creates the title and the button layout for Saveing Games
 
-        this.title = this.add.text(660, 100, 'Save Game', { fontSize: '32px', fill: '#FFFFFF' });
+       this.title = this.add.text(this.sys.canvas.width /2 - 300, 60, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
-        this.SaveOne = this.add.image(650, 150, 'wood').setOrigin(0, 0);
+        this.SaveOne = this.add.image(this.sys.canvas.width / 2 - 150, 100, 'wood').setOrigin(0, 0);
         this.SaveOne.setScale(.03);
-        this.add.text(670, 170, 'SaveOne', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 130, 'SaveOne', { fontSize: '32px', fill: '#000000' });
 
-        this.SaveTwo = this.add.image(650, 250, 'wood').setOrigin(0, 0);
+        this.SaveTwo = this.add.image(this.sys.canvas.width / 2 - 150, 200, 'wood').setOrigin(0, 0);
         this.SaveTwo.setScale(.03);
-        this.add.text(670, 270, 'SaveTwo', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 230, 'SaveTwo', { fontSize: '32px', fill: '#000000' });
 
-        this.SaveThree = this.add.image(650, 350, 'wood').setOrigin(0, 0);
+        this.SaveThree = this.add.image(this.sys.canvas.width / 2 - 150, 300, 'wood').setOrigin(0, 0);
         this.SaveThree.setScale(.03);
-        this.add.text(670, 370, 'SaveThree', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 330, 'SaveThree', { fontSize: '32px', fill: '#000000' });
 
-        this.SaveFour = this.add.image(650, 450, 'wood').setOrigin(0, 0);
+        this.SaveFour = this.add.image(this.sys.canvas.width / 2 - 150, 400, 'wood').setOrigin(0, 0);
         this.SaveFour.setScale(.03);
-        this.add.text(670, 470, 'SaveFour', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 430, 'SaveFour', { fontSize: '32px', fill: '#000000' });
 
-        this.SaveFive = this.add.image(650, 550, 'wood').setOrigin(0, 0);
+        this.SaveFive = this.add.image(this.sys.canvas.width / 2 - 150, 500, 'wood').setOrigin(0, 0);
         this.SaveFive.setScale(.03);
-        this.add.text(670,570, 'SaveFive', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100,530, 'SaveFive', { fontSize: '32px', fill: '#000000' });
 
         //Creates Back Buttton
-        this.Back = this.add.image(100, 700, 'Back').setOrigin(0, 0);
+        this.Back = this.add.image(0, this.sys.game.config.height/2 + 150, 'Back').setOrigin(0, 0);
         this.Back.setScale(.3);
 
         // Creates the Selection Cursor 
-        this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 30, 120, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
         // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
 
-        this.Yaxis = 150;
+        this.Yaxis = 120;
 
         this.value = 0;
         
@@ -103,26 +105,26 @@ class SaveGame extends Phaser.Scene {
             }
 
             if(this.value == 0){
-                this.Yaxis = 170;
+                this.Yaxis = 120;
             }
 
             else if(this.value == 1){
-                this.Yaxis = 270;
+                this.Yaxis = 220;
             }
 
             else if (this.value == 2){
-                this.Yaxis = 370;
+                this.Yaxis = 320;
             }
 
             else if(this.value == 3){
-                this.Yaxis = 470;
+                this.Yaxis = 420;
             }
 
             else if (this.value == 4){
-                this.Yaxis = 570;
+                this.Yaxis = 520;
             }
 
-            this.buttonSelector.setPosition(  850, this.Yaxis);
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 30, this.Yaxis);
             
             
 
@@ -138,26 +140,26 @@ class SaveGame extends Phaser.Scene {
             }
 
             if(this.value == 0){
-                this.Yaxis = 170;
+                this.Yaxis = 120;
             }
 
             else if(this.value == 1){
-                this.Yaxis = 270;
+                this.Yaxis = 220;
             }
 
             else if (this.value == 2){
-                this.Yaxis = 370;
+                this.Yaxis = 320;
             }
 
             else if(this.value == 3){
-                this.Yaxis = 470;
+                this.Yaxis = 420;
             }
 
             else if (this.value == 4){
-                this.Yaxis = 570;
+                this.Yaxis = 520;
             }
 
-            this.buttonSelector.setPosition(  850, this.Yaxis );
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 30, this.Yaxis );
 	
 		}
         // Goes back to the previous scene determine by Location

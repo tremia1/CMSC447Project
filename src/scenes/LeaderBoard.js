@@ -14,7 +14,7 @@ class LeaderBoard extends Phaser.Scene {
 
 
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+        this.load.image('background', 'assets/images/background1.png');
 
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
@@ -35,53 +35,45 @@ class LeaderBoard extends Phaser.Scene {
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.backgroundImage = this.add.image(0, 0, 'background');
-        this.backgroundImage.displayWidth = this.sys.canvas.width;
-        this.backgroundImage.displayHeight = this.sys.canvas.height;
-        this.backgroundImage.setScale( 8);
-        
+        this.backgroundImage.displayHeight = this.sys.game.config.height;
+        this.backgroundImage.displayWidth = this.sys.game.config.width;
+        this.backgroundImage.scaleX = this.backgroundImage.scaleY
+        this.backgroundImage.y = this.sys.game.config.height/2;
+        this.backgroundImage.x = this.sys.game.config.width /2;
+
          // Creates the title and the button layout , Score panels,  for LeaderBoard
 
 
-        this.title = this.add.text(660, 100, 'LeaderBoard', { fontSize: '32px', fill: '#FFFFFF' });
+        this.title = this.add.text(this.sys.canvas.width / 2 - 100, 50, 'LeaderBoard', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
-        this.NumberOne = this.add.image(650, 150, 'wood').setOrigin(0, 0);
+        this.NumberOne = this.add.image(this.sys.canvas.width / 2 - 130, 100, 'wood').setOrigin(0, 0);
         this.NumberOne.setScale(.03);
-        this.add.text(660, 170, '1. ', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 130, '1. ', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberTwo = this.add.image(650, 250, 'wood').setOrigin(0, 0);
+        this.NumberTwo = this.add.image(this.sys.canvas.width / 2 - 130, 200, 'wood').setOrigin(0, 0);
         this.NumberTwo.setScale(.03);
-        this.add.text(660, 270, '2. ', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 230, '2. ', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberThree = this.add.image(650, 350, 'wood').setOrigin(0, 0);
+        this.NumberThree = this.add.image(this.sys.canvas.width / 2 - 130, 300, 'wood').setOrigin(0, 0);
         this.NumberThree.setScale(.03);
-        this.add.text(660, 370, '3.', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 330, '3.', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberFour = this.add.image(650, 450, 'wood').setOrigin(0, 0);
+        this.NumberFour = this.add.image(this.sys.canvas.width / 2 - 130, 400, 'wood').setOrigin(0, 0);
         this.NumberFour.setScale(.03);
-        this.add.text(670, 470, '4. ', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 430, '4. ', { fontSize: '32px', fill: '#000000' });
 
-        this.NumberFive = this.add.image(650, 550, 'wood').setOrigin(0, 0);
+        this.NumberFive = this.add.image(this.sys.canvas.width / 2 - 130, 500, 'wood').setOrigin(0, 0);
         this.NumberFive.setScale(.03);
-        this.add.text(670,570, '5. ', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100,530, '5. ', { fontSize: '32px', fill: '#000000' });
 
         //Creates Back Buttton
 
         this.Back = this.add.image(100, 630, 'Back').setOrigin(0, 0);
         this.Back.setScale(.3);
   
-        // Creates the Selection Cursor 
-
-
-        this.buttonSelector = this.add.image(850, 150, 'cursor').setOrigin(0, 0);
-        this.buttonSelector.setScale(.4)
-
-        // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
-
-        this.Yaxis = 150;
-
-        this.value = 0;
+ 
 
         var soundManager = this.scene.get('StartMenu').sound;
         // set selected sound
@@ -93,120 +85,13 @@ class LeaderBoard extends Phaser.Scene {
 
     }
     update() {
-
-  
-
-		// Makes the selection cursor goes  up from each button and when it reach top button it loop back to bottom one
-
-		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
-		{
-            this.navSound.play()
-            this.value = this.value - 1;
-
-            if(this.value < 0){
-                this.value = 5;
-            }
-
-            if(this.value == 0){
-                this.Yaxis = 170;
-            }
-
-            else if(this.value == 1){
-                this.Yaxis = 270;
-            }
-
-            else if (this.value == 2){
-                this.Yaxis = 370;
-            }
-
-            else if(this.value == 3){
-                this.Yaxis = 470;
-            }
-
-            else if (this.value == 4){
-                this.Yaxis = 570;
-            }
-
- 
-
-            this.buttonSelector.setPosition(  850, this.Yaxis);
-            
-            
-
-		}
-        // Makes the selection cursor goes down  from each button and when it reach last button it loop back to top one
-
-		else if (Phaser.Input.Keyboard.JustDown(this.cursors.down))
-		{   
-            this.navSound.play()
-
-            this.value = this.value + 1;
-            
-            if(this.value > 5){
-                this.value = 0;
-            }
-
-            if(this.value == 0){
-                this.Yaxis = 170;
-            }
-
-            else if(this.value == 1){
-                this.Yaxis = 270;
-            }
-
-            else if (this.value == 2){
-                this.Yaxis = 370;
-            }
-
-            else if(this.value == 3){
-                this.Yaxis = 470;
-            }
-
-            else if (this.value == 4){
-                this.Yaxis = 570;
-            }
-
-
-            this.buttonSelector.setPosition(  850, this.Yaxis );
-	
-		}
         // Goes back to the previous scene determine by Location
 
-        else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
-		{   
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.left)){   
                 this.clickedSound.play()
                 this.scene.start(this.location);
-	
-		}
-        // Does action said by Button Selected
-
-		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
-		{
-            this.clickedSound.play()
-            if(this.value == 0){
-                /*View number one*/
-            }
-
-            else if(this.value == 1){
-                 /*View number two*/
-            }
-
-            else if (this.value == 2){
-                 /*View number three*/
-            }
-
-            
-            else if(this.value == 3){
-                 /*View number  four*/
-            }
-
-            else if (this.value == 4){
-                 /*View number five*/
-            }
-
-		}
+		    }
         
-
     }
  
 } export default LeaderBoard;

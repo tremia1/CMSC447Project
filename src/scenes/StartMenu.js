@@ -6,7 +6,7 @@ class StartMenu extends Phaser.Scene {
 	
 	}
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+        this.load.image('background', 'assets/images/background1.png');
 
         this.load.image('cursor','assets/images/cursor.png')
         this.load.image('wood','assets/images/wood.png')
@@ -16,8 +16,6 @@ class StartMenu extends Phaser.Scene {
 
     }
 
-
-
     create() {
 
         // Creates Cursor and Spacebar input and Background
@@ -26,30 +24,33 @@ class StartMenu extends Phaser.Scene {
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.backgroundImage = this.add.image(0, 0, 'background');
-        this.backgroundImage.displayWidth = this.sys.canvas.width;
-        this.backgroundImage.displayHeight = this.sys.canvas.height;
-        this.backgroundImage.setScale( 8);
+        this.backgroundImage.displayHeight = this.sys.game.config.height;
+        this.backgroundImage.displayWidth = this.sys.game.config.width;
+        this.backgroundImage.scaleX = this.backgroundImage.scaleY
+        this.backgroundImage.y = this.sys.game.config.height/2;
+        this.backgroundImage.x = this.sys.game.config.width /2;
+  
         
 
         // Creates the title and the button layout for start Menu
-        this.title = this.add.text(460, 100, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
+        this.title = this.add.text(this.sys.canvas.width /2 - 300, 100, 'The Adventures of Coco and Koko', { fontSize: '32px', fill: '#FFFFFF' });
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
-        this.StartButton = this.add.image(650, 300, 'wood').setOrigin(0, 0);
+        this.StartButton = this.add.image(this.sys.canvas.width / 2 - 130, 300, 'wood').setOrigin(0, 0);
         this.StartButton.setScale(.03);
-        this.add.text(670, 320, 'Start Game', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 120, 320, 'Start Game', { fontSize: '32px', fill: '#000000' });
 
-        this.LoadButton = this.add.image(650, 400, 'wood').setOrigin(0, 0);
+        this.LoadButton = this.add.image(this.sys.canvas.width / 2 - 130, 400, 'wood').setOrigin(0, 0);
         this.LoadButton.setScale(.03);
-        this.add.text(670, 420, 'Load Game', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 120, 420, 'Load Game', { fontSize: '32px', fill: '#000000' });
 
-        this.LeaderBoard = this.add.image(650, 500, 'wood').setOrigin(0, 0);
+        this.LeaderBoard = this.add.image(this.sys.canvas.width / 2 - 130, 500, 'wood').setOrigin(0, 0);
         this.LeaderBoard.setScale(.03);
-        this.add.text(670, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 120, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
 
         // Creates the Selection Cursor 
-        this.buttonSelector = this.add.image(850, 250, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 50, 325, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
 
@@ -90,18 +91,18 @@ class StartMenu extends Phaser.Scene {
             }
 
             if(this.value == 0){
-                this.Yaxis = 250;
+                this.Yaxis = 325;
             }
 
             else if(this.value == 1){
-                this.Yaxis = 400;
+                this.Yaxis = 415;
             }
 
             else if (this.value == 2){
-                this.Yaxis = 500;
+                this.Yaxis = 525;
             }
 
-            this.buttonSelector.setPosition(  850, this.Yaxis);
+            this.buttonSelector.setPosition( this.sys.canvas.width / 2 + 50, this.Yaxis);
             
             
 
@@ -117,18 +118,18 @@ class StartMenu extends Phaser.Scene {
             }
 
             if(this.value == 0){
-                this.Yaxis = 250;
+                this.Yaxis = 325;
             }
 
             else if(this.value == 1){
-                this.Yaxis = 400;
+                this.Yaxis = 415;
             }
 
             else if (this.value == 2){
-                this.Yaxis = 500;
+                this.Yaxis = 525;
             }
             
-            this.buttonSelector.setPosition(  850, this.Yaxis );
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 50, this.Yaxis );
 	
 		}
 
@@ -137,8 +138,10 @@ class StartMenu extends Phaser.Scene {
 		{
             this.clickedSound.play()
             if(this.value == 0){
+            
                 this.music.stop();
-                this.scene.start('Turtorial');
+                this.scene.start('Tutorial', {Time: 0});
+
             }
 
             else if(this.value == 1){

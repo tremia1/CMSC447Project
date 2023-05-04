@@ -1,42 +1,88 @@
-class Door extends Phaser.GameObjects.Sprite {
+export default class Door extends Phaser.GameObjects.Sprite {
+    constructor(config){
+        
+        super(config.scene, config.x, config.y, 'door-closed');
+        this.status = false; // means door is closed
+        this.cat = config.cat;
+        this.dog = config.dog;
+        this.x = config.x;
+        this.y = config.y;
+        this.button = config.button;
+       
+        this.scene = config.scene
+        config.scene.physics.world.enable(this);
+        config.scene.add.existing(this);
+        this.body.setVelocity(0, 0).setBounce(0,0).setCollideWorldBounds(false);
+        this.body.allowGravity = true;    
+        this.body.immovable = true;
+        this.scene.physics.overlap(this.dog.sprite, this);
+        this.scene.physics.overlap(this, this.cat.sprite,this.closeDoor());
 
-    constructor(scene, x, y, interaction, cat, dog){
-        super(scene,x ,y ,'Door');
-        this.cat = cat;
-        this.dog = dog;
-        this.interaction = interaction; // button or lever that opens the door 
-        this.scene.physics.collider(this, this.cat); 
-        this.scene.physics.collider(this, this.dog);
-        this.scene.add.existing(this);
-        this.getBody().setCollideWorldBounds(true); 
-        this.setPosition(x,y);
-        this.opened = true; // the door is currenly blocking path
+        this.anims.create({
+            key: 'open',
+            frames: this.anims.generateFrameNumbers('door-open'),
+            frameRate: 1,
+            repeat: -1,
+            frameWidth: 73,
+            frameHeight: 85
+        });
+        this.anims.create({
+            key: 'closed',
+            frames: this.anims.generateFrameNumbers('door-closed'),
+            frameRate: 1,
+            repeat: -1,
+            frameWidth: 73,
+            frameHeight: 85
+        });
+        this.anims.create({
+            key: 'animation',
+            frames: this.anims.generateFrameNumbers('door-animation'),
+            frameRate: 10,
+            repeat: -1,
+            frameWidth: 73,
+            frameHeight: 85
+        });
+     
+        this.anims.play('closed');
     }
-
-    Update(){
-        this.checkDoor();
-    }
-
-    checkDoor(){
-        if(this.interaction.getStatus() == true){ // the button or lever is activated 
-            if(this.opened == false){ 
-                this.openDoor();
-            }
-            this.opened = true;
+    update(){
+        this.scene.physics.add.overlap(this, this.dog.sprite, this.openDoor());
+        this.scene.physics.add.overlap(this, this.cat.sprite, this.closeDoor());
+        if(this.button.status && this.status == false){
+            this.anims.play('animation');
+            this.status = true;
         }else{
-            if(this.opened == true){
-                this.closeDoor();
-            }
-            this.opened = false;
+            this.anims.play('animation');
+            this.status = false;
         }
+        
+
+        if(this.status){
+            this.anims.play('open');
+        }else{
+            this.anims.play('closed');
+        }
+        this.catCheck= this.checkOverlap(this, this.cat.sprite);
+        this.dogCheck = this.checkOverlap(this, this.dog.sprite);
+        if(this.catCheck && this.dogCheck){
+            
+            this.scene.goNextLevel();
+        }
+      
+
     }
 
-    openDoor(){ // prob load open door sprite 
-
+    openDoor(){
+        this.status = true;
     }
 
-    closeDoor(){ // prob remove door sprite so chacaters no longer collide but i need to look more into this 
-
+    closeDoor(){
+        this.status = false;      
+    }
+    checkOverlap(spriteA, spriteB){
+        var boundsA = spriteB.getBounds();
+        var boundsB = spriteA.getBounds();
+        return Phaser.Geom.Intersects.RectangleToRectangle(boundsA,boundsB);
     }
 
 }

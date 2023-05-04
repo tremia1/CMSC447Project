@@ -1,7 +1,7 @@
 import PlayerController from './PlayerController.js';
 
 const WALK_SPEED = 150
-const JUMP_HEIGHT = 250
+const JUMP_HEIGHT = 225
 
 export default class Cat extends PlayerController {
   constructor(scene, cursors, x, y, name) {
