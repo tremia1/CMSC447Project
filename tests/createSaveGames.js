@@ -1,6 +1,6 @@
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
-const gameDbPath = path.resolve(__dirname, '../src/database/test.db');
+const gameDbPath = path.resolve(__dirname, '../src/database/user_database.db');
 
 // Create saves table in the game database and insert initial data
 const createSaveGames = () => {
