@@ -59,7 +59,7 @@ export default class PlayerController {
             this.stateMachine.setState("walk")
         }
 
-        if (this.cursors.up.isDown && this.sprite.body.blocked.down) {
+        if (this.cursors.up.isDown && (this.sprite.body.blocked.down || this.sprite.body.touching.down)) {
             this.stateMachine.setState("jump")
         }
     }
@@ -81,7 +81,7 @@ export default class PlayerController {
             this.stateMachine.setState("idle")
         }
 
-        if (this.cursors.up.isDown && this.sprite.body.blocked.down) {
+        if (this.cursors.up.isDown && (this.sprite.body.blocked.down || this.sprite.body.touching.down)) {
             this.stateMachine.setState("jump")
         }
     }
@@ -98,7 +98,7 @@ export default class PlayerController {
     }
 
     jumpOnUpdate() {
-        if (this.sprite.body.blocked.down){
+        if (this.sprite.body.blocked.down || this.sprite.body.touching.down){
             this.stateMachine.setState('idle');
         }
 

@@ -1,29 +1,53 @@
-class Water extends Phaser.GameObjects.Sprite {
+export default class Water extends Phaser.GameObjects.Sprite {
 
-    constructor(config){ // may be able to get desired effect by making the block pushable when interact button pressed but need to test that
-        super(config.scene,config.x ,config.y ,'water'); // water is temp need to change to be what loaded from tile map
+    constructor(config) { // may be able to get desired effect by making the block pushable when interact button pressed but need to test that
+        super(config.scene, config.x, config.y, 'waterTile');
         this.cat = config.cat;
         this.dog = config.dog;
         this.x = config.x;
         this.y = config.y;
         this.scene = config.scene;
-        config.scene.physics.world.enable(this);
+        this.width = config.width;
+        this.height = config.height;
+      
+        this.setOrigin(0);
+        this.frame.setSize(this.width, this.height); //Sets the size of image in water to fit the water body
         config.scene.add.existing(this);
-        this.body.setVelocity(0, 0).setBounce(0,0).setCollideWorldBounds(true);
+        config.scene.physics.world.enable(this);
+
+
+        
         this.body.allowGravity = true;
-        this.body.setSize(37,37); // needs to be set to size of water sprite 
-        this.body.offset.set(0,0); // as of right now depends on screen size you will need certain amount of offset     
+        this.body.setSize(this.width, this.height); 
+           
         this.body.pushable = false;
         this.body.immovable = true;
-        this.scene.physics.add.overlay(this, this.dog.sprite);
-        this.scene.physics.add.overlay(this, this.cat.sprite, this.resetLevel());
-    }
-    update(){
-        this.scene.physics.add.overlay(this, this.cat.sprite, this.resetLevel());
-        //may need the overlay call for cat here to make sure its awlays checking 
-    }
 
-    resetLevel(){
-         this.scene.restart();  // need to see if does what expected but still need to add time penalty  
+        config.scene.physics.add.overlap(this, this.cat.sprite);
+        config.scene.physics.add.overlap(this, this.dog.sprite);
+        
+
+    }
+    update() {
+        let catDrown = this.checkOverlap(this, this.cat);
+        let currentScene = this.scene;
+        // if (this.body.embedded && this.catDrown == true ) {
+        //     console.log('yep')
+        //     this.scene.restart();
+        if(catDrown == true){
+           console.log(`this is it`);
+           console.log(this.scene.scene.start(this.scene.scene.key, {Time: (this.scene.gameRuntime + 3)}))
+        }
+        } // this can return a boolean if they actually overlap, can use this as a way of checking
+        //may need the overlay call for cat here to make sure its always checking 
+    
+
+    resetLevel() {
+        this.scene.restart();  // need to see if does what expected but still need to add time penalty  
+    }
+    checkOverlap(spriteA, spriteB){
+        var boundsA = spriteB.sprite.getBounds();
+        var boundsB = spriteA.getBounds();
+        return Phaser.Geom.Intersects.RectangleToRectangle(boundsA,boundsB);
     }
 }

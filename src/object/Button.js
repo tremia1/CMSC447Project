@@ -16,8 +16,9 @@ export default class Button extends Phaser.GameObjects.Sprite {
         this.body.setVelocity(0, 0).setBounce(0,0).setCollideWorldBounds(false);
         this.body.allowGravity = true;
         this.body.setSize(9,6);
-        this.body.offset.set(-6,0);    
+        this.body.offset.set(0,0);    
         this.body.immovable = true;
+        this.blockgroup = config.blocks;
         config.scene.physics.add.overlap(this, this.dog.sprite);
         config.scene.physics.add.overlap(this, this.cat.sprite);
 
@@ -46,7 +47,14 @@ export default class Button extends Phaser.GameObjects.Sprite {
             frameRate: 5,
             repeat: -1
         });
-  */      
+
+  */    
+
+
+        let button = this;
+        this.blockgroup.getChildren().forEach(function(block){
+            config.scene.physics.add.overlap(block,button);
+        });
         
     }
 
@@ -54,6 +62,7 @@ export default class Button extends Phaser.GameObjects.Sprite {
         //this.scene.physics.add.overlap(this, this.dog.sprite);
         //this.scene.physics.add.overlap(this, this.cat.sprite);
         this.checkPressed();
+   
     }
 
     setStatus(state){
@@ -66,10 +75,10 @@ export default class Button extends Phaser.GameObjects.Sprite {
 
     checkPressed(){ // didnt do a collider as we want to have more than just player be able to be on it 
         
-        //console.log(`Is it touching down ${this.body.touching.down}`);
-        console.log(`Is it touching up ${this.body.touching.up}`);
-        //console.log(`Is it touching none ${this.body.touching.none}`);
-        console.log(`Is it touching embedded ${this.body.embedded}`);
+        // //console.log(`Is it touching down ${this.body.touching.down}`);
+        // console.log(`Is it touching up ${this.body.touching.up}`);
+        // //console.log(`Is it touching none ${this.body.touching.none}`);
+        // console.log(`Is it touching embedded ${this.body.embedded}`);
         //console.log(`The status is ${this.status}`);
         
         if(this.falseCount > this.durration){
@@ -94,7 +103,6 @@ export default class Button extends Phaser.GameObjects.Sprite {
         }else{
             this.status = false;
             this.anims.play('up');
-
         }
         */
 
