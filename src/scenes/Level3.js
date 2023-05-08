@@ -6,11 +6,36 @@ import Door from '../../src/object/Door.js';
 import Wall from '../../src/object/Wall.js';
 import Water from '../../src/object/Water.js';
 import MovableWall from '../../src/object/MovableWall.js';
+
 export default class test extends Phaser.Scene {
     constructor() {
         super("Level3");
 
     }
+
+    async sendScoreToDatabase(score) {
+        try {
+          const response = await fetch('/api/leaderboard', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: 'User', // Replace with the actual user's name
+              score: score
+            })
+          });
+      
+          if (response.status !== 200) {
+            throw new Error('Failed to send score to the database.');
+          }
+      
+          console.log('Score sent successfully.');
+        } catch (error) {
+          console.error('Error sending score to the database:', error);
+        }
+    }
+
     preload() {
 
         //Load images for tilemap
@@ -330,15 +355,12 @@ export default class test extends Phaser.Scene {
             this.scene.launch('GameMenu', { "location": 'Level3' });
         }
         if (this.levelComplete == 1) {
-
             this.scene.start('LeaderBoard', { "location": 'Level3' });
-
-
-
         }
     }
     goNextLevel() {
         this.levelComplete = 1;
+        this.sendScoreToDatabase(this.gameRuntime);
     }
 
     updateTime(){

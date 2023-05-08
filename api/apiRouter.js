@@ -8,9 +8,9 @@ const leaderboardDb = new sqlite3.Database(leaderboardDbPath);
 const userDbPath = './src/database/user_database.db';
 const userDb = new sqlite3.Database(userDbPath);
 
-router.get('/high-scores', (req, res) => {
+router.get('/leaderboard', (req, res) => {
   const limit = req.query.limit || 5;
-  leaderboardDb.all(`SELECT * FROM high_scores ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
+  leaderboardDb.all(`SELECT * FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error.');
@@ -20,9 +20,9 @@ router.get('/high-scores', (req, res) => {
   });
 });
 
-router.post('/high-scores', (req, res) => {
+router.post('/leaderboard', (req, res) => {
   const { name, score } = req.body;
-  leaderboardDb.run('INSERT INTO high_scores (name, score) VALUES (?, ?)', [name, score], (err) => {
+  leaderboardDb.run('INSERT INTO leaderboard (name, score) VALUES (?, ?)', [name, score], (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error.');

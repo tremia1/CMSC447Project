@@ -3,7 +3,6 @@ class SaveGame extends Phaser.Scene {
     constructor()
 	{
         super({ key: 'SaveGame'})
-	
 	}
 
     
@@ -14,21 +13,14 @@ class SaveGame extends Phaser.Scene {
 
     preload() {
         this.load.image('background', 'assets/images/background1.png');
-
         this.load.image('cursor','assets/images/cursor.png');
         this.load.image('wood','assets/images/wood.png');
         this.load.image('Back','assets/images/Back.png');
-
-
-        
-
     }
 
 
 
     create() {
-
-        
         // Creates Cursor and Spacebar input and Background
         this.cursors = this.input.keyboard.createCursorKeys();
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -90,9 +82,6 @@ class SaveGame extends Phaser.Scene {
 
     }
     update() {
-
-  
-
 		// Makes the selection cursor goes  up from each button and when it reach top button it loop back to bottom one
 
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
