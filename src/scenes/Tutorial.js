@@ -48,6 +48,10 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 15, frameHeight: 15 });
         this.load.spritesheet('CatHiss', 'assets/images/Cat/Cat-Hiss.png', { frameWidth: 15, frameHeight: 15 });
 
+        // Load in Game Related Music // 
+        this.load.audio('inGameSound', 'assets/sounds/inGame.mp3')
+        this.load.audio('errorSound', 'assets/sounds/error.mp3')
+        this.load.audio('successSound', 'assets/sounds/success.mp3')
 
     }
 
@@ -237,7 +241,21 @@ export default class test extends Phaser.Scene {
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
        
-      
+    
+        // Stop Menu Music
+        var soundManager = this.scene.get('StartMenu').sound;
+        var soundObject = soundManager.get('backgroundMusic');
+        soundObject.stop()
+
+        // Play Game Music 
+        var soundManager = this.scene.get('Tutorial').sound;
+        // set selected sound
+        this.gameMusic = soundManager.get('inGameSound') || this.sound.add('inGameSound', { loop: true })
+        if (!this.gameMusic.isPlaying){
+            this.gameMusic.play()
+        }
+        this.gameMusic.setVolume(0.2) //lower music
+        
 
     }
     init(data){
@@ -248,10 +266,9 @@ export default class test extends Phaser.Scene {
         console.log('2st', this.gameRuntime);
     }
 
-    update() {
-
-        this.dog.update(this.keys);
-        this.cat.update(this.cursors);
+    update(dt) {
+        this.dog.update(dt);
+        this.cat.update(dt);
         this.door.update();
         /*
         var temp = (time * .001) - this.gameRuntime;

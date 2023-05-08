@@ -13,6 +13,8 @@ export default class Dog extends PlayerController {
 
     this.jumpHeight = JUMP_HEIGHT
     this.walkSpeed = WALK_SPEED
+    this.errorSound = this.scene.sound.get('errorSound') || this.scene.sound.add('errorSound', { loop: false })
+    sprite.setOffset(9, 0) 
 
     this.stateMachine
     .addState("sniffWalk", {
@@ -23,6 +25,22 @@ export default class Dog extends PlayerController {
         onEnter: this.barkOnEnter,
         onUpdate: this.barkOnUpdate
     })
+  }
+
+  onLanded(fallTime){
+    // dont know exactly how high this is, just played around and found this to be a good time
+    // if they've been in the air for longer than this then they should take fall damage
+    var upTime = this.jumped && .59 || 0 // time going up into the air shouldn't count, only falling 
+    fallTime = fallTime - upTime
+    if (fallTime > .88){
+
+        // play error music whenever dog falls from tall heights 
+        if(!this.errorSound.isPlaying){
+          this.errorSound.play()
+        }
+
+      console.log(this.scene.scene.start(this.scene.scene.key, {Time: (this.scene.gameRuntime + 3)}))
+    }
   }
 
   sniffWalkOnEnter(){

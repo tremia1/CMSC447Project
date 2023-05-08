@@ -17,7 +17,8 @@ export default class Door extends Phaser.GameObjects.Sprite {
         this.body.immovable = true;
         this.scene.physics.overlap(this.dog.sprite, this);
         this.scene.physics.overlap(this, this.cat.sprite,this.closeDoor());
-
+        this.successSound = this.scene.sound.get('successSound') || this.scene.sound.add('successSound', { loop: false })
+        
         this.anims.create({
             key: 'open',
             frames: this.anims.generateFrameNumbers('door-open'),
@@ -65,7 +66,7 @@ export default class Door extends Phaser.GameObjects.Sprite {
         this.catCheck= this.checkOverlap(this, this.cat.sprite);
         this.dogCheck = this.checkOverlap(this, this.dog.sprite);
         if(this.catCheck && this.dogCheck){
-            
+            this.successSound.play()
             this.scene.goNextLevel();
         }
       

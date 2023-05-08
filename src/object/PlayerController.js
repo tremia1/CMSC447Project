@@ -16,8 +16,12 @@ export default class PlayerController {
         this.body = sprite.body
         this.jumpHeight = WALK_SPEED
         this.walkSpeed = JUMP_HEIGHT
+        this.isFalling = false 
+        this.startFall = 0 
+        this.jumped = false
+        
         this.sprite.setDamping(true);
-        this.sprite.setDrag(0.1 * this.body.mass, 0);
+        this.sprite.setDrag(0.0001 * this.body.mass, 0);
 
         this.createAnimations()
 
@@ -47,8 +51,29 @@ export default class PlayerController {
         .setState("idle")
     }
 
-    update(dt) {
+    update(dt){
+
+        // check if player falling  
+        if (!(this.sprite.body.blocked.down || this.sprite.body.touching.down)){
+            if(!this.isFalling){
+                this.isFalling = true 
+                this.startFall = dt 
+            }
+        }else{
+            // player has just landed (process it)
+            if(this.isFalling == true){
+                this.isFalling = false 
+                // call landed function and determine how long player was in air (in seconds)
+                this.onLanded((dt - this.startFall) / 1000)
+                this.jumped = false
+            }
+        }
+
         this.stateMachine.update(dt)
+    }
+
+    onLanded(fallTime){
+        // do something when player falls (do this in Dog or Cat file)
     }
 
     idleOnEnter() {
@@ -94,7 +119,7 @@ export default class PlayerController {
 
     jumpOnEnter() {
         const speed = -this.jumpHeight
-
+        this.jumped = true 
         this.sprite.play(`${this.charName}-jump`)
         this.sprite.setVelocityY(speed)
     }
