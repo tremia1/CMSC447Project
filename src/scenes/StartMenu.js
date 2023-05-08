@@ -79,8 +79,7 @@ class StartMenu extends Phaser.Scene {
     }
 
 
-    update() {
-
+    update(dt) {
 		// Makes the selection cursor goes  up from each button and when it reach top button it loop back to bottom one
 		if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
 		{

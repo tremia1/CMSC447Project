@@ -25,8 +25,9 @@ export default class Water extends Phaser.GameObjects.Sprite {
 
         config.scene.physics.add.overlap(this, this.cat.sprite);
         config.scene.physics.add.overlap(this, this.dog.sprite);
-        
-
+           
+        // set selected sound
+        this.errorSound = this.scene.sound.get('errorSound') || this.scene.sound.add('errorSound', { loop: false })
     }
     update() {
         let catDrown = this.checkOverlap(this, this.cat);
@@ -36,6 +37,11 @@ export default class Water extends Phaser.GameObjects.Sprite {
         //     this.scene.restart();
         if(catDrown == true){
            console.log(`this is it`);
+
+           // play error music whenever cat touches water 
+           if(!this.errorSound.isPlaying){
+                this.errorSound.play()
+           }
            console.log(this.scene.scene.start(this.scene.scene.key, {Time: (this.scene.gameRuntime + 3)}))
         }
         } // this can return a boolean if they actually overlap, can use this as a way of checking

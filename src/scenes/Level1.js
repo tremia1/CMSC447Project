@@ -247,7 +247,20 @@ export default class test extends Phaser.Scene {
 
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+       
+        
+        // Stop Menu Music
+        var soundManager = this.scene.get('StartMenu').sound;
+        var soundObject = soundManager.get('backgroundMusic');
+        soundObject.stop()
 
+        // Create Music 
+        var soundManager = this.scene.get('Tutorial').sound;
+        // set selected sound
+        this.gameMusic = soundManager.get('inGameSound') || this.sound.add('inGameSound', { loop: true })
+        if (!this.gameMusic.isPlaying){
+           this.gameMusic.play()
+        }
 
     }
     init(data){
@@ -258,10 +271,10 @@ export default class test extends Phaser.Scene {
         console.log('2st', this.gameRuntime);
     }
 
-    update() {
+    update(dt) {
 
-        this.dog.update(this.keys);
-        this.cat.update(this.cursors);
+        this.dog.update(dt);
+        this.cat.update(dt);
         this.door.update();
         this.physics.add.collider(this.blockGroup, this.blockGroup);
 

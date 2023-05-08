@@ -160,6 +160,13 @@ class QuitMenu extends Phaser.Scene {
             this.clickedSound.play()
 
             if(this.value == 0){
+                
+                // Stop any previously playing levels 
+                this.scene.stop('Tutorial')
+                this.scene.stop('Level1')
+                this.scene.stop('Level2')
+                this.scene.stop('Level3')
+
                 this.scene.start('StartMenu');
             }
 

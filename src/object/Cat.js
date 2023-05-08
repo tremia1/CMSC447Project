@@ -55,7 +55,7 @@ export default class Cat extends PlayerController {
     this.anims.create({
         key: this.charName + '-idle',
         frames: this.anims.generateFrameNumbers("CatIdle"),
-        frameRate: 15,
+        frameRate: 10,
         repeat: -1,
 
     });

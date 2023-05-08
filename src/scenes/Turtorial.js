@@ -170,8 +170,8 @@ class Turtorial extends Phaser.Scene {
     }
     update(time) {
 
-        this.dog.update(this.keys);
-        this.cat.update(this.cursors);
+        this.dog.update(time);
+        this.cat.update(time);
 
         this.buttonOne.update();
         this.blockOne.update();

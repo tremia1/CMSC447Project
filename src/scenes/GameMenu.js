@@ -80,12 +80,22 @@ class GameMenu extends Phaser.Scene {
 
 
 
-        // In another scene where you want to check if the sound exists
+            
+        // Stop Game Music
+        var soundManager = this.scene.get('Tutorial').sound;
+        var soundObject = soundManager.get('inGameSound');
+        this.gameMusic = soundObject
+        this.gameMusic.pause()
+
+
+        // Play Menu Music 
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
+        this.menuMusic = soundObject
         if(!soundObject.isPlaying){
             soundObject.play()
         }
+
         // set selected sound
         this.clickedSound = soundManager.get('clickedSound') || this.sound.add('clickedSound', { loop: false })
         // set cursor moving music
@@ -189,9 +199,11 @@ class GameMenu extends Phaser.Scene {
 		}
 
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
-        
-		{       this.scene.resume(this.location);
-                this.scene.stop();
+		{   
+            this.gameMusic.resume()
+            this.menuMusic.stop()    
+            this.scene.resume(this.location);
+            this.scene.stop();
                 // this.scene.start(this.location);
 	
 		}
