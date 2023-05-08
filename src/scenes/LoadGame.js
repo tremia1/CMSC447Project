@@ -47,9 +47,18 @@ class LoadGame extends Phaser.Scene {
         this.title.fontWeight = 'bold';
         this.title.setShadow(3, 3, 'rgba(0,0,0,0.5)', 20);
 
+
+        async function logJSONData() {
+            const response = await fetch('api/users');
+            const jsonData = await response.json();
+            console.log(jsonData)
+            //return jsonData;
+          }
+
+        logJSONData()
         this.SaveOne = this.add.image(this.sys.canvas.width / 2 - 150, 100, 'wood').setOrigin(0, 0);
         this.SaveOne.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 130, 'SaveOne', { fontSize: '32px', fill: '#000000' });
+        this.add.text(this.sys.canvas.width / 2 - 100, 130, this.save , { fontSize: '32px', fill: '#000000' });
 
         this.SaveTwo = this.add.image(this.sys.canvas.width / 2 - 150, 200, 'wood').setOrigin(0, 0);
         this.SaveTwo.setScale(.03);

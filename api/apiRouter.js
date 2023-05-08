@@ -40,14 +40,15 @@ function getDbConnection(dbPath) {
 
 function getUser(userId) {
   const conn = getDbConnection(userDbPath);
-  const user = conn.get('SELECT * FROM users WHERE id = ?', [userId]);
+  const user = conn.get('SELECT * FROM saves WHERE id = ?', [userId]);
   conn.close();
   return user;
 }
 
 router.get('/users', async (req, res) => {
-  const users = await userDb.all('SELECT * FROM users');
+  const users = await userDb.all('SELECT * FROM saves');
   res.json(users);
+  console.log(users);
 });
 
 router.post('/users/insert', async (req, res) => {
