@@ -57,7 +57,7 @@ router.post('/users/insert', async (req, res) => {
   if (!user_name || !id || !points) {
     res.status(400).send('All fields are required.');
   } else {
-    await userDb.run('INSERT INTO users (user_name, id, points) VALUES (?, ?, ?)', [user_name, id, points]);
+    await userDb.run('INSERT INTO saves (user_name, id, points) VALUES (?, ?, ?)', [user_name, id, points]);
     res.status(200).send('OK');
   }
 });
@@ -69,7 +69,7 @@ router.put('/users/edit/:id', async (req, res) => {
   if (!user_name || !points) {
     res.status(400).send('User Name and Points are required.');
   } else {
-    await userDb.run('UPDATE users SET user_name = ?, points = ? WHERE id = ?', [user_name, points, userId]);
+    await userDb.run('UPDATE saves SET user_name = ?, points = ? WHERE id = ?', [user_name, points, userId]);
     res.status(200).send('OK');
   }
 });
@@ -77,7 +77,7 @@ router.put('/users/edit/:id', async (req, res) => {
 router.delete('/users/delete/:id', async (req, res) => {
   const userId = req.params.id;
 
-  await userDb.run('DELETE FROM users WHERE id = ?', [userId]);
+  await userDb.run('DELETE FROM savesWHERE id = ?', [userId]);
   res.status(200).send('OK');
 });
 
@@ -87,7 +87,7 @@ router.post('/users/search', async (req, res) => {
   if (!user_name) {
     res.status(400).send('User Name is required.');
   } else {
-    const users = await userDb.all('SELECT * FROM users WHERE user_name LIKE ?', ['%' + user_name + '%']);
+    const users = await userDb.all('SELECT * FROM saves WHERE user_name LIKE ?', ['%' + user_name + '%']);
     res.json(users);
   }
 });
