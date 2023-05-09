@@ -40,23 +40,23 @@ class LeaderBoard extends Phaser.Scene {
 
         this.NumberOne = this.add.image(this.sys.canvas.width / 2 - 130, 100, 'wood').setOrigin(0, 0);
         this.NumberOne.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 130, '1. ', { fontSize: '32px', fill: '#000000' });
+        //this.add.text(this.sys.canvas.width / 2 - 100, 130, '1. ', { fontSize: '32px', fill: '#000000' });
 
         this.NumberTwo = this.add.image(this.sys.canvas.width / 2 - 130, 200, 'wood').setOrigin(0, 0);
         this.NumberTwo.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 230, '2. ', { fontSize: '32px', fill: '#000000' });
+        //this.add.text(this.sys.canvas.width / 2 - 100, 230, '2. ', { fontSize: '32px', fill: '#000000' });
 
         this.NumberThree = this.add.image(this.sys.canvas.width / 2 - 130, 300, 'wood').setOrigin(0, 0);
         this.NumberThree.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 330, '3.', { fontSize: '32px', fill: '#000000' });
+        //this.add.text(this.sys.canvas.width / 2 - 100, 330, '3.', { fontSize: '32px', fill: '#000000' });
 
         this.NumberFour = this.add.image(this.sys.canvas.width / 2 - 130, 400, 'wood').setOrigin(0, 0);
         this.NumberFour.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 430, '4. ', { fontSize: '32px', fill: '#000000' });
+        //this.add.text(this.sys.canvas.width / 2 - 100, 430, '4. ', { fontSize: '32px', fill: '#000000' });
 
         this.NumberFive = this.add.image(this.sys.canvas.width / 2 - 130, 500, 'wood').setOrigin(0, 0);
         this.NumberFive.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100,530, '5. ', { fontSize: '32px', fill: '#000000' });
+        //this.add.text(this.sys.canvas.width / 2 - 100,530, '5. ', { fontSize: '32px', fill: '#000000' });
 
         //Creates Back Buttton
 
@@ -97,36 +97,46 @@ class LeaderBoard extends Phaser.Scene {
           switch (i) {
             case 0:
               this.NumberOneText = this.add.text(this.sys.canvas.width / 2, 130, text, {
-                fontSize: '32px',
+                fontSize: '26px',
                 fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
               });
               this.NumberOneText.setOrigin(0.5, 0);
               break;
             case 1:
               this.NumberTwoText = this.add.text(this.sys.canvas.width / 2, 230, text, {
-                fontSize: '32px',
+                fontSize: '26px',
                 fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
               });
               this.NumberTwoText.setOrigin(0.5, 0);
               break;
             case 2:
               this.NumberThreeText = this.add.text(this.sys.canvas.width / 2, 330, text, {
-                fontSize: '32px',
+                fontSize: '26px',
                 fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
               });
               this.NumberThreeText.setOrigin(0.5, 0);
               break;
             case 3:
               this.NumberFourText = this.add.text(this.sys.canvas.width / 2, 430, text, {
-                fontSize: '32px',
+                fontSize: '26px',
                 fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
               });
               this.NumberFourText.setOrigin(0.5, 0);
               break;
             case 4:
               this.NumberFiveText = this.add.text(this.sys.canvas.width / 2, 530, text, {
-                fontSize: '32px',
+                fontSize: '26px',
                 fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
               });
               this.NumberFiveText.setOrigin(0.5, 0);
               break;
