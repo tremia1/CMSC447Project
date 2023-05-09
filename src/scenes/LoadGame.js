@@ -192,38 +192,64 @@ class LoadGame extends Phaser.Scene {
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
             this.clickedSound.play()
-            if(this.value == 0){
-                /*Load save one*/
-            }
 
-            else if(this.value == 1){
-                 /*Load save two*/
-            }
+            fetch('/api/saves')
+            .then(response => response.json())
+            .then(saves => {
+            // Update the text of the score panels
+            this.loadSaves(this.value, saves);
+            })
+            .catch(error => {
+            console.error(error);
+            });
 
-            else if (this.value == 2){
-                 /*Load save three*/
-            }
 
             
-            else if(this.value == 3){
-                 /*Load save four*/
-            }
 
-            else if (this.value == 4){
-                 /*Load save five*/
-            }
-
-		}
         
 
     }
+}
 
+
+    loadSaves(SaveNumber, Saves){
+
+        const Save = Saves[SaveNumber];
+
+        if(Save.levelNumber == 0){
+            this.scene.start(this.location);
+
+            this.scene.start('Tutorial', { 'Time': Save.TimeScore} );
+        }
+
+
+        else if(Save.levelNumber == 1){
+            this.scene.start(this.location);
+
+            this.scene.start('Level1', { 'Time': Save.TimeScore} );
+        }
+
+        else if(Save.levelNumber == 2){
+            this.scene.start(this.location);
+
+            this.scene.start('Level2', { 'Time': Save.TimeScore} );
+        }
+
+        else if(Save.levelNumber == 3){
+            this.scene.start(this.location);
+
+            this.scene.start('Level3', {'Time': Save.TimeScore} );
+        }
+
+
+
+    }
     addSaves(Saves) {
         // Update the text of the score panels
         for (let i = 0; i < Saves.length; i++) {
           const Save = Saves[i];
 
-          const text = `${i + 1}. ${Save.PlayerName }  Level: ${Save.levelNumber} Time: ${Save.TimeScore } `;
+          const text = `Save: ${i + 1}.Level: ${Save.levelNumber} Time: ${Save.TimeScore } `;
           switch (i) {
             case 0:
               this.NumberOneText = this.add.text(this.sys.canvas.width / 2 - 30, 130, text, {

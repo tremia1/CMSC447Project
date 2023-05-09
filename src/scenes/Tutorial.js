@@ -11,6 +11,18 @@ export default class test extends Phaser.Scene {
     constructor() {
         super("Tutorial");
     }
+
+
+    init(data){
+        // Feeds the data to the levels
+
+
+
+
+        this.gameRuntime = data.Time;
+
+        
+    }
     preload() {
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
