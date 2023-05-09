@@ -10,6 +10,17 @@ export default class test extends Phaser.Scene {
         super("Level1");
 
     }
+
+    
+    init(data){
+        // Feeds the data to the levels
+
+
+        this.gameRuntime = data.Time;
+
+        
+    }
+
     preload() {
 
         //Load images for tilemap
