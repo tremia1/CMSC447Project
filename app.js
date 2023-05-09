@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const apiRouter = require('./api/apiRouter');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -9,6 +10,7 @@ const dbPath = './src/database/game.db';
 const db = new sqlite3.Database(dbPath);
 
 app.use(express.static(__dirname));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
