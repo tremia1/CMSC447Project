@@ -45,12 +45,26 @@ function getUser(userId) {
   return user;
 }
 
+
+router.get('/saves', (req, res) => {
+  const limit = req.query.limit || 5;
+  userDb .all(`SELECT * FROM saves ORDER BY SaveNumber DESC LIMIT ${limit}`, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal server error.');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+/*
 router.get('/users', async (req, res) => {
   const users = await userDb.all('SELECT * FROM saves');
   res.json(users);
   console.log(users);
 });
-
+*/
 router.post('/users/insert', async (req, res) => {
   const { user_name, id, points } = req.body;
 

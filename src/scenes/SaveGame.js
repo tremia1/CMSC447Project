@@ -41,33 +41,44 @@ class SaveGame extends Phaser.Scene {
 
         this.SaveOne = this.add.image(this.sys.canvas.width / 2 - 150, 100, 'wood').setOrigin(0, 0);
         this.SaveOne.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 130, 'SaveOne', { fontSize: '32px', fill: '#000000' });
+
 
         this.SaveTwo = this.add.image(this.sys.canvas.width / 2 - 150, 200, 'wood').setOrigin(0, 0);
         this.SaveTwo.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 230, 'SaveTwo', { fontSize: '32px', fill: '#000000' });
+
 
         this.SaveThree = this.add.image(this.sys.canvas.width / 2 - 150, 300, 'wood').setOrigin(0, 0);
         this.SaveThree.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 330, 'SaveThree', { fontSize: '32px', fill: '#000000' });
+  
 
         this.SaveFour = this.add.image(this.sys.canvas.width / 2 - 150, 400, 'wood').setOrigin(0, 0);
         this.SaveFour.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100, 430, 'SaveFour', { fontSize: '32px', fill: '#000000' });
+
 
         this.SaveFive = this.add.image(this.sys.canvas.width / 2 - 150, 500, 'wood').setOrigin(0, 0);
         this.SaveFive.setScale(.03);
-        this.add.text(this.sys.canvas.width / 2 - 100,530, 'SaveFive', { fontSize: '32px', fill: '#000000' });
+
 
         //Creates Back Buttton
         this.Back = this.add.image(0, this.sys.game.config.height/2 + 150, 'Back').setOrigin(0, 0);
         this.Back.setScale(.3);
 
         // Creates the Selection Cursor 
-        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 30, 120, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 60, 120, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
         // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
+
+
+        fetch('/api/saves')
+        .then(response => response.json())
+        .then(saves => {
+        // Update the text of the score panels
+        this.addSaves(saves);
+        })
+        .catch(error => {
+        console.error(error);
+        });
 
         this.Yaxis = 120;
 
@@ -113,7 +124,7 @@ class SaveGame extends Phaser.Scene {
                 this.Yaxis = 520;
             }
 
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 30, this.Yaxis);
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 60, this.Yaxis);
             
             
 
@@ -148,7 +159,7 @@ class SaveGame extends Phaser.Scene {
                 this.Yaxis = 520;
             }
 
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 30, this.Yaxis );
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 60, this.Yaxis );
 	
 		}
         // Goes back to the previous scene determine by Location
@@ -189,5 +200,64 @@ class SaveGame extends Phaser.Scene {
         
 
     }
+
+    addSaves(Saves) {
+        // Update the text of the score panels
+        for (let i = 0; i < Saves.length; i++) {
+          const Save = Saves[i];
+
+          const text = `${i + 1}. ${Save.PlayerName }  Level: ${Save.levelNumber} Time: ${Save.TimeScore } `;
+          switch (i) {
+            case 0:
+              this.NumberOneText = this.add.text(this.sys.canvas.width / 2 - 30, 130, text, {
+                fontSize: '14px',
+                fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
+              });
+              this.NumberOneText.setOrigin(0.5, 0);
+              break;
+            case 1:
+              this.NumberTwoText = this.add.text(this.sys.canvas.width / 2 - 30, 230, text, {
+                fontSize: '14px',
+                fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
+              });
+              this.NumberTwoText.setOrigin(0.5, 0);
+              break;
+            case 2:
+              this.NumberThreeText = this.add.text(this.sys.canvas.width / 2 - 30, 330, text, {
+                fontSize: '14px',
+                fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
+              });
+              this.NumberThreeText.setOrigin(0.5, 0);
+              break;
+            case 3:
+              this.NumberFourText = this.add.text(this.sys.canvas.width / 2 - 30, 430, text, {
+                fontSize: '14px',
+                fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
+              });
+              this.NumberFourText.setOrigin(0.5, 0);
+              break;
+            case 4:
+              this.NumberFiveText = this.add.text(this.sys.canvas.width / 2 - 30, 530, text, {
+                fontSize: '14px',
+                fill: '#000000',
+                fixedHeight: 68,
+                fixedWidth: 230
+              });
+              this.NumberFiveText.setOrigin(0.5, 0);
+              break;
+            default:
+              break;
+          }
+        }
+    }
+ 
  
 } export default SaveGame;

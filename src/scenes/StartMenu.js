@@ -50,7 +50,7 @@ class StartMenu extends Phaser.Scene {
         this.add.text(this.sys.canvas.width / 2 - 120, 520, 'LeaderBoard', { fontSize: '32px', fill: '#000000' });
 
         // Creates the Selection Cursor 
-        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 50, 325, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 60, 325, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
 
@@ -101,7 +101,7 @@ class StartMenu extends Phaser.Scene {
                 this.Yaxis = 525;
             }
 
-            this.buttonSelector.setPosition( this.sys.canvas.width / 2 + 50, this.Yaxis);
+            this.buttonSelector.setPosition( this.sys.canvas.width / 2 + 60, this.Yaxis);
             
             
 
@@ -128,7 +128,7 @@ class StartMenu extends Phaser.Scene {
                 this.Yaxis = 525;
             }
             
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 50, this.Yaxis );
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 60, this.Yaxis );
 	
 		}
 

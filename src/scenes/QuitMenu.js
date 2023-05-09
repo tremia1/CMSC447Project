@@ -63,7 +63,7 @@ class QuitMenu extends Phaser.Scene {
 
          // Creates the Selection Cursor 
 
-        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 50, 270, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 60, 270, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
         // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
@@ -112,7 +112,7 @@ class QuitMenu extends Phaser.Scene {
 
 
 
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 50, this.Yaxis);
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 60, this.Yaxis);
             
             
 
@@ -140,7 +140,7 @@ class QuitMenu extends Phaser.Scene {
                 this.Yaxis = 470;
             }
 
-            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 50, this.Yaxis );
+            this.buttonSelector.setPosition(this.sys.canvas.width / 2 + 60, this.Yaxis );
 	
 		}
         // Goes back to the previous scene determine by Location

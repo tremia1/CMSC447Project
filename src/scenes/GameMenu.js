@@ -69,7 +69,7 @@ class GameMenu extends Phaser.Scene {
 
          // Creates the Selection Cursor 
 
-        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 50, 200, 'cursor').setOrigin(0, 0);
+        this.buttonSelector = this.add.image(this.sys.canvas.width / 2 + 70, 200, 'cursor').setOrigin(0, 0);
         this.buttonSelector.setScale(.4)
 
          // Yaxis is used for movement of Selection cursor and value is for the chooosing which button to do
@@ -133,7 +133,7 @@ class GameMenu extends Phaser.Scene {
                 this.Yaxis = 520;
             }
 
-            this.buttonSelector.setPosition(  this.sys.canvas.width / 2 + 50, this.Yaxis);
+            this.buttonSelector.setPosition(  this.sys.canvas.width / 2 + 70, this.Yaxis);
             
             
 
@@ -165,7 +165,7 @@ class GameMenu extends Phaser.Scene {
                 this.Yaxis = 520;
             } 
 
-            this.buttonSelector.setPosition(  this.sys.canvas.width / 2 + 50, this.Yaxis );
+            this.buttonSelector.setPosition(  this.sys.canvas.width / 2 + 70, this.Yaxis );
 	
 		}
 
