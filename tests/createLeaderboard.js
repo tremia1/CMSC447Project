@@ -29,11 +29,11 @@ const createLeaderboard = () => {
     );
 
     const initialData = [
-      { name: 'Alice', score: 10000 },
-      { name: 'Bob', score: 9000 },
-      { name: 'Carol', score: 8000 },
-      { name: 'Dave', score: 7000 },
-      { name: 'Eve', score: 6000 },
+      { name: 'Alice', score: 500},
+      { name: 'Bob', score: 400 },
+      { name: 'Carol', score: 300 },
+      { name: 'Dave', score: 200 },
+      { name: 'Eve', score: 100 },
     ];
 
     const insertTopScore = db.prepare('INSERT INTO leaderboard (name, score) VALUES (?, ?)');
