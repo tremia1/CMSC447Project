@@ -6,6 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const dbPath = './src/database/game.db';
 const db = new sqlite3.Database(dbPath);
 
+// IMPORTANT NOTE FOR THE API ENDPOINTS:
 // Make sure to to call the API with /api/ in front of the endpoint
 // Example: http://localhost:3000/api/leaderboard
 
@@ -239,17 +240,17 @@ router.get('/levels', (req, res) => {
   const levels = [
     {
       id: 1,
-      name: "TBD",
+      name: "Level 1",
       difficulty: "Easy"
     },
     {
       id: 2,
-      name: "TBD",
+      name: "Level 2",
       difficulty: "Medium"
     },
     {
       id: 3,
-      name: "TBD",
+      name: "Level 3",
       difficulty: "Hard"
     }
   ];
