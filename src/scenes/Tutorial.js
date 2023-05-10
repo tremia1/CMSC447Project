@@ -13,7 +13,7 @@ export default class test extends Phaser.Scene {
     }
 
 
-    init(data){
+    init(data) {
         // Feeds the data to the levels
 
 
@@ -21,14 +21,14 @@ export default class test extends Phaser.Scene {
 
         this.gameRuntime = data.Time;
 
-        
+
     }
     preload() {
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
         this.load.image('bg', 'assets/images/background.png'); //Warning: image tile is not tile size multiple in: bakcground (doesnt affect anything)
         this.load.tilemapTiledJSON('map', 'assets/tilemap/tutorial.json');
-     
+
 
         //Load spritesheets for objects
         this.load.spritesheet('button-up', 'assets/images/ButtonUp.png', { frameWidth: 9, frameHeight: 6 });
@@ -40,10 +40,10 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('wallTile', 'assets/tileset/Tiles/tile042.png');
-     
+
 
         this.load.image('waterTile', 'assets/tileset/Tiles/tile261.png');
-      
+
 
 
         //Load Spritesheet for Dog
@@ -138,7 +138,7 @@ export default class test extends Phaser.Scene {
         this.blockGroup = this.add.group({
             runChildUpdate: true
         });
-        
+
         this.waterGroup = this.add.group({
             runChildUpdate: true
         });
@@ -147,7 +147,7 @@ export default class test extends Phaser.Scene {
 
             this.blockSprite = new Block({
                 scene: this,
-                x: block.x ,
+                x: block.x,
                 y: block.y - block.height,
                 width: block.width,
                 height: block.height,
@@ -156,7 +156,7 @@ export default class test extends Phaser.Scene {
                 button: this.buttonGroup
             });
 
-            
+
             this.physics.add.collider(this.blockSprite, this.platforms);
             this.blockGroup.add(this.blockSprite, true);
 
@@ -212,17 +212,17 @@ export default class test extends Phaser.Scene {
 
         //Create Water objects
         this.map.getObjectLayer('Water').objects.forEach((water) => {
-            
+
             this.waterSprite = new Water({
                 scene: this,
                 x: water.x,
-                y : water.y- water.height,
+                y: water.y - water.height,
                 cat: this.cat,
                 dog: this.dog,
                 width: water.width,
                 height: water.height
             });
-           
+
             this.physics.add.collider(this.waterSprite, this.platforms);
             this.waterGroup.add(this.waterSprite);
         });
@@ -252,8 +252,8 @@ export default class test extends Phaser.Scene {
 
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-       
-    
+
+
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
@@ -263,14 +263,14 @@ export default class test extends Phaser.Scene {
         var soundManager = this.scene.get('Tutorial').sound;
         // set selected sound
         this.gameMusic = soundManager.get('inGameSound') || this.sound.add('inGameSound', { loop: true })
-        if (!this.gameMusic.isPlaying){
+        if (!this.gameMusic.isPlaying) {
             this.gameMusic.play()
         }
         this.gameMusic.setVolume(0.2) //lower music
-        
+
 
     }
-    init(data){
+    init(data) {
         console.log('init', data);
         console.log('1st', this.gameRuntime);
 
@@ -297,29 +297,29 @@ export default class test extends Phaser.Scene {
         //Probably call a function to do this once
         this.minutes = Math.floor(this.gameRuntime / 60);
 
-        this.seconds = this.gameRuntime - (this.minutes * 60); 
+        this.seconds = this.gameRuntime - (this.minutes * 60);
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
             this.scene.pause();
-            
-            this.scene.launch('GameMenu', { "location": 'Tutorial'});
-         
+
+            this.scene.launch('GameMenu', { "location": 'Tutorial' });
+
         }
-        if(this.levelComplete == 1){
-          
-             this.scene.start('Level1', {Time: 0});
-            
+        if (this.levelComplete == 1) {
+            this.levelComplete = 0;
+            this.scene.start('Level1', { Time: 0 });
            
+
 
         }
 
     }
-    goNextLevel(){
+    goNextLevel() {
         this.levelComplete = 1;
     }
 
-    updateTime(){
+    updateTime() {
         this.gameRuntime += 1;
     }
 

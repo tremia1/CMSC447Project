@@ -365,7 +365,9 @@ export default class test extends Phaser.Scene {
             this.scene.launch('GameMenu', { "location": 'Level3' });
         }
         if (this.levelComplete == 1) {
+            this.levelComplete = 0;
             this.scene.start('Congratulations', { "location": 'Level3' });
+            
         }
     }
     goNextLevel() {

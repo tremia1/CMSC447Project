@@ -333,7 +333,7 @@ export default class test extends Phaser.Scene {
 
     }
     init(data){
-        console.log('init', data);
+      
         //console.log('1st', this.gameRuntime);
 
         this.gameRuntime = data.Time;
@@ -361,8 +361,9 @@ export default class test extends Phaser.Scene {
             this.scene.launch('GameMenu', { "location": 'Level2' });
         }
         if (this.levelComplete == 1) {
-
+            this.levelComplete = 0;
             this.scene.start('Level3', {Time: this.gameRuntime});
+            
 
 
 
