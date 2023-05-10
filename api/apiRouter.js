@@ -18,12 +18,12 @@ const db = new sqlite3.Database(dbPath);
  * @returns {Object} - Returns the leaderboard data in JSON format
  */
 router.get('/leaderboard', (req, res) => {
-  const limit = req.query.limit || 5;
+  const limit = req.query.limit || 5; // Set the limit to the query parameter or 5
   db.all(`SELECT * FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
-    if (err) {
+    if (err) { // If there is an error, send a 500 status code and error message
       console.error(err);
-      res.status(500).send('Internal server error.');
-    } else {
+      res.status(500).send('Internal server error.'); 
+    } else { // If there is no error, send a 200 status code and the leaderboard data
       res.json(rows);
     }
   });
@@ -38,12 +38,12 @@ router.get('/leaderboard', (req, res) => {
  */
 
 router.post('/leaderboard', (req, res) => {
-  const { name, score } = req.body;
+  const { name, score } = req.body; // Destructure the name and score from the request body
   db.run('INSERT INTO leaderboard (name, score) VALUES (?, ?)', [name, score], (err) => {
-    if (err) {
+    if (err) { // If there is an error, send a 500 status code and error message
       console.error(err);
       res.status(500).send('Internal server error.');
-    } else {
+    } else { // If there is no error, send a 200 status code and success message
       res.status(200).send('OK');
     }
   });
@@ -59,48 +59,48 @@ router.post('/leaderboard', (req, res) => {
 
 router.post('/public/leaderboard', (req, res) => {
   // Retrieve the leaderboard data from the database
-  const limit = 5;
+  const limit = 5; // Limit the number of results to 5
   db.all(`SELECT name, score FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
-    if (err) {
+    if (err) { // If there is an error, send a 500 status code and error message
       console.error(err);
       res.status(500).send('Internal server error.');
-    } else {
+    } else { // If there is no error, send a 200 status code and success message
       // Construct the JSON object
-      const data = rows.reduce((acc, row, i) => {
-        const position = i + 1;
-        const nameKey = `${position} Name`;
-        const scoreKey = `${position} score`;
-        acc[nameKey] = row.name;
-        acc[scoreKey] = row.score;
-        return acc;
+      const data = rows.reduce((acc, row, i) => { // Reduce the rows array to a single object
+        const position = i + 1; // Add 1 to the index to get the position
+        const nameKey = `${position} Name`; // Create the key for the name
+        const scoreKey = `${position} score`; // Create the key for the score
+        acc[nameKey] = row.name; // Add the name to the object
+        acc[scoreKey] = row.score; // Add the score to the object
+        return acc; // Return the object
       }, {});
       const json = {
-        "data": [
-          {
+        "data": [ // The data array is required by the API
+          { 
             "Group": "G",
             "Title": "Top 5 Scores",
-            ...data
+            ...data // Spread the data object into the JSON object
           }
         ]
       };
 
       // Send the JSON object to the provided URL
       const url = "https://eope3o6d7z7e2cc.m.pipedream.net/data";
-      fetch(url, {
+      fetch(url, { // Use the Fetch API to send the JSON object
         method: "POST",
-        headers: {
+        headers: { // Set the headers to JSON
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(json)
+        body: JSON.stringify(json) // Stringify the JSON object
       })
-      .then(response => {
-        if (response.ok) {
+      .then(response => { // Log the response to the console
+        if (response.ok) { // If the response is OK, log a success message
           console.log("Request successful");
-        } else {
+        } else { // If the response is not OK, log a failure message
           console.log("Request failed");
         }
       })
-      .catch(error => {
+      .catch(error => { // Log any errors to the console
         console.error("Error:", error);
       });
 
