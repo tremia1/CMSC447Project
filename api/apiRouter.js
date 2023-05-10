@@ -6,6 +6,9 @@ const sqlite3 = require('sqlite3').verbose();
 const dbPath = './src/database/game.db';
 const db = new sqlite3.Database(dbPath);
 
+const dbsPath = './src/database/user_database.db'
+const dbs = new sqlite3.Database(dbsPath);
+
 // IMPORTANT NOTE FOR THE API ENDPOINTS:
 // Make sure to to call the API with /api/ in front of the endpoint
 // Example: http://localhost:3000/api/leaderboard
@@ -119,7 +122,7 @@ router.post('/public/leaderboard', (req, res) => {
  */
 router.get('/saves', (req, res) => {
   const limit = req.query.limit || 5;
-  db.all(`SELECT * FROM saves ORDER BY SaveNumber DESC LIMIT ${limit}`, (err, rows) => {
+  dbs.all(`SELECT * FROM saves ORDER BY SaveNumber DESC LIMIT ${limit}`, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error.');
@@ -142,7 +145,7 @@ router.post('/saves/insert', async (req, res) => {
   if (!user_name || !id || !points) {
     res.status(400).send('All fields are required.');
   } else {
-    await db.run('INSERT INTO saves (user_name, id, points) VALUES (?, ?, ?)', [user_name, id, points]);
+    await dbs.run('INSERT INTO saves (user_name, id, points) VALUES (?, ?, ?)', [user_name, id, points]);
     res.status(200).send('OK');
   }
 });
@@ -161,7 +164,7 @@ router.put('/saves/edit/:id', async (req, res) => {
   if (!user_name || !points) {
     res.status(400).send('User Name and Points are required.');
   } else {
-    await db.run('UPDATE saves SET user_name = ?, points = ? WHERE id = ?', [user_name, points, userId]);
+    await dbs.run('UPDATE saves SET user_name = ?, points = ? WHERE id = ?', [user_name, points, userId]);
     res.status(200).send('OK');
   }
 });
@@ -176,7 +179,7 @@ router.put('/saves/edit/:id', async (req, res) => {
 router.delete('/saves/delete/:id', async (req, res) => {
   const userId = req.params.id;
 
-  await db.run('DELETE FROM savesWHERE id = ?', [userId]);
+  await dbs.run('DELETE FROM savesWHERE id = ?', [userId]);
   res.status(200).send('OK');
 });
 
@@ -193,7 +196,7 @@ router.post('/saves/search', async (req, res) => {
   if (!user_name) {
     res.status(400).send('User Name is required.');
   } else {
-    const users = await db.all('SELECT * FROM saves WHERE user_name LIKE ?', ['%' + user_name + '%']);
+    const users = await dbs.all('SELECT * FROM saves WHERE user_name LIKE ?', ['%' + user_name + '%']);
     res.json(users);
   }
 });
