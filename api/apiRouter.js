@@ -157,7 +157,21 @@ router.post('/saves/insert', async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Object} - Returns a success message in JSON format
  */
-router.put('/saves/edit', async (req, res) => {
+
+
+
+router.put('/saves', (req, res) => {
+  const { user_name, Id,  levels, Time  } = req.body; // Destructure the name and score from the request body
+  db.run('INSERT INTO leaderboard (name, score) VALUES (?, ?)', [name, score], (err) => {
+    if (err) { // If there is an error, send a 500 status code and error message
+      console.error(err);
+      res.status(500).send('Internal server error.');
+    } else { // If there is no error, send a 200 status code and success message
+      res.status(200).send('OK');
+    }
+  });
+});
+router.put('/saves', async (req, res) => {
   const { user_name, Id,  levels, Time } = req.body;
 
   if (!user_name || !levels) {
