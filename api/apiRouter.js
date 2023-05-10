@@ -6,6 +6,9 @@ const sqlite3 = require('sqlite3').verbose();
 const dbPath = './src/database/game.db';
 const db = new sqlite3.Database(dbPath);
 
+// Make sure to to call the API with /api/ in front of the endpoint
+// Example: http://localhost:3000/api/leaderboard
+
 /**
  * GET endpoint for retrieving the top scores from the leaderboard
  * 
@@ -26,12 +29,13 @@ router.get('/leaderboard', (req, res) => {
 });
 
 /**
- * POST endpoint for adding a new score to the leaderboard
+ * POST endpoint for inserting new leaderboard data into the database
  * 
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
- * @returns {Object} - Returns an 'OK' status message upon successful insertion of new score
+ * @returns {Object} - Returns a success message in JSON format
  */
+
 router.post('/leaderboard', (req, res) => {
   const { name, score } = req.body;
   db.run('INSERT INTO leaderboard (name, score) VALUES (?, ?)', [name, score], (err) => {
@@ -39,56 +43,68 @@ router.post('/leaderboard', (req, res) => {
       console.error(err);
       res.status(500).send('Internal server error.');
     } else {
-      // Retrieve the leaderboard data from the database
-      const limit = 5;
-      db.all(`SELECT name, score FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Internal server error.');
+      res.status(200).send('OK');
+    }
+  });
+});
+
+/**
+ * POST endpoint for sending the leaderboard data to the provided URL
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - Returns a success message in JSON format
+ */
+
+router.post('/public/leaderboard', (req, res) => {
+  // Retrieve the leaderboard data from the database
+  const limit = 5;
+  db.all(`SELECT name, score FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal server error.');
+    } else {
+      // Construct the JSON object
+      const data = rows.reduce((acc, row, i) => {
+        const position = i + 1;
+        const nameKey = `${position} Name`;
+        const scoreKey = `${position} score`;
+        acc[nameKey] = row.name;
+        acc[scoreKey] = row.score;
+        return acc;
+      }, {});
+      const json = {
+        "data": [
+          {
+            "Group": "G",
+            "Title": "Top 5 Scores",
+            ...data
+          }
+        ]
+      };
+
+      // Send the JSON object to the provided URL
+      const url = "https://eope3o6d7z7e2cc.m.pipedream.net/data";
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(json)
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log("Request successful");
         } else {
-          // Construct the JSON object
-          const data = rows.reduce((acc, row, i) => {
-            const position = i + 1;
-            const nameKey = `${position} Name`;
-            const scoreKey = `${position} score`;
-            acc[nameKey] = row.name;
-            acc[scoreKey] = row.score;
-            return acc;
-          }, {});
-          const json = {
-            "data": [
-              {
-                "Group": "G",
-                "Title": "Top 5 Scores",
-                ...data
-              }
-            ]
-          };
-
-          // Send the JSON object to the provided URL
-          const url = "https://eope3o6d7z7e2cc.m.pipedream.net/data";
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(json)
-          })
-          .then(response => {
-            if (response.ok) {
-              console.log("Request successful");
-            } else {
-              console.log("Request failed");
-            }
-          })
-          .catch(error => {
-            console.error("Error:", error);
-          });
-
-          // Send the response back to the client
-          res.status(200).send('OK');
+          console.log("Request failed");
         }
+      })
+      .catch(error => {
+        console.error("Error:", error);
       });
+
+      // Send the response back to the client
+      res.status(200).send('OK');
     }
   });
 });
