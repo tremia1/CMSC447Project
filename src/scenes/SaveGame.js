@@ -177,9 +177,6 @@ class SaveGame extends Phaser.Scene {
             this.clickedSound.play()
 
 
-            
-            
-
 
 		}
         
