@@ -17,11 +17,8 @@ export default class test extends Phaser.Scene {
     init(data){
         // Feeds the data to the levels
 
-
-
         this.gameRuntime = data.Time;
-
-        
+  
     }
 
 

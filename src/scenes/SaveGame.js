@@ -175,38 +175,25 @@ class SaveGame extends Phaser.Scene {
 		{
             
             this.clickedSound.play()
-            if(this.value == 0){
-                /*save  at one*/
-            }
 
-            else if(this.value == 1){
-                 /*save  at  two*/
-            }
-
-            else if (this.value == 2){
-                 /*save  at  three*/
-            }
 
             
-            else if(this.value == 3){
-                 /*save  at four*/
-            }
+            
 
-            else if (this.value == 4){
-                 /*save  at  five*/
-            }
 
 		}
         
 
     }
 
+
+
     addSaves(Saves) {
         // Update the text of the score panels
         for (let i = 0; i < Saves.length; i++) {
           const Save = Saves[i];
 
-          const text = `${i + 1}. ${Save.PlayerName }  Level: ${Save.levelNumber} Time: ${Save.TimeScore } `;
+          const text = `Save: ${i + 1}.  Level: ${Save.levelNumber} Time: ${Save.TimeScore } `;
           switch (i) {
             case 0:
               this.NumberOneText = this.add.text(this.sys.canvas.width / 2 - 30, 130, text, {

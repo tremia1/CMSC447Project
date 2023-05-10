@@ -65,7 +65,9 @@ router.get('/users', async (req, res) => {
   console.log(users);
 });
 */
-router.post('/users/insert', async (req, res) => {
+
+
+router.post('/saves/insert', async (req, res) => {
   const { user_name, id, points } = req.body;
 
   if (!user_name || !id || !points) {
@@ -76,7 +78,7 @@ router.post('/users/insert', async (req, res) => {
   }
 });
 
-router.put('/users/edit/:id', async (req, res) => {
+router.put('/saves/edit/:id', async (req, res) => {
   const userId = req.params.id;
   const { user_name, points } = req.body;
 
@@ -88,14 +90,14 @@ router.put('/users/edit/:id', async (req, res) => {
   }
 });
 
-router.delete('/users/delete/:id', async (req, res) => {
+router.delete('/saves/delete/:id', async (req, res) => {
   const userId = req.params.id;
 
   await userDb.run('DELETE FROM savesWHERE id = ?', [userId]);
   res.status(200).send('OK');
 });
 
-router.post('/users/search', async (req, res) => {
+router.post('/saves/search', async (req, res) => {
   const { user_name } = req.body;
 
   if (!user_name) {
