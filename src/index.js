@@ -9,6 +9,7 @@ import LeaderBoard from './scenes/LeaderBoard.js';
 import GameMenu from './scenes/GameMenu.js';
 import QuitMenu from './scenes/QuitMenu.js';
 import SaveGame from './scenes/SaveGame.js';
+import Congratulations from './scenes/Congratulations.js';
 
 
 /* Game Scene*/
@@ -26,15 +27,19 @@ const config = {
       gravity: { y: 300 },
       debug: true,
     }
-   
-   
+
+
   },
-    transparent: true,
-    parent: 'game',
-    backgroundColor: '#000000',
-    
-    
-   scene:[StartMenu, Tutorial, Level1, Level2, Level3, GameMenu, LoadGame , LeaderBoard,  QuitMenu,SaveGame] 
+  transparent: true,
+  parent: 'game',
+  backgroundColor: '#000000',
+  dom: {
+    createContainer: true
+  },
+
+
+
+  scene: [StartMenu, Tutorial, Level1, Level2, Level3, GameMenu, LoadGame, Congratulations, LeaderBoard, QuitMenu, SaveGame]
 };
 
 const game = new Phaser.Game(config);
