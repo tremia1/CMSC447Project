@@ -157,14 +157,13 @@ router.post('/saves/insert', async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Object} - Returns a success message in JSON format
  */
-router.put('/saves/edit/:id', async (req, res) => {
-  const userId = req.params.id;
-  const { user_name, points } = req.body;
+router.put('/saves/edit', async (req, res) => {
+  const { user_name, Id,  levels, Time } = req.body;
 
-  if (!user_name || !points) {
-    res.status(400).send('User Name and Points are required.');
+  if (!user_name || !levels) {
+    res.status(400).send('User Name and levelnumber are required.');
   } else {
-    await dbs.run('UPDATE saves SET user_name = ?, points = ? WHERE id = ?', [user_name, points, userId]);
+    await dbs.run('UPDATE saves SET PlayerName = ?, levelNumber = ?  , Timescore = ? ,WHERE id = ?', [user_name, levels, Time, Id]);
     res.status(200).send('OK');
   }
 });

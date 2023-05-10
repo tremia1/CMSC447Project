@@ -173,13 +173,39 @@ class SaveGame extends Phaser.Scene {
         // Save at chosen button using value 
 		else if (Phaser.Input.Keyboard.JustDown(this.spacebar))
 		{
-            
-            this.clickedSound.play()
+     
+
+      this.name = 'Bob',
+      this.id = 0,
+      this.level = 2,
+      this.time = 500,
+      this.level = 2
+
+      this.url = '/api/saves/edit'
 
 
-            
-            
+      this.data = {"data" :
+	[ 
+		{	user_name: this.name,
+			Id: this.id,
+			levels: this.level,
+			Time: this.time
 
+		}
+	]
+}
+
+
+
+      this.put(this.url,this.data)
+          
+      
+
+
+
+
+
+      this.clickedSound.play()
 
 		}
         
@@ -188,6 +214,24 @@ class SaveGame extends Phaser.Scene {
 
 
 
+    async put(url, data) {
+  
+      // Awaiting fetch which contains method,
+      // headers and content-type and body
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+        
+      // Awaiting response.json()
+      const resData = await response.json();
+    
+      // Return response data 
+      return resData;
+    }
     addSaves(Saves) {
         // Update the text of the score panels
         for (let i = 0; i < Saves.length; i++) {
