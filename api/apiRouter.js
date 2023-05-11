@@ -161,8 +161,8 @@ router.post('/saves/insert', async (req, res) => {
 
 
 router.put('/saves', (req, res) => {
-  const { user_name,Time  ,  levels, id } = req.body; // Destructure the name and score from the request body
-  dbs.run('UPDATE saves SET PlayerName = ?  levelNumber = ?   Timescore = ?  WHERE Id = ?', [user_name, levels ,Time,id]);
+  const { PlayerName, Timescore ,  levelNumber , Id  } = req.body; // Destructure the name and score from the request body
+  dbs.run('UPDATE saves SET PlayerName = ? , levelNumber = ?  , Timescore = ?    WHERE Id = ? ', [PlayerName , levelNumber  , Timescore, Id ]);
 });
 
 /*
