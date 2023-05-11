@@ -6,9 +6,6 @@ const sqlite3 = require('sqlite3').verbose();
 const dbPath = './src/database/game.db';
 const db = new sqlite3.Database(dbPath);
 
-const dbsPath = './src/database/user_database.db'
-const dbs = new sqlite3.Database(dbsPath);
-
 // IMPORTANT NOTE FOR THE API ENDPOINTS:
 // Make sure to to call the API with /api/ in front of the endpoint
 // Example: http://localhost:3000/api/leaderboard
@@ -122,7 +119,7 @@ router.post('/public/leaderboard', (req, res) => {
  */
 router.get('/saves', (req, res) => {
   const limit = req.query.limit || 5;
-  dbs.all(`SELECT * FROM saves ORDER BY SaveNumber DESC LIMIT ${limit}`, (err, rows) => {
+  db.all(`SELECT * FROM saves ORDER BY SaveNumber DESC LIMIT ${limit}`, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error.');
@@ -140,12 +137,12 @@ router.get('/saves', (req, res) => {
  * @returns {Object} - Returns a success message in JSON format
  */
 router.post('/saves/insert', async (req, res) => {
-  const { user_name, id, points } = req.body;
+  const { user_name, level, time } = req.body;
 
-  if (!user_name || !id || !points) {
+  if (!user_name || !level || !time) {
     res.status(400).send('All fields are required.');
   } else {
-    await dbs.run('INSERT INTO saves (user_name, id, points) VALUES (?, ?, ?)', [user_name, id, points]);
+    await db.run('INSERT INTO saves (SaveNumber, PlayerName, levelNumber, TimeScore) VALUES (1, ?, ?, ?)', [user_name, level, time]);
     res.status(200).send('OK');
   }
 });
@@ -157,14 +154,14 @@ router.post('/saves/insert', async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Object} - Returns a success message in JSON format
  */
-router.put('/saves/edit/:id', async (req, res) => {
+router.put('/saves/:id', async (req, res) => {
+  const { user_name, Time, levels } = req.body;
   const userId = req.params.id;
-  const { user_name, points } = req.body;
 
-  if (!user_name || !points) {
-    res.status(400).send('User Name and Points are required.');
+  if (!user_name || !levels) {
+    res.status(400).send('User Name and levelnumber are required.');
   } else {
-    await dbs.run('UPDATE saves SET user_name = ?, points = ? WHERE id = ?', [user_name, points, userId]);
+    await db.run('UPDATE saves SET user_name = ?, TimeScore = ?, levels = ? WHERE id = ?', [user_name, Time, levels, userId]);
     res.status(200).send('OK');
   }
 });
@@ -179,7 +176,7 @@ router.put('/saves/edit/:id', async (req, res) => {
 router.delete('/saves/delete/:id', async (req, res) => {
   const userId = req.params.id;
 
-  await dbs.run('DELETE FROM savesWHERE id = ?', [userId]);
+  await db.run('DELETE FROM saves WHERE id = ?', [userId]);
   res.status(200).send('OK');
 });
 
@@ -196,7 +193,7 @@ router.post('/saves/search', async (req, res) => {
   if (!user_name) {
     res.status(400).send('User Name is required.');
   } else {
-    const users = await dbs.all('SELECT * FROM saves WHERE user_name LIKE ?', ['%' + user_name + '%']);
+    const users = await db.all('SELECT * FROM saves WHERE user_name LIKE ?', ['%' + user_name + '%']);
     res.json(users);
   }
 });
