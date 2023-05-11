@@ -157,7 +157,7 @@ class LoadGame extends Phaser.Scene {
         // Update the text of the score panels
         for (let i = 0; i < Saves.length; i++) {
             const Save = Saves[i];
-            const text = `Save: ${i + 1}.Level: ${Save.levelNumber} Time: ${Save.TimeScore } `;
+            const text = `     LVL ${Save.levelNumber} | Time: ${Save.TimeScore }`
             switch (i) {
                 case 0:
                     this.NumberOneText = this.add.text(this.sys.canvas.width / 2 - 30, 130, text, {
