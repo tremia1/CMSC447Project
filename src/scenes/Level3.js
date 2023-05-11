@@ -212,7 +212,6 @@ export default class test extends Phaser.Scene {
         //Can change specific walls according to id
         this.map.getObjectLayer('Wall').objects.forEach((wall) => {
             //get the name of the button that this wall is associated with
-            console.log(wall)
             let buttonName = wall.properties[0].value;
 
 
@@ -319,7 +318,7 @@ export default class test extends Phaser.Scene {
 
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
+        this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
             
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
@@ -337,11 +336,7 @@ export default class test extends Phaser.Scene {
     }
 
     init(data){
-        console.log('init', data);
-        //console.log('1st', this.gameRuntime);
-
         this.gameRuntime = data.Time;
-        //console.log('2st', this.gameRuntime);
     }
 
     update(dt) {
@@ -364,10 +359,13 @@ export default class test extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('GameMenu', { "location": 'Level3' });
         }
+        if (Phaser.Input.Keyboard.JustDown(this.restart)){
+            this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
+        }
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
             this.scene.start('Congratulations', { "location": 'Level3' });
-            
+            this.scene.stop()
         }
     }
     goNextLevel() {

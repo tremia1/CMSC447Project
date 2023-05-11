@@ -15,13 +15,7 @@ export default class test extends Phaser.Scene {
 
     init(data) {
         // Feeds the data to the levels
-
-
-
-
         this.gameRuntime = data.Time;
-
-
     }
     preload() {
         //Load images for tilemap
@@ -227,9 +221,6 @@ export default class test extends Phaser.Scene {
             this.waterGroup.add(this.waterSprite);
         });
 
-        // //Create Block objects
-
-
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
         this.door = new Door({
@@ -243,15 +234,14 @@ export default class test extends Phaser.Scene {
         });
         this.physics.add.collider(this.door, this.platforms);
 
-
         this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
         this.physics.add.collider(this.cat.sprite, this.dog.sprite);
 
 
-
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
 
 
         // Stop Menu Music
@@ -270,29 +260,16 @@ export default class test extends Phaser.Scene {
 
 
     }
-    init(data) {
-        console.log('init', data);
-        console.log('1st', this.gameRuntime);
 
+    init(data) {
         this.gameRuntime = data.Time;
-        console.log('2st', this.gameRuntime);
     }
 
     update(dt) {
         this.dog.update(dt);
         this.cat.update(dt);
         this.door.update();
-        /*
-        var temp = (time * .001) - this.gameRuntime;
 
-        this.gameRuntime = temp + this.gameRuntime;
-        console.log(`Temp ${temp}`);
-        console.log(`Time ${this.gameRuntime}`);
-
-        this.minutes = Math.floor(this.gameRuntime / 60);
-
-        this.seconds = this.gameRuntime - (this.minutes * 60);
-        */
         //Check to see if button was pressed, if pressed, set wall to visible and add physic collider
         //Probably call a function to do this once
         this.minutes = Math.floor(this.gameRuntime / 60);
@@ -300,20 +277,19 @@ export default class test extends Phaser.Scene {
         this.seconds = this.gameRuntime - (this.minutes * 60);
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
 
+        if (Phaser.Input.Keyboard.JustDown(this.restart)){
+        
+        }
+
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
             this.scene.pause();
-
             this.scene.launch('GameMenu', { "location": 'Tutorial' });
-
         }
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
             this.scene.start('Level1', { Time: 0 });
-           
-
-
+            this.scene.stop()
         }
-
     }
     goNextLevel() {
         this.levelComplete = 1;

@@ -42,7 +42,7 @@ export default class Water extends Phaser.GameObjects.Sprite {
            if(!this.errorSound.isPlaying){
                 this.errorSound.play()
            }
-           console.log(this.scene.scene.start(this.scene.scene.key, {Time: (this.scene.gameRuntime + 3)}))
+           this.scene.scene.start(this.scene.scene.key, {Time: (this.scene.gameRuntime + 3)})
         }
         } // this can return a boolean if they actually overlap, can use this as a way of checking
         //may need the overlay call for cat here to make sure its always checking 

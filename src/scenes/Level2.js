@@ -40,7 +40,6 @@ export default class test extends Phaser.Scene {
 
         this.load.image('wallTile', 'assets/tileset/Tiles/tile042.png');
         this.load.image('movewallTile', 'assets/tileset/Tiles/tile042.png');
-
         this.load.image('waterTile', 'assets/tileset/Tiles/tile261.png');
 
 
@@ -63,8 +62,8 @@ export default class test extends Phaser.Scene {
     }
 
     create() {
-        //Creates map and adds layers to it
 
+        //Creates map and adds layers to it
         this.map = this.make.tilemap({
             key: 'level2',
             tileHeight: 16,
@@ -187,7 +186,6 @@ export default class test extends Phaser.Scene {
         //Can change specific walls according to id
         this.map.getObjectLayer('Wall').objects.forEach((wall) => {
             //get the name of the button that this wall is associated with
-            console.log(wall)
             let buttonName = wall.properties[0].value;
 
 
@@ -252,7 +250,6 @@ export default class test extends Phaser.Scene {
             this.movableWallGroup.add(this.mwallSprite);
         });
 
-
         //Create Water objects
         this.map.getObjectLayer('Water').objects.forEach((water) => {
 
@@ -269,29 +266,6 @@ export default class test extends Phaser.Scene {
             this.physics.add.collider(this.waterSprite, this.platforms);
             this.waterGroup.add(this.waterSprite);
         });
-
-        // //Create Block objects
-        /*
-        this.map.getObjectLayer('Block').objects.forEach((block) => {
-
-            this.blockSprite = new Block({
-                scene: this,
-                x: block.x,
-                y: block.y - block.height,
-                status: false,
-                cat: this.cat,
-                dog: this.dog,
-                button: this.buttonGroup,
-                width: block.width,
-                height: block.height
-            });
-
-
-            this.physics.add.collider(this.blockSprite, this.platforms);
-            this.blockGroup.add(this.blockSprite, true);
-
-        });
-        */
 
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
@@ -316,7 +290,7 @@ export default class test extends Phaser.Scene {
 
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
+        this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
             
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
@@ -333,11 +307,7 @@ export default class test extends Phaser.Scene {
 
     }
     init(data){
-      
-        //console.log('1st', this.gameRuntime);
-
         this.gameRuntime = data.Time;
-        //console.log('2st', this.gameRuntime);
     }
 
     update(dt) {
@@ -360,13 +330,13 @@ export default class test extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('GameMenu', { "location": 'Level2' });
         }
+        if (Phaser.Input.Keyboard.JustDown(this.restart)){
+            this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
+        }
         if (this.levelComplete == 1) {
-            this.levelComplete = 0;
+            this.levelComplete = 0
             this.scene.start('Level3', {Time: this.gameRuntime});
-            
-
-
-
+            this.scene.stop()
         }
     }
     goNextLevel() {

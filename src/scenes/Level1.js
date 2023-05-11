@@ -8,16 +8,12 @@ import Water from '../../src/object/Water.js';
 export default class test extends Phaser.Scene {
     constructor() {
         super("Level1");
-
     }
 
     
     init(data){
         // Feeds the data to the levels
-
         this.gameRuntime = data.Time;
-
-        
     }
 
     preload() {
@@ -38,10 +34,7 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('door-animation', 'assets/images/DoorAnimation.png', { frameWidth: 73, frameHeight: 85 });
 
         this.load.image('wallTile', 'assets/tileset/Tiles/tile042.png');
-
-
         this.load.image('waterTile', 'assets/tileset/Tiles/tile261.png');
-
 
 
         //Load Spritesheet for Dog
@@ -57,7 +50,6 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet('CatWalk', 'assets/images/Cat/Cat-Walk.png', { frameWidth: 15, frameHeight: 15 }); //Have warning about frame 8 of this is missing
         this.load.spritesheet('CatJump', 'assets/images/Cat/Cat-Jump.png', { frameWidth: 15, frameHeight: 15 });
         this.load.spritesheet('CatHiss', 'assets/images/Cat/Cat-Hiss.png', { frameWidth: 15, frameHeight: 15 });
-
 
     }
 
@@ -159,7 +151,6 @@ export default class test extends Phaser.Scene {
 
         });
 
-
         //Create Button objects
         this.map.getObjectLayer('Button').objects.forEach((button) => {
 
@@ -231,9 +222,6 @@ export default class test extends Phaser.Scene {
             this.waterGroup.add(this.waterSprite);
         });
 
-        // //Create Block objects
-
-
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
         this.door = new Door({
@@ -247,17 +235,15 @@ export default class test extends Phaser.Scene {
         });
         this.physics.add.collider(this.door, this.platforms);
 
-
         this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
         this.physics.add.collider(this.cat.sprite, this.dog.sprite);
         this.physics.add.collider(this.blockGroup, this.blockGroup);
 
 
-
         this.timeText = this.add.text(50, 30, 'Time :', { fontSize: '32px', fill: '#FFFFFF' });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-       
+        this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
@@ -274,11 +260,7 @@ export default class test extends Phaser.Scene {
 
     }
     init(data){
-        console.log('init', data);
-        console.log('1st', this.gameRuntime);
-
         this.gameRuntime = data.Time;
-        console.log('2st', this.gameRuntime);
     }
 
     update(dt) {
@@ -290,7 +272,6 @@ export default class test extends Phaser.Scene {
 
 
         this.minutes = Math.floor(this.gameRuntime / 60);
-
         this.seconds = this.gameRuntime - (this.minutes * 60);
 
         //Check to see if button was pressed, if pressed, set wall to visible and add physic collider
@@ -299,16 +280,15 @@ export default class test extends Phaser.Scene {
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
             this.scene.pause();
-           
             this.scene.launch('GameMenu', { "location": 'Level1' });
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.restart)){
+            this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
         }
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
             this.scene.start('Level2', {Time: this.gameRuntime});
-           
-
-
-
+            this.scene.stop()
         }
     }
     goNextLevel() {
