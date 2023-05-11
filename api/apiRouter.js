@@ -161,16 +161,11 @@ router.post('/saves/insert', async (req, res) => {
 
 
 router.put('/saves', (req, res) => {
-  const { user_name, Id,  levels, Time  } = req.body; // Destructure the name and score from the request body
-  db.run('INSERT INTO leaderboard (name, score) VALUES (?, ?)', [name, score], (err) => {
-    if (err) { // If there is an error, send a 500 status code and error message
-      console.error(err);
-      res.status(500).send('Internal server error.');
-    } else { // If there is no error, send a 200 status code and success message
-      res.status(200).send('OK');
-    }
-  });
+  const { user_name,Time  ,  levels, id } = req.body; // Destructure the name and score from the request body
+  dbs.run('UPDATE saves SET PlayerName = ?  levelNumber = ?   Timescore = ?  WHERE Id = ?', [user_name, levels ,Time,id]);
 });
+
+/*
 router.put('/saves', async (req, res) => {
   const { user_name, Id,  levels, Time } = req.body;
 
@@ -181,7 +176,7 @@ router.put('/saves', async (req, res) => {
     res.status(200).send('OK');
   }
 });
-
+*/
 /**
  * DELETE endpoint for deleting saved games data from the database
  * 

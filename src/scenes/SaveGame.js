@@ -175,35 +175,12 @@ class SaveGame extends Phaser.Scene {
 		{
      
 
-      this.name = 'Bob',
-      this.id = 0,
-      this.level = 2,
-      this.time = 500,
-      this.level = 2
+      this.name = "George";
+      this.iD = 2;
+      this.level = 1;
+      this.time = 300;
 
-      this.url = '/api/saves/edit'
-
-
-      this.data = {"data" :
-	[ 
-		{	user_name: this.name,
-			Id: this.id,
-			levels: this.level,
-			Time: this.time
-
-		}
-	]
-}
-
-
-
-      this.put(this.url,this.data)
-          
-      
-
-
-
-
+      this.saveGame(this.name,this.iD,this.level,this.time);
 
       this.clickedSound.play()
 
@@ -212,26 +189,32 @@ class SaveGame extends Phaser.Scene {
 
     }
 
+ 
 
-
-    async put(url, data) {
-  
-      // Awaiting fetch which contains method,
-      // headers and content-type and body
-      const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-        
-      // Awaiting response.json()
-      const resData = await response.json();
+    async saveGame(name,iD,level,time) {
+      try {
+        const response = await fetch('/api/saves', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user_name: name, // Replace with the actual user's name
+            id: iD,
+            levels: level,
+            Time: time
+          })
+        });
     
-      // Return response data 
-      return resData;
-    }
+        if (response.status !== 200) {
+          throw new Error('Failed to send score to the database.');
+        }
+    
+        console.log('Score sent successfully.');
+      } catch (error) {
+        console.error('Error sending score to the database:', error);
+      }
+  }
     addSaves(Saves) {
         // Update the text of the score panels
         for (let i = 0; i < Saves.length; i++) {
