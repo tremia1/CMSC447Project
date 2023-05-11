@@ -87,10 +87,6 @@ export default class test extends Phaser.Scene {
             frameWidth: 15,
             frameHeight: 15
         });
-        // Load in Game Related Music // 
-        this.load.audio('inGameSound', 'assets/sounds/inGame.mp3')
-        this.load.audio('errorSound', 'assets/sounds/error.mp3')
-        this.load.audio('successSound', 'assets/sounds/success.mp3')
     }
     create() {
         //Creates map and adds layers to it
@@ -230,11 +226,6 @@ export default class test extends Phaser.Scene {
             this.physics.add.collider(this.waterSprite, this.platforms);
             this.waterGroup.add(this.waterSprite);
         });
-<<<<<<< HEAD
-
-=======
-        // //Create Block objects
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
         this.door = new Door({
@@ -247,7 +238,6 @@ export default class test extends Phaser.Scene {
             button: this.buttonGroup.getChildren().find(v => v.name === 'button2')
         });
         this.physics.add.collider(this.door, this.platforms);
-<<<<<<< HEAD
 
         this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
         this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
@@ -259,16 +249,6 @@ export default class test extends Phaser.Scene {
         this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
 
 
-=======
-        this.physics.add.collider(this.dog.sprite, this.platforms, this.dog.onCollide, null, this);
-        this.physics.add.collider(this.cat.sprite, this.platforms, this.cat.onCollide);
-        this.physics.add.collider(this.cat.sprite, this.dog.sprite);
-        this.timeText = this.add.text(50, 30, 'Time :', {
-            fontSize: '32px',
-            fill: '#FFFFFF'
-        });
-        this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
@@ -284,14 +264,8 @@ export default class test extends Phaser.Scene {
         }
         this.gameMusic.setVolume(0.2) //lower music
     }
-<<<<<<< HEAD
 
     init(data) {
-=======
-    init(data) {
-        console.log('init', data);
-        console.log('1st', this.gameRuntime);
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         this.gameRuntime = data.Time;
     }
     update(dt) {
@@ -304,10 +278,9 @@ export default class test extends Phaser.Scene {
         this.minutes = Math.floor(this.gameRuntime / 60);
         this.seconds = this.gameRuntime - (this.minutes * 60);
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
-<<<<<<< HEAD
 
         if (Phaser.Input.Keyboard.JustDown(this.restart)){
-        
+            this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
@@ -318,19 +291,6 @@ export default class test extends Phaser.Scene {
             this.levelComplete = 0;
             this.scene.start('Level1', { Time: 0 });
             this.scene.stop()
-=======
-        if (Phaser.Input.Keyboard.JustDown(this.esc)) {
-            this.scene.pause();
-            this.scene.launch('GameMenu', {
-                "location": 'Tutorial'
-            });
-        }
-        if (this.levelComplete == 1) {
-            this.levelComplete = 0;
-            this.scene.start('Level1', {
-                Time: 0
-            });
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         }
     }
     goNextLevel() {

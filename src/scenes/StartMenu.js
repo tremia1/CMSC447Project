@@ -11,6 +11,11 @@ class StartMenu extends Phaser.Scene {
         this.load.audio('backgroundMusic', 'assets/sounds/GameMenu.mp3')
         this.load.audio('clickedSound', 'assets/sounds/clicked.mp3')
         this.load.audio('navigateSound', 'assets/sounds/navigate.mp3')
+        // Load in Game Related Music // 
+        this.load.audio('inGameSound', 'assets/sounds/inGame.mp3')
+        this.load.audio('errorSound', 'assets/sounds/error.mp3')
+        this.load.audio('successSound', 'assets/sounds/success.mp3')
+
     }
     create() {
         // Creates Cursor and Spacebar input and Background

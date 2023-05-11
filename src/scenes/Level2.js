@@ -91,10 +91,6 @@ export default class test extends Phaser.Scene {
         });
     }
     create() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         //Creates map and adds layers to it
         this.map = this.make.tilemap({
             key: 'level2',
@@ -248,10 +244,6 @@ export default class test extends Phaser.Scene {
             this.physics.add.collider(this.mwallSprite, this.platforms);
             this.movableWallGroup.add(this.mwallSprite);
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         //Create Water objects
         this.map.getObjectLayer('Water').objects.forEach((water) => {
             this.waterSprite = new Water({
@@ -266,32 +258,6 @@ export default class test extends Phaser.Scene {
             this.physics.add.collider(this.waterSprite, this.platforms);
             this.waterGroup.add(this.waterSprite);
         });
-<<<<<<< HEAD
-
-=======
-        // //Create Block objects
-        /*
-        this.map.getObjectLayer('Block').objects.forEach((block) => {
-
-            this.blockSprite = new Block({
-                scene: this,
-                x: block.x,
-                y: block.y - block.height,
-                status: false,
-                cat: this.cat,
-                dog: this.dog,
-                button: this.buttonGroup,
-                width: block.width,
-                height: block.height
-            });
-
-
-            this.physics.add.collider(this.blockSprite, this.platforms);
-            this.blockGroup.add(this.blockSprite, true);
-
-        });
-        */
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         //Create Door object
         this.doorObject = this.map.getObjectLayer('Door').objects[0];
         this.door = new Door({
@@ -313,11 +279,8 @@ export default class test extends Phaser.Scene {
             fill: '#FFFFFF'
         });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-<<<<<<< HEAD
         this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
             
-=======
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
@@ -332,12 +295,7 @@ export default class test extends Phaser.Scene {
             this.gameMusic.play()
         }
     }
-<<<<<<< HEAD
     init(data){
-=======
-    init(data) {
-        //console.log('1st', this.gameRuntime);
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         this.gameRuntime = data.Time;
     }
     update(dt) {
@@ -360,16 +318,9 @@ export default class test extends Phaser.Scene {
             this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
         }
         if (this.levelComplete == 1) {
-<<<<<<< HEAD
             this.levelComplete = 0
             this.scene.start('Level3', {Time: this.gameRuntime});
             this.scene.stop()
-=======
-            this.levelComplete = 0;
-            this.scene.start('Level3', {
-                Time: this.gameRuntime
-            });
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         }
     }
     goNextLevel() {

@@ -300,11 +300,8 @@ export default class test extends Phaser.Scene {
             fill: '#FFFFFF'
         });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-<<<<<<< HEAD
         this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
             
-=======
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
@@ -319,14 +316,8 @@ export default class test extends Phaser.Scene {
             this.gameMusic.play()
         }
     }
-<<<<<<< HEAD
 
     init(data){
-=======
-    init(data) {
-        console.log('init', data);
-        //console.log('1st', this.gameRuntime);
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         this.gameRuntime = data.Time;
     }
     update(dt) {
@@ -350,14 +341,8 @@ export default class test extends Phaser.Scene {
         }
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
-<<<<<<< HEAD
             this.scene.start('Congratulations', { "location": 'Level3' });
             this.scene.stop()
-=======
-            this.scene.start('Congratulations', {
-                "location": 'Level3'
-            });
->>>>>>> 0cb00a589053ce10eb801e749ec432ad64cce730
         }
     }
     goNextLevel() {
