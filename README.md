@@ -55,5 +55,7 @@ Sprites Can be found here:
 1. https://angryelk.itch.io/animated-corgi-sprite
 2. https://elthen.itch.io/2d-pixel-art-cat-sprites
 itch.io
-
 Background can be found here: https://edermunizz.itch.io/free-pixel-art-forest
+Cats Paw: https://custom-cursor.com/en/collection/funny-cats/white-cat-paw
+Wood: https://in.pinterest.com/pin/420242208965531927/
+Back Button: https://www.pngwing.com/en/free-png-nzvkz
