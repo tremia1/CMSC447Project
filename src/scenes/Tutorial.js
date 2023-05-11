@@ -87,10 +87,6 @@ export default class test extends Phaser.Scene {
             frameWidth: 15,
             frameHeight: 15
         });
-        // Load in Game Related Music // 
-        this.load.audio('inGameSound', 'assets/sounds/inGame.mp3')
-        this.load.audio('errorSound', 'assets/sounds/error.mp3')
-        this.load.audio('successSound', 'assets/sounds/success.mp3')
     }
     create() {
         //Creates map and adds layers to it
@@ -251,6 +247,7 @@ export default class test extends Phaser.Scene {
             fill: '#FFFFFF'
         });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
@@ -298,11 +295,15 @@ export default class test extends Phaser.Scene {
                 "location": 'Tutorial'
             });
         }
+        if (Phaser.Input.Keyboard.JustDown(this.restart)){
+            this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
+        }
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
             this.scene.start('Level1', {
                 Time: 0
             });
+            this.scene.stop();
         }
     }
     goNextLevel() {

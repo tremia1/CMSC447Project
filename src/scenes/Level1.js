@@ -248,6 +248,7 @@ export default class test extends Phaser.Scene {
             fill: '#FFFFFF'
         });
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        this.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         // Stop Menu Music
         var soundManager = this.scene.get('StartMenu').sound;
         var soundObject = soundManager.get('backgroundMusic');
@@ -284,11 +285,15 @@ export default class test extends Phaser.Scene {
                 "location": 'Level1'
             });
         }
+        if (Phaser.Input.Keyboard.JustDown(this.restart)){
+            this.scene.start(this.scene.key, {Time: (this.gameRuntime + 3)})
+        }
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
             this.scene.start('Level2', {
                 Time: this.gameRuntime
             });
+            this.scene.stop()
         }
     }
     goNextLevel() {

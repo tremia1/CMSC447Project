@@ -132,26 +132,23 @@ class LoadGame extends Phaser.Scene {
     loadSaves(SaveNumber, Saves) {
         const Save = Saves[SaveNumber];
         if (Save.levelNumber == 0) {
-            this.scene.start(this.location);
             this.scene.start('Tutorial', {
                 'Time': Save.TimeScore
             });
         } else if (Save.levelNumber == 1) {
-            this.scene.start(this.location);
             this.scene.start('Level1', {
                 'Time': Save.TimeScore
             });
         } else if (Save.levelNumber == 2) {
-            this.scene.start(this.location);
             this.scene.start('Level2', {
                 'Time': Save.TimeScore
             });
         } else if (Save.levelNumber == 3) {
-            this.scene.start(this.location);
             this.scene.start('Level3', {
                 'Time': Save.TimeScore
             });
         }
+        
     }
     addSaves(Saves) {
         // Update the text of the score panels
