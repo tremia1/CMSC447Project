@@ -108,7 +108,8 @@ class Congratulations extends Phaser.Scene {
         while (input == " ") {
             input = prompt("Enter Your Name", " ");
         }
-        //Do api stuff
+        //Call API to handle new score
+     
         this.sendScoreToDatabase(input, this.score)
         return input;
     }

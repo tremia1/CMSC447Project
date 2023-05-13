@@ -13,27 +13,28 @@ export default class test extends Phaser.Scene {
     init(data) {
         // Feeds the data to the levels
         this.gameRuntime = data.Time;
+       
     }
-    async sendScoreToDatabase(score) {
-        try {
-            const response = await fetch('/api/leaderboard', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: 'User', // Replace with the actual user's name
-                    score: score
-                })
-            });
-            if (response.status !== 200) {
-                throw new Error('Failed to send score to the database.');
-            }
-            console.log('Score sent successfully.');
-        } catch (error) {
-            console.error('Error sending score to the database:', error);
-        }
-    }
+    // async sendScoreToDatabase(score) {
+    //     try {
+    //         const response = await fetch('/api/leaderboard', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 name: 'User', // Replace with the actual user's name
+    //                 score: score
+    //             })
+    //         });
+    //         if (response.status !== 200) {
+    //             throw new Error('Failed to send score to the database.');
+    //         }
+    //         console.log('Score sent successfully.');
+    //     } catch (error) {
+    //         console.error('Error sending score to the database:', error);
+    //     }
+    // }
     preload() {
         //Load images for tilemap
         this.load.image('tiles', 'assets/tileset/Textures-16.png');
@@ -213,7 +214,7 @@ export default class test extends Phaser.Scene {
         //Can change specific walls according to id
         this.map.getObjectLayer('Wall').objects.forEach((wall) => {
             //get the name of the button that this wall is associated with
-            console.log(wall)
+        
             let buttonName = wall.properties[0].value;
             let buttonForWall;
             //find the button in the button group and pass it into wall class
@@ -316,12 +317,7 @@ export default class test extends Phaser.Scene {
             this.gameMusic.play()
         }
     }
-    init(data) {
-        console.log('init', data);
-        //console.log('1st', this.gameRuntime);
-        this.gameRuntime = data.Time;
-        //console.log('2st', this.gameRuntime);
-    }
+ 
     update(dt) {
         this.dog.update(dt);
         this.cat.update(dt);
@@ -335,7 +331,8 @@ export default class test extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
             this.scene.pause();
             this.scene.launch('GameMenu', {
-                "location": 'Level3'
+                "location": 'Level3',
+                "time": this.gameRuntime
             });
         }
         if (Phaser.Input.Keyboard.JustDown(this.restart)){
@@ -344,13 +341,14 @@ export default class test extends Phaser.Scene {
         if (this.levelComplete == 1) {
             this.levelComplete = 0;
             this.scene.start('Congratulations', {
-                "location": 'Level3'
+                "location": 'Level3',
+                "Time": this.gameRuntime
             });
         }
     }
     goNextLevel() {
         this.levelComplete = 1;
-        this.sendScoreToDatabase(this.gameRuntime);
+        // this.sendScoreToDatabase(this.gameRuntime);
     }
     updateTime() {
         this.gameRuntime += 1;

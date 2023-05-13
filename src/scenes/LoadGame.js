@@ -6,7 +6,9 @@ class LoadGame extends Phaser.Scene {
     }
     init(data) {
         // Feeds the key of the menu of where this scene was assess from
+        // Feedss the key of which level was called before gameMenu
         this.location = data.location;
+        this.level = data.level;
     }
     preload() {
         this.load.image('background', 'assets/images/background1.png');
@@ -132,18 +134,22 @@ class LoadGame extends Phaser.Scene {
     loadSaves(SaveNumber, Saves) {
         const Save = Saves[SaveNumber];
         if (Save.levelNumber == 0) {
+            this.scene.stop(this.level)
             this.scene.start('Tutorial', {
                 'Time': Save.TimeScore
             });
         } else if (Save.levelNumber == 1) {
+            this.scene.stop(this.level)
             this.scene.start('Level1', {
                 'Time': Save.TimeScore
             });
         } else if (Save.levelNumber == 2) {
+            this.scene.stop(this.level)
             this.scene.start('Level2', {
                 'Time': Save.TimeScore
             });
         } else if (Save.levelNumber == 3) {
+            this.scene.stop(this.level)
             this.scene.start('Level3', {
                 'Time': Save.TimeScore
             });
