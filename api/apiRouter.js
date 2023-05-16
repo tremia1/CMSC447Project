@@ -220,7 +220,7 @@ router.get('/about', (req, res) => {
 
   const developers = [
     { name: 'Mike Anuruo' },
-    { name: 'Daniel Godard' },
+    { name: 'Adrian Godard' },
     { name: 'Tre\'Mia Johnson' },
     { name: 'Fred Low' },
     { name: 'Weng Weizhang' },

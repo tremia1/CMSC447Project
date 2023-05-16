@@ -128,7 +128,14 @@ class SaveGame extends Phaser.Scene {
 
             if (this.level == 'Tutorial') {
                 this.level = 0;
+            }else if (this.level == 'Level1'){
+                this.level = 1 
+            }else if (this.level == 'Level2'){
+                this.level = 2
+            } else if (this.level == 'Level3'){
+                this.level = 3
             }
+            
             this.saveGame(this.name, this.level, this.time);
             this.clickedSound.play()
             fetch('/api/saves')
@@ -198,6 +205,10 @@ class SaveGame extends Phaser.Scene {
             const text = `     LVL ${Save.levelNumber} | Time: ${Save.TimeScore}`
             switch (i) {
                 case 0:
+                    if(this.NumberOneText){
+                        this.NumberOneText.destroy(true)
+                    }
+
                     this.NumberOneText = this.add.text(this.sys.canvas.width / 2 - 30, 130, text, {
                         fontSize: '14px',
                         fill: '#000000',
@@ -207,6 +218,9 @@ class SaveGame extends Phaser.Scene {
                     this.NumberOneText.setOrigin(0.5, 0);
                     break;
                 case 1:
+                    if(this.NumberTwoText){
+                        this.NumberTwoText.destroy(true)
+                    }
                     this.NumberTwoText = this.add.text(this.sys.canvas.width / 2 - 30, 230, text, {
                         fontSize: '14px',
                         fill: '#000000',
@@ -216,6 +230,9 @@ class SaveGame extends Phaser.Scene {
                     this.NumberTwoText.setOrigin(0.5, 0);
                     break;
                 case 2:
+                    if(this.NumberThreeText){
+                        this.NumberThreeText.destroy(true)
+                    }
                     this.NumberThreeText = this.add.text(this.sys.canvas.width / 2 - 30, 330, text, {
                         fontSize: '14px',
                         fill: '#000000',
@@ -225,6 +242,9 @@ class SaveGame extends Phaser.Scene {
                     this.NumberThreeText.setOrigin(0.5, 0);
                     break;
                 case 3:
+                    if(this.NumberFourText){
+                        this.NumberFourText.destroy(true)
+                    }
                     this.NumberFourText = this.add.text(this.sys.canvas.width / 2 - 30, 430, text, {
                         fontSize: '14px',
                         fill: '#000000',
@@ -234,6 +254,9 @@ class SaveGame extends Phaser.Scene {
                     this.NumberFourText.setOrigin(0.5, 0);
                     break;
                 case 4:
+                    if(this.NumberFiveText){
+                        this.NumberFiveText.destroy(true)
+                    }
                     this.NumberFiveText = this.add.text(this.sys.canvas.width / 2 - 30, 530, text, {
                         fontSize: '14px',
                         fill: '#000000',
