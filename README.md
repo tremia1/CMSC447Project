@@ -44,22 +44,22 @@ Weaknesses:
 1. Cannot fall from tall heights
 2. Cannot jump high
 
-## Controls:
+# Controls:
 
-#Koko
+### Koko:
 1. Left (←)
 2. Right (→)
 3. Jump (↑)
 4. Hiss (H)
 
-# Coco
+### Coco:
 1. Left (A)
 2. Right (D)
 3. Jump (W)
 4. Snif Walk (SA or SD)
 5. Bark (B)
 
-# Other Controls
+### Other Controls:
 1. Restart Level (R)
 2. In Game Menu (ESC)
 3. Menu Navigation (Arrow Keys and Space Bar)
