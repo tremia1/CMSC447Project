@@ -19,7 +19,7 @@ const db = new sqlite3.Database(dbPath);
  */
 router.get('/leaderboard', (req, res) => {
   const limit = req.query.limit || 5; // Set the limit to the query parameter or 5
-  db.all(`SELECT * FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
+  db.all(`SELECT * FROM leaderboard ORDER BY score ASC LIMIT ${limit}`, (err, rows) => {
     if (err) { // If there is an error, send a 500 status code and error message
       console.error(err);
       res.status(500).send('Internal server error.'); 
@@ -60,7 +60,7 @@ router.post('/leaderboard', (req, res) => {
 router.post('/public/leaderboard', (req, res) => {
   // Retrieve the leaderboard data from the database
   const limit = 5; // Limit the number of results to 5
-  db.all(`SELECT name, score FROM leaderboard ORDER BY score DESC LIMIT ${limit}`, (err, rows) => {
+  db.all(`SELECT name, score FROM leaderboard ORDER BY score ASC LIMIT ${limit}`, (err, rows) => {
     if (err) { // If there is an error, send a 500 status code and error message
       console.error(err);
       res.status(500).send('Internal server error.');
@@ -119,7 +119,7 @@ router.post('/public/leaderboard', (req, res) => {
  */
 router.get('/saves', (req, res) => {
   const limit = req.query.limit || 5;
-  db.all(`SELECT * FROM saves ORDER BY SaveNumber DESC LIMIT ${limit}`, (err, rows) => {
+  db.all(`SELECT * FROM saves ORDER BY SaveNumber ASC LIMIT ${limit}`, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error.');
@@ -137,11 +137,14 @@ router.get('/saves', (req, res) => {
  * @returns {Object} - Returns a success message in JSON format
  */
 router.post('/saves/insert', async (req, res) => {
+ 
   const { user_name, level, time } = req.body;
+  
+  if (!user_name || level < 0 || !time || level > 3) {
 
-  if (!user_name || !level || !time) {
     res.status(400).send('All fields are required.');
   } else {
+ 
     await db.run('INSERT INTO saves (SaveNumber, PlayerName, levelNumber, TimeScore) VALUES (1, ?, ?, ?)', [user_name, level, time]);
     res.status(200).send('OK');
   }
@@ -156,12 +159,15 @@ router.post('/saves/insert', async (req, res) => {
  */
 router.put('/saves/:id', async (req, res) => {
   const { user_name, Time, levels } = req.body;
+  
+ 
   const userId = req.params.id;
 
-  if (!user_name || !levels) {
+  if (!user_name || !Time || levels < 0 || levels > 3) {
+  
     res.status(400).send('User Name and levelnumber are required.');
   } else {
-    await db.run('UPDATE saves SET user_name = ?, TimeScore = ?, levels = ? WHERE id = ?', [user_name, Time, levels, userId]);
+    await db.run('UPDATE saves SET PlayerName= ?, TimeScore = ?, levelNumber = ? WHERE SaveNumber= ?', [user_name, Time, levels, userId]);
     res.status(200).send('OK');
   }
 });
@@ -214,8 +220,8 @@ router.get('/about', (req, res) => {
 
   const developers = [
     { name: 'Mike Anuruo' },
-    { name: 'Daniel Godard' },
-    { name: 'Tre\'mia Johnson' },
+    { name: 'Adrian Godard' },
+    { name: 'Tre\'Mia Johnson' },
     { name: 'Fred Low' },
     { name: 'Weng Weizhang' },
     { name: 'Michael Parchment' }

@@ -12,6 +12,7 @@ export default class test extends Phaser.Scene {
     init(data) {
         // Feeds the data to the levels
         this.gameRuntime = data.Time;
+     
     }
     preload() {
         //Load images for tilemap
@@ -263,12 +264,7 @@ export default class test extends Phaser.Scene {
         }
         this.gameMusic.setVolume(0.2) //lower music
     }
-    init(data) {
-        console.log('init', data);
-        console.log('1st', this.gameRuntime);
-        this.gameRuntime = data.Time;
-        console.log('2st', this.gameRuntime);
-    }
+    
     update(dt) {
         this.dog.update(dt);
         this.cat.update(dt);
@@ -290,9 +286,12 @@ export default class test extends Phaser.Scene {
         this.seconds = this.gameRuntime - (this.minutes * 60);
         this.timeText.setText("Time : " + this.minutes + " Minutes " + Math.round(this.seconds) + " Seconds");
         if (Phaser.Input.Keyboard.JustDown(this.esc)) {
+           
             this.scene.pause();
+            
             this.scene.launch('GameMenu', {
-                "location": 'Tutorial'
+                "location": 'Tutorial',
+                "time": this.gameRuntime
             });
         }
         if (Phaser.Input.Keyboard.JustDown(this.restart)){

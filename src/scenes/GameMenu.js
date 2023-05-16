@@ -7,6 +7,8 @@ class GameMenu extends Phaser.Scene {
     init(data) {
         // Feeds the key of the menu of where this scene was access from
         this.location = data.location;
+        this.time = data.time;
+ 
     }
     preload() {
         this.load.image('background', 'assets/images/background1.png');
@@ -132,12 +134,15 @@ class GameMenu extends Phaser.Scene {
             this.clickedSound.play()
             if (this.value == 0) {
                 this.scene.start('SaveGame', {
-                    "location": 'GameMenu'
+                    "location": 'GameMenu',
+                    "time": this.time,
+                    "level": this.location
                 });
             } else if (this.value == 1) {
                 this.Yaxis = 400;
                 this.scene.start('LoadGame', {
-                    "location": 'GameMenu'
+                    "location": 'GameMenu',
+                    "level":this.location
                 });
             } else if (this.value == 2) {
                 this.Yaxis = 500;
@@ -155,7 +160,7 @@ class GameMenu extends Phaser.Scene {
             this.menuMusic.stop()
             this.scene.resume(this.location);
             this.scene.stop();
-            // this.scene.start(this.location);
+          
         }
     }
 }
