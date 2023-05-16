@@ -44,6 +44,25 @@ Weaknesses:
 1. Cannot fall from tall heights
 2. Cannot jump high
 
+## Controls:
+
+#Koko
+1. Left (←)
+2. Right (→)
+3. Jump (↑)
+4. Hiss (H)
+
+# Coco
+1. Left (A)
+2. Right (D)
+3. Jump (W)
+4. Snif Walk (SA or SD)
+5. Bark (B)
+
+# Other Controls
+1. Restart Level (R)
+2. In Game Menu (ESC)
+3. Menu Navigation (Arrow Keys and Space Bar)
 
 You must use each characters abilities to interact with different puzzle items and beat all 3 levels!
 
@@ -54,8 +73,7 @@ Much of the music that was used in the game can be found here: https://pixabay.c
 Sprites Can be found here: 
 1. https://angryelk.itch.io/animated-corgi-sprite
 2. https://elthen.itch.io/2d-pixel-art-cat-sprites
-itch.io
-Background can be found here: https://edermunizz.itch.io/free-pixel-art-forest
-Cats Paw: https://custom-cursor.com/en/collection/funny-cats/white-cat-paw
-Wood: https://in.pinterest.com/pin/420242208965531927/
-Back Button: https://www.pngwing.com/en/free-png-nzvkz
+3. Background can be found here: https://edermunizz.itch.io/free-pixel-art-forest
+4. Cats Paw: https://custom-cursor.com/en/collection/funny-cats/white-cat-paw
+5. Wood: https://in.pinterest.com/pin/420242208965531927/
+6. Back Button: https://www.pngwing.com/en/free-png-nzvkz
